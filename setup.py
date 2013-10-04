@@ -7,7 +7,7 @@ setup(
     version='0.1',
     license='MIT',
     description='A simple URL shortening Python Lib, implementing the most famous shorteners.',
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     author=u'Ellison Leão',
     author_email='ellisonleao@gmail.com',
     url='https://github.com/ellisonleao/pyshorteners/',
