@@ -1,3 +1,4 @@
+============
 Pyshorteners
 ============
 
@@ -6,6 +7,10 @@ Pyshorteners
    :alt: Build Status
 
    Build Status
+
+Description
+===========
+
 A simple URL shortening Python Lib, implementing the most famous
 shorteners.
 
