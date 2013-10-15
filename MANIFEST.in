@@ -1,2 +1,2 @@
-include *.rst
-include *.md
+include README.rst
+include README.md
