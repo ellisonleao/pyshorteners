@@ -5,7 +5,8 @@ import requests
 
 from .utils import is_valid_url
 
-__all__ = ['Shortener',]
+__all__ = ['Shortener', ]
+
 
 class Shortener(object):
     def __init__(self, engine, **kwargs):
@@ -21,12 +22,10 @@ class Shortener(object):
         for key, item in kwargs.iteritems():
             setattr(self, key, item)
 
-
     def short(self, url):
         # Get the right short function based on self.engine
         _class = getattr(self.module.shorteners, self.engine)
         return _class(**self.kwargs).short(url)
-
 
     def expand(self, url):
         # Get the right short function based on self.engine
@@ -40,7 +39,6 @@ class GoogleShortener(object):
     https://github.com/avelino/django-googl/blob/master/googl/short.py
     Googl Shortener Implementation
     Doesn't need anything from the app
-
     """
     api_url = "https://www.googleapis.com/urlshortener/v1/url"
 
@@ -96,7 +94,6 @@ class BitlyShortener(object):
 
         self.login = kwargs.get('bitly_login')
         self.api_key = kwargs.get('bitly_api_key')
-
 
     def short(self, url):
         if isinstance(url, unicode):

@@ -1,6 +1,7 @@
 # coding: utf-8
 from pyshorteners import Shortener
 
+
 def hello():
     googl = Shortener('GoogleShortener')
 

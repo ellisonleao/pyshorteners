@@ -6,7 +6,8 @@ setup(
     name='pyshorteners',
     version='0.2.2',
     license='MIT',
-    description='A simple URL shortening Python Lib, implementing the most famous shorteners.',
+    description=('A simple URL shortening Python Lib, implementing '
+                 'the most famous shorteners.'),
     long_description=open('README.rst').read(),
     author=u'Ellison Leão',
     author_email='ellisonleao@gmail.com',
@@ -19,10 +20,9 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-        'Topic :: Software Development :: Libraries :: Python Modules'
+        'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-
-    install_requires=['requests',],
+    install_requires=['requests', ],
     test_suite="test_shorteners",
     packages=['pyshorteners'],
     namespace_packages=['pyshorteners'],
