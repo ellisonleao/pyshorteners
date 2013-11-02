@@ -144,3 +144,33 @@ class TinyurlShortener(object):
         if response.ok:
             return response.url
         return u''
+
+#TODO !
+class AdflyShortener(object):
+    """
+    Adf.ly shortener implementation
+    Needs api key and uid
+    """
+    api_url = 'http://api.adf.ly/api.php'
+
+    data = {
+        'domain': 'adf.ly',
+        'advert_type': 'int',  # int or banner
+    }
+
+    def short(self, url, **kwargs):
+        if not all([kwargs.get('key'), kwargs.get('uid')]):
+            raise ValueError(u'Please input the key and uid value')
+        self.data.update(dict(key=kwargs.get('key'), uid=kwargs.get('uid')))
+
+        response = requests.get(self.api_url, params=self.data)
+        if response.ok:
+            print response.json()
+
+        return u''
+
+    def expand(self, url, **kwargs):
+        """
+        No expand for now
+        """
+        return url

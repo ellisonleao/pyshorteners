@@ -10,7 +10,8 @@ class ShortenersTest(unittest.TestCase):
         self.module = __import__('pyshorteners.shorteners')
 
     def test_shorteners_type(self):
-        shorteners = ['GoogleShortener', 'BitlyShortener', 'TinyurlShortener']
+        shorteners = ['GoogleShortener', 'BitlyShortener', 'TinyurlShortener',
+                      'AdflyShortener']
         for shortener in shorteners:
             short = Shortener(shortener)
             self.assertEqual(type(short), short.__class__)
@@ -38,6 +39,30 @@ class ShortenersTest(unittest.TestCase):
         short = Shortener(engine)
         self.assertEqual(short.expand('http://tinyurl.com/ycus76'),
                          u'https://www.facebook.com')
+
+    def test_bitly_no_credentials_short_function(self):
+        engine = 'BitlyShortener'
+        short = Shortener(engine)
+        with self.assertRaises(ValueError):
+            short.short('http://google.com')
+
+    def test_adfly_short_function(self):
+        engine = 'AdflyShortener'
+        short = Shortener(engine)
+        with self.assertRaises(ValueError):
+            short.short('http://google.com')
+
+    def test_adfly_expand_function(self):
+        engine = 'AdflyShortener'
+        short = Shortener(engine)
+        expand = short.expand('http://adf.ly/test')
+        self.assertEqual(expand, 'http://adf.ly/test')
+
+    def test_bitly_short_creation(self):
+        engine = 'BitlyShortener'
+        short = Shortener(engine)
+        with self.assertRaises(ValueError):
+            short.short('http://google.com')
 
     def test_wrong_shortener_engine(self):
         engine = 'UnknownShortener'
