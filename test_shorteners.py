@@ -40,21 +40,15 @@ class ShortenersTest(unittest.TestCase):
         self.assertEqual(short.expand('http://tinyurl.com/ycus76'),
                          u'https://www.facebook.com')
 
-    def test_bitly_no_credentials_short_function(self):
-        engine = 'BitlyShortener'
-        short = Shortener(engine)
-        with self.assertRaises(ValueError):
-            short.short('http://google.com')
-
     def test_adfly_short_function(self):
         engine = 'AdflyShortener'
         short = Shortener(engine)
         with self.assertRaises(ValueError):
-            short.short('http://google.com')
+            short.short('http://www.google.com')
 
     def test_adfly_expand_function(self):
         engine = 'AdflyShortener'
-        short = Shortener(engine)
+        short = Shortener(engine, key='abcd', uid='123')
         expand = short.expand('http://adf.ly/test')
         self.assertEqual(expand, 'http://adf.ly/test')
 
@@ -62,7 +56,7 @@ class ShortenersTest(unittest.TestCase):
         engine = 'BitlyShortener'
         short = Shortener(engine)
         with self.assertRaises(ValueError):
-            short.short('http://google.com')
+            short.short('http://www.google.com')
 
     def test_wrong_shortener_engine(self):
         engine = 'UnknownShortener'

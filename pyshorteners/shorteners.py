@@ -22,7 +22,7 @@ class Shortener(object):
         for key, item in kwargs.iteritems():
             setattr(self, key, item)
 
-    def short(self, url, **kwargs):
+    def short(self, url):
         if isinstance(url, unicode):
             url = url.encode('utf-8')
 
@@ -33,7 +33,7 @@ class Shortener(object):
         _class = getattr(self.module.shorteners, self.engine)
         return _class(**self.kwargs).short(url)
 
-    def expand(self, url, **kwargs):
+    def expand(self, url):
         # Get the right short function based on self.engine
         _class = getattr(self.module.shorteners, self.engine)
         return _class(**self.kwargs).expand(url)
@@ -86,11 +86,14 @@ class BitlyShortener(object):
     shorten_url = 'http://api.bit.ly/shorten'
     expand_url = 'http://api.bit.ly/expand'
 
-    def short(self, url, **kwargs):
+    def __init__(self, *args, **kwargs):
         if not all([kwargs.get('bitly_login'), kwargs.get('bitly_api_key')]):
             raise ValueError(u'bitly_login AND bitly_api_key missing from '
                              u'kwargs')
+        self.login = kwargs.get('bitly_login')
+        self.api_key = kwargs.get('bitly_api_key')
 
+    def short(self, url):
         params = dict(
             version="2.0.1",
             longUrl=url,
@@ -105,11 +108,7 @@ class BitlyShortener(object):
                 return data['results'][key]['shortUrl']
         return u''
 
-    def expand(self, url, **kwargs):
-        if not all([kwargs.get('bitly_login'), kwargs.get('bitly_api_key')]):
-            raise ValueError(u'bitly_login AND bitly_api_key missing from '
-                             u'kwargs')
-
+    def expand(self, url):
         params = dict(
             version="2.0.1",
             shortUrl=url,
@@ -146,7 +145,6 @@ class TinyurlShortener(object):
         return u''
 
 
-#TODO !
 class AdflyShortener(object):
     """
     Adf.ly shortener implementation
@@ -154,23 +152,26 @@ class AdflyShortener(object):
     """
     api_url = 'http://api.adf.ly/api.php'
 
-    data = {
-        'domain': 'adf.ly',
-        'advert_type': 'int',  # int or banner
-    }
-
-    def short(self, url, **kwargs):
+    def __init__(self, *args, **kwargs):
         if not all([kwargs.get('key'), kwargs.get('uid')]):
             raise ValueError(u'Please input the key and uid value')
-        self.data.update(dict(key=kwargs.get('key'), uid=kwargs.get('uid')))
+        self.key = kwargs.get('key')
+        self.uid = kwargs.get('uid')
 
-        response = requests.get(self.api_url, params=self.data)
+    def short(self, url):
+        data = {
+            'domain': 'adf.ly',
+            'advert_type': 'int',  # int or banner
+            'key': self.key,
+            'uid': self.uid,
+        }
+        response = requests.get(self.api_url, params=data)
         if response.ok:
             print response.json()
 
         return u''
 
-    def expand(self, url, **kwargs):
+    def expand(self, url):
         """
         No expand for now
         """
