@@ -22,12 +22,18 @@ class Shortener(object):
         for key, item in kwargs.iteritems():
             setattr(self, key, item)
 
-    def short(self, url):
+    def short(self, url, **kwargs):
+        if isinstance(url, unicode):
+            url = url.encode('utf-8')
+
+        if not is_valid_url(url):
+            raise ValueError(u'Please enter a valid url')
+
         # Get the right short function based on self.engine
         _class = getattr(self.module.shorteners, self.engine)
         return _class(**self.kwargs).short(url)
 
-    def expand(self, url):
+    def expand(self, url, **kwargs):
         # Get the right short function based on self.engine
         _class = getattr(self.module.shorteners, self.engine)
         return _class(**self.kwargs).expand(url)
@@ -43,12 +49,6 @@ class GoogleShortener(object):
     api_url = "https://www.googleapis.com/urlshortener/v1/url"
 
     def short(self, url):
-        if isinstance(url, unicode):
-            url = url.encode('utf-8')
-
-        if not is_valid_url(url):
-            raise ValueError(u'Please enter a valid url')
-
         params = json.dumps({'longUrl': url})
         headers = {'content-type': 'application/json'}
         response = requests.post(self.api_url, data=params,
@@ -86,21 +86,10 @@ class BitlyShortener(object):
     shorten_url = 'http://api.bit.ly/shorten'
     expand_url = 'http://api.bit.ly/expand'
 
-    def __init__(self, *args, **kwargs):
-        if not kwargs.get('bitly_login') and \
-           not kwargs.get('bitly_api_key'):
+    def short(self, url, **kwargs):
+        if not all([kwargs.get('bitly_login'), kwargs.get('bitly_api_key')]):
             raise ValueError(u'bitly_login AND bitly_api_key missing from '
                              u'kwargs')
-
-        self.login = kwargs.get('bitly_login')
-        self.api_key = kwargs.get('bitly_api_key')
-
-    def short(self, url):
-        if isinstance(url, unicode):
-            url = url.encode('utf-8')
-
-        if not is_valid_url(url):
-            raise ValueError(u'Please enter a valid url')
 
         params = dict(
             version="2.0.1",
@@ -116,7 +105,11 @@ class BitlyShortener(object):
                 return data['results'][key]['shortUrl']
         return u''
 
-    def expand(self, url):
+    def expand(self, url, **kwargs):
+        if not all([kwargs.get('bitly_login'), kwargs.get('bitly_api_key')]):
+            raise ValueError(u'bitly_login AND bitly_api_key missing from '
+                             u'kwargs')
+
         params = dict(
             version="2.0.1",
             shortUrl=url,
@@ -141,12 +134,6 @@ class TinyurlShortener(object):
     api_url = "http://tinyurl.com/api-create.php"
 
     def short(self, url):
-        if isinstance(url, unicode):
-            url = url.encode('utf-8')
-
-        if not is_valid_url(url):
-            raise ValueError(u'Please enter a valid url')
-
         response = requests.get(self.api_url, params=dict(url=url))
         if response.ok:
             return response.text
