@@ -157,17 +157,19 @@ class AdflyShortener(object):
             raise ValueError(u'Please input the key and uid value')
         self.key = kwargs.get('key')
         self.uid = kwargs.get('uid')
+        self.type = kwargs.get('type', 'int')
 
     def short(self, url):
         data = {
             'domain': 'adf.ly',
-            'advert_type': 'int',  # int or banner
+            'advert_type': self.type,  # int or banner
             'key': self.key,
             'uid': self.uid,
+            'url': url,
         }
-        response = requests.post(self.api_url, params=data)
+        response = requests.get(self.api_url, params=data)
         if response.ok:
-            print response.text
+           return response.text
 
         return u''
 
