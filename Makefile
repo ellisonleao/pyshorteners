@@ -1,7 +1,7 @@
 
 .PHONY: test
 test: pep8
-	python setup.py test
+	python runtests.py
 
 .PHONY: pep8
 pep8:

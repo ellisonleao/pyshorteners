@@ -2,6 +2,9 @@ Pyshorteners
 ============
 
 ![Build Status](https://api.travis-ci.org/ellisonleao/pyshorteners.png)
+[![Coverage
+Status](https://coveralls.io/repos/ellisonleao/pyshorteners/badge.png)](https://coveralls.io/r/ellisonleao/pyshorteners)
+
 
 A simple URL shortening Python Lib, implementing the most famous shorteners.
 

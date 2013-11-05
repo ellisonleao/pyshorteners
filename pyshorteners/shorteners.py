@@ -165,9 +165,9 @@ class AdflyShortener(object):
             'key': self.key,
             'uid': self.uid,
         }
-        response = requests.get(self.api_url, params=data)
+        response = requests.post(self.api_url, params=data)
         if response.ok:
-            print response.json()
+            print response.text
 
         return u''
 

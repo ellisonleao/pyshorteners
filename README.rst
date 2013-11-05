@@ -8,6 +8,12 @@ Pyshorteners
 
    Build Status
 
+.. figure:: https://coveralls.io/repos/ellisonleao/pyshorteners/badge.png
+   :align: center
+   :alt: Coverage 
+
+   Coverage
+
 Description
 ===========
 

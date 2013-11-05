@@ -2,7 +2,7 @@
 import unittest
 
 from pyshorteners import Shortener
-
+from pyshorteners.utils import is_valid_url
 
 class ShortenersTest(unittest.TestCase):
     def setUp(self):
@@ -63,6 +63,12 @@ class ShortenersTest(unittest.TestCase):
         with self.assertRaises(AttributeError):
             Shortener(engine)
 
+    def test_is_valid_url(self):
+        bad = 'ww.google.com'
+        good = 'http://www.google.com'
+
+        self.assertTrue(is_valid_url(good))
+        self.assertFalse(is_valid_url(bad))
 
 if __name__ == '__main__':
     unittest.main()

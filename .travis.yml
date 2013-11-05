@@ -11,3 +11,5 @@ notifications:
     email:
         recipients:
             - "ellisonleao@gmail.com"
+after_success:
+    - coveralls
