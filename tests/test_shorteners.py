@@ -4,6 +4,7 @@ import unittest
 from pyshorteners import Shortener
 from pyshorteners.utils import is_valid_url
 
+
 class ShortenersTest(unittest.TestCase):
     def setUp(self):
         self.url = 'http://www.google.com'
