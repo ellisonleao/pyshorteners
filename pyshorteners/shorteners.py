@@ -169,7 +169,7 @@ class AdflyShortener(object):
         }
         response = requests.get(self.api_url, params=data)
         if response.ok:
-           return response.text
+            return response.text
 
         return u''
 
