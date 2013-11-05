@@ -59,3 +59,14 @@ No login or api key needed
 	# expanding
 	url = 'http://tinyurl.com/ycus76'
 	print "My long url is {}".format(shortener.expand(url))
+
+## Adf.ly Shortener
+
+UID and API Key needed. Optional: Ad type Banner or Int (Int default)
+
+	from pyshorteners import Shortener
+    	
+	url = 'http://www.google.com'
+	shortener = Shortener('AdflyShortener', key='MYKEY', uid='MYUID',
+						  type="int|banner")
+	print "My short url is {}".format(shortener.short(url))
