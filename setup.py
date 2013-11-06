@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='pyshorteners',
-    version='0.2.3',
+    version='0.2.4',
     license='MIT',
     description=('A simple URL shortening Python Lib, implementing '
                  'the most famous shorteners.'),
