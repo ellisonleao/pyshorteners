@@ -1,5 +1,5 @@
 # coding: utf-8
-from pyshorteners import Shortener
+from pyshorteners.shortener import Shortener
 
 
 def hello():

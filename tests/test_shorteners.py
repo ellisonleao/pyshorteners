@@ -1,7 +1,7 @@
 # coding: utf-8
 import unittest
 
-from pyshorteners import Shortener
+from pyshorteners.shorteners import Shortener
 from pyshorteners.utils import is_valid_url
 
 
