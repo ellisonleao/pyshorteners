@@ -13,7 +13,6 @@ setup(
     author_email='ellisonleao@gmail.com',
     url='https://github.com/ellisonleao/pyshorteners/',
     platforms='any',
-    zip_save=False,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
