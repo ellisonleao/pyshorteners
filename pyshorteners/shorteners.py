@@ -1,4 +1,6 @@
 # coding: utf-8
+from __future__ import unicode_literals
+
 import json
 
 import requests
@@ -17,17 +19,14 @@ class Shortener(object):
         try:
             getattr(self.module.shorteners, self.engine)
         except AttributeError:
-            raise AttributeError(u'Please enter a valid shortener.')
+            raise AttributeError('Please enter a valid shortener.')
 
-        for key, item in kwargs.iteritems():
+        for key, item in list(kwargs.items()):
             setattr(self, key, item)
 
     def short(self, url):
-        if isinstance(url, unicode):
-            url = url.encode('utf-8')
-
         if not is_valid_url(url):
-            raise ValueError(u'Please enter a valid url')
+            raise ValueError('Please enter a valid url')
 
         # Get the right short function based on self.engine
         _class = getattr(self.module.shorteners, self.engine)
@@ -57,11 +56,11 @@ class GoogleShortener(object):
             try:
                 data = response.json()
             except:
-                return u''
+                return ''
             if 'id' in data:
                 self.shorten = data['id']
                 return data['id']
-        return u''
+        return ''
 
     def expand(self, url):
         params = {'shortUrl': url}
@@ -70,10 +69,10 @@ class GoogleShortener(object):
             try:
                 data = response.json()
             except:
-                return u''
+                return ''
             if 'longUrl' in data:
                 return data['longUrl']
-        return u''
+        return ''
 
 
 class BitlyShortener(object):
@@ -88,8 +87,8 @@ class BitlyShortener(object):
 
     def __init__(self, *args, **kwargs):
         if not all([kwargs.get('bitly_login'), kwargs.get('bitly_api_key')]):
-            raise ValueError(u'bitly_login AND bitly_api_key missing from '
-                             u'kwargs')
+            raise ValueError('bitly_login AND bitly_api_key missing from '
+                             'kwargs')
         self.login = kwargs.get('bitly_login')
         self.api_key = kwargs.get('bitly_api_key')
 
@@ -106,7 +105,7 @@ class BitlyShortener(object):
             if 'statusCode' in data and data['statusCode'] == 'OK':
                 key = self.url
                 return data['results'][key]['shortUrl']
-        return u''
+        return ''
 
     def expand(self, url):
         params = dict(
@@ -120,9 +119,9 @@ class BitlyShortener(object):
             data = response.json()
             if 'statusCode' in data and data['statusCode'] == 'OK':
                 # get the hash key that contains the longUrl
-                hash_key = data['results'].keys()[0]
+                hash_key = list(data['results'].keys())[0]
                 return data['results'][hash_key]['longUrl']
-        return u''
+        return ''
 
 
 class TinyurlShortener(object):
@@ -136,13 +135,13 @@ class TinyurlShortener(object):
         response = requests.get(self.api_url, params=dict(url=url))
         if response.ok:
             return response.text
-        return u''
+        return ''
 
     def expand(self, url):
         response = requests.get(url)
         if response.ok:
             return response.url
-        return u''
+        return ''
 
 
 class AdflyShortener(object):
@@ -154,7 +153,7 @@ class AdflyShortener(object):
 
     def __init__(self, *args, **kwargs):
         if not all([kwargs.get('key'), kwargs.get('uid')]):
-            raise ValueError(u'Please input the key and uid value')
+            raise ValueError('Please input the key and uid value')
         self.key = kwargs.get('key')
         self.uid = kwargs.get('uid')
         self.type = kwargs.get('type', 'int')
@@ -171,7 +170,7 @@ class AdflyShortener(object):
         if response.ok:
             return response.text
 
-        return u''
+        return ''
 
     def expand(self, url):
         """

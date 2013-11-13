@@ -1,4 +1,5 @@
 # coding: utf8
+from __future__ import unicode_literals
 
 from setuptools import setup
 
@@ -9,7 +10,7 @@ setup(
     description=('A simple URL shortening Python Lib, implementing '
                  'the most famous shorteners.'),
     long_description=open('README.rst').read(),
-    author=u'Ellison Leão',
+    author='Ellison Leão',
     author_email='ellisonleao@gmail.com',
     url='https://github.com/ellisonleao/pyshorteners/',
     platforms='any',
