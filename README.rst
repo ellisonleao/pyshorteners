@@ -93,3 +93,9 @@ No expanding for this shortener
     shortener = Shortener('AdflyShortener')
     print "My short url is {}".format(shortener.short(url, uid=UID,
                                       api_key=API_KEY, type='int'))
+
+
+.. image:: https://d2weczhvl823v0.cloudfront.net/ellisonleao/pyshorteners/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+
