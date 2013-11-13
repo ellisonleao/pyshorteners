@@ -1,7 +1,7 @@
 # coding: utf8
 from __future__ import unicode_literals
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='pyshorteners',
@@ -24,6 +24,6 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     install_requires=['requests', ],
-    packages=['pyshorteners'],
+    packages=find_packages(exclude=['*tests*']),
     namespace_packages=['pyshorteners'],
 )
