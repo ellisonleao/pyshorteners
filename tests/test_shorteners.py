@@ -41,7 +41,7 @@ class ShortenersTest(unittest.TestCase):
         engine = 'TinyurlShortener'
         short = Shortener(engine)
         self.assertEqual(short.expand('http://tinyurl.com/ycus76'),
-                         u'https://www.facebook.com')
+                         'https://www.facebook.com')
 
     def test_adfly_short_function(self):
         engine = 'AdflyShortener'
