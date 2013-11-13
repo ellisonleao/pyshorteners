@@ -18,11 +18,11 @@ setup(
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
+        #'Programming Language :: Python :: 3',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     install_requires=['requests', ],
-    test_suite="test_shorteners",
     packages=['pyshorteners'],
     namespace_packages=['pyshorteners'],
 )
