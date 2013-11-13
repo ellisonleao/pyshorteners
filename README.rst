@@ -6,13 +6,11 @@ Pyshorteners
    :align: center
    :alt: Build Status
 
-   Build Status
 
 .. figure:: https://coveralls.io/repos/ellisonleao/pyshorteners/badge.png
    :align: center
    :alt: Coverage 
 
-   Coverage
 
 Description
 ===========
@@ -81,3 +79,17 @@ No login or api key needed
     url = 'http://tinyurl.com/ycus76'
     print "My long url is {}".format(shortener.expand(url))
 
+Adf.ly Shortener
+-----------------
+
+uid and api key needed, banner type optional (int or banner)
+No expanding for this shortener
+
+::
+
+    from pyshorteners import Shortener
+
+    url = 'http://www.google.com'
+    shortener = Shortener('AdflyShortener')
+    print "My short url is {}".format(shortener.short(url, uid=UID,
+                                      api_key=API_KEY, type='int'))
