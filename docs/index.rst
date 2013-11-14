@@ -3,14 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to pyshorteners's documentation!
+Welcome to PyShorteners's documentation!
 ========================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
+   
+   installing
+   current_apis
+   
 
+* `Source (github) <https://github.com/ellisonleao/pyshorteners>`_
 
 
 Indices and tables
