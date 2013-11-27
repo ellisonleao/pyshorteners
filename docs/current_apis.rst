@@ -69,3 +69,20 @@ Example:
     url = 'http://www.google.com'
     shortener = Shortener('AdflyShortener')
     print "My short url is {}".format(shortener.short(url, uid=UID, api_key=API_KEY, type='int'))
+
+## Dot.Tk Shortener
+
+* No kwargs needed
+
+Example:
+
+
+    from pyshorteners import Shortener
+
+    url = 'http://www.google.com'
+    shortener = Shortener('DottkShortener')
+    print "My short url is {}".format(shortener.short(url))
+
+    # expanding
+    url = 'http://432cd.tk/'
+    print "My long url is {}".format(shortener.expand(url))
