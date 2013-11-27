@@ -177,3 +177,28 @@ class AdflyShortener(object):
         No expand for now
         """
         return url
+
+
+class DottkShortener(object):
+    """
+    Dot.Tk shortener implementation
+    No config params needed
+    """
+    api_url = "http://api.dot.tk/tweak/shorten"
+
+    def short(self, url):
+        params = {
+            'long': url
+        }
+        response = requests.get(self.api_url, params=params)
+        if response.ok:
+            urls = response.text.strip().split('\n')
+            if len(urls) > 0:
+                return urls[0]
+        return ''
+
+    def expand(self, url):
+        response = requests.get(url)
+        if response.ok:
+            return response.url
+        return ''
