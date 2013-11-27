@@ -6,10 +6,6 @@ Pyshorteners
    :alt: Build Status
    :target: https://travis-ci.org/ellisonleao/pyshorteners
 
-.. image:: https://coveralls.io/repos/ellisonleao/pyshorteners/badge.png
-   :alt: Coverage
-   :target: https://coveralls.io/r/ellisonleao/pyshorteners
-
 .. image:: https://pypip.in/v/pyshorteners/badge.png
     :target: https://crate.io/packages/pyshorteners/
     :alt: Latest PyPI version

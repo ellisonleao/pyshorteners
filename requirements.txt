@@ -1,6 +1,5 @@
 requests
 flake8
 nose
-coverage
 tox
 mock
