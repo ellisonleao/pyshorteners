@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import unittest
+from mock import MagicMock
 
 from pyshorteners.shorteners import Shortener
 from pyshorteners.utils import is_valid_url
@@ -14,52 +15,67 @@ class ShortenersTest(unittest.TestCase):
 
     def test_shorteners_type(self):
         shorteners = ['GoogleShortener', 'BitlyShortener', 'TinyurlShortener',
-                      'AdflyShortener']
+                      'AdflyShortener', 'DottkShortener']
         for shortener in shorteners:
             short = Shortener(shortener)
             self.assertEqual(type(short), short.__class__)
 
-    def test_googl_short_function(self):
+    def test_googl_shortener(self):
         engine = 'GoogleShortener'
         short = Shortener(engine)
         self.assertEqual(short.short('http://www.google.com'),
                          'http://goo.gl/fbsS')
 
-    def test_googl_expand_function(self):
-        engine = 'GoogleShortener'
-        short = Shortener(engine)
         self.assertEqual(short.expand('http://goo.gl/fbsS'),
                          'http://www.google.com/')
 
-    def test_tinyurl_short_function(self):
+    def test_tinyurl_shortener(self):
         engine = 'TinyurlShortener'
         short = Shortener(engine)
         self.assertEqual(short.short('http://www.google.com'),
                          'http://tinyurl.com/1c2')
 
-    def test_tinyurl_expand_function(self):
-        engine = 'TinyurlShortener'
-        short = Shortener(engine)
         self.assertEqual(short.expand('http://tinyurl.com/ycus76'),
                          'https://www.facebook.com')
 
-    def test_adfly_short_function(self):
-        engine = 'AdflyShortener'
-        short = Shortener(engine)
-        with self.assertRaises(ValueError):
-            short.short('http://www.google.com')
-
-    def test_adfly_expand_function(self):
+    def test_adfly_shortener(self):
         engine = 'AdflyShortener'
         short = Shortener(engine, key='abcd', uid='123')
+        url = u'http://www.google.com/'
+
+        short.short = MagicMock(return_value=u'http://adf.ly/test')
+        short.short(url)
+        short.short.assert_called_with(url)
+
         expand = short.expand('http://adf.ly/test')
         self.assertEqual(expand, 'http://adf.ly/test')
 
-    def test_bitly_short_creation(self):
+    def test_bitly_shortener(self):
         engine = 'BitlyShortener'
+        short = Shortener(engine, bitly_api_key='abc', bitly_login='123x')
+        url = u'http://www.google.com/'
+        short_url = u'http://bit.ly/xxx'
+        short.short = MagicMock(return_value=u'http://bit.ly/SsdA')
+        short.short(url)
+        short.short.assert_called_with(url)
+
+        #expanding
+        short.expand = MagicMock(return_value=url)
+        short.expand(short_url)
+        short.expand.assert_called_with(short_url)
+
+    def test_dottk_shortener(self):
+        engine = 'DottkShortener'
         short = Shortener(engine)
-        with self.assertRaises(ValueError):
-            short.short('http://www.google.com')
+        url = u'http://www.google.com/'
+
+        short.short = MagicMock(return_value=u'http://3vzpu.tk')
+        short.short(url)
+        short.short.assert_called_with(url)
+
+        expand = short.expand('http://adf.ly/test')
+        self.assertEqual(expand, 'http://adf.ly/test')
+
 
     def test_wrong_shortener_engine(self):
         engine = 'UnknownShortener'
@@ -72,6 +88,11 @@ class ShortenersTest(unittest.TestCase):
 
         self.assertTrue(is_valid_url(good))
         self.assertFalse(is_valid_url(bad))
+
+        s = Shortener('TinyurlShortener')
+        with self.assertRaises(ValueError):
+            url = 'http://12'
+            s.short(url)
 
 if __name__ == '__main__':
     unittest.main()
