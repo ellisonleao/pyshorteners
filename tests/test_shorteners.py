@@ -76,7 +76,6 @@ class ShortenersTest(unittest.TestCase):
         expand = short.expand('http://adf.ly/test')
         self.assertEqual(expand, 'http://adf.ly/test')
 
-
     def test_wrong_shortener_engine(self):
         engine = 'UnknownShortener'
         with self.assertRaises(AttributeError):
