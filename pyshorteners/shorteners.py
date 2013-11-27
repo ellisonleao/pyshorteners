@@ -58,7 +58,6 @@ class GoogleShortener(object):
             except:
                 return ''
             if 'id' in data:
-                self.shorten = data['id']
                 return data['id']
         return ''
 
@@ -103,8 +102,7 @@ class BitlyShortener(object):
         if response.ok:
             data = response.json()
             if 'statusCode' in data and data['statusCode'] == 'OK':
-                key = self.url
-                return data['results'][key]['shortUrl']
+                return data['results'][self.url]['shortUrl']
         return ''
 
     def expand(self, url):
@@ -169,7 +167,6 @@ class AdflyShortener(object):
         response = requests.get(self.api_url, params=data)
         if response.ok:
             return response.text
-
         return ''
 
     def expand(self, url):
