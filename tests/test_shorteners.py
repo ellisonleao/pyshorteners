@@ -46,7 +46,7 @@ class ShortenersTest(unittest.TestCase):
         short = Shortener(engine, key='abcd', uid='123')
         url = 'http://www.google.com/'
 
-        short.short = MagicMock(return_value=u'http://adf.ly/test')
+        short.short = MagicMock(return_value='http://adf.ly/test')
         short.short(url)
         short.short.assert_called_with(url)
 
