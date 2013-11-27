@@ -2,7 +2,10 @@
 from __future__ import unicode_literals
 
 import unittest
-from mock import MagicMock
+try:
+    from unittest.mock import MagicMock
+except ImportError:
+    from mock import MagicMock
 
 from pyshorteners.shorteners import Shortener
 from pyshorteners.utils import is_valid_url
@@ -41,7 +44,7 @@ class ShortenersTest(unittest.TestCase):
     def test_adfly_shortener(self):
         engine = 'AdflyShortener'
         short = Shortener(engine, key='abcd', uid='123')
-        url = u'http://www.google.com/'
+        url = 'http://www.google.com/'
 
         short.short = MagicMock(return_value=u'http://adf.ly/test')
         short.short(url)
@@ -53,9 +56,9 @@ class ShortenersTest(unittest.TestCase):
     def test_bitly_shortener(self):
         engine = 'BitlyShortener'
         short = Shortener(engine, bitly_api_key='abc', bitly_login='123x')
-        url = u'http://www.google.com/'
-        short_url = u'http://bit.ly/xxx'
-        short.short = MagicMock(return_value=u'http://bit.ly/SsdA')
+        url = 'http://www.google.com/'
+        short_url = 'http://bit.ly/xxx'
+        short.short = MagicMock(return_value='http://bit.ly/SsdA')
         short.short(url)
         short.short.assert_called_with(url)
 
@@ -67,9 +70,9 @@ class ShortenersTest(unittest.TestCase):
     def test_dottk_shortener(self):
         engine = 'DottkShortener'
         short = Shortener(engine)
-        url = u'http://www.google.com/'
+        url = 'http://www.google.com/'
 
-        short.short = MagicMock(return_value=u'http://3vzpu.tk')
+        short.short = MagicMock(return_value='http://3vzpu.tk')
         short.short(url)
         short.short.assert_called_with(url)
 
@@ -92,6 +95,3 @@ class ShortenersTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             url = 'http://12'
             s.short(url)
-
-if __name__ == '__main__':
-    unittest.main()
