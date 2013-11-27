@@ -1,5 +1,11 @@
+0.2.6
+=====
+
+* Add Dot.Tk shortener API support
+
 0.2.5
 =====
+
 * Python 3 support
 
 0.2.4
