@@ -6,6 +6,8 @@ import json
 import requests
 
 from .utils import is_valid_url
+from .exceptions import (UnknownShortenerException, ShorteningErrorException,
+                         ExpandingErrorException)
 
 __all__ = ['Shortener', ]
 
@@ -19,7 +21,7 @@ class Shortener(object):
         try:
             getattr(self.module.shorteners, self.engine)
         except AttributeError:
-            raise AttributeError('Please enter a valid shortener.')
+            raise UnknownShortenerException('Please enter a valid shortener.')
 
         for key, item in list(kwargs.items()):
             setattr(self, key, item)
@@ -59,7 +61,8 @@ class GoogleShortener(object):
                 return ''
             if 'id' in data:
                 return data['id']
-        return ''
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
 
     def expand(self, url):
         params = {'shortUrl': url}
@@ -71,7 +74,7 @@ class GoogleShortener(object):
                 return ''
             if 'longUrl' in data:
                 return data['longUrl']
-        return ''
+        raise ExpandingErrorException("There was an error expanding this url")
 
 
 class BitlyShortener(object):
@@ -103,7 +106,8 @@ class BitlyShortener(object):
             data = response.json()
             if 'statusCode' in data and data['statusCode'] == 'OK':
                 return data['results'][self.url]['shortUrl']
-        return ''
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
 
     def expand(self, url):
         params = dict(
@@ -119,7 +123,7 @@ class BitlyShortener(object):
                 # get the hash key that contains the longUrl
                 hash_key = list(data['results'].keys())[0]
                 return data['results'][hash_key]['longUrl']
-        return ''
+        raise ExpandingErrorException("There was an error expanding this url")
 
 
 class TinyurlShortener(object):
@@ -133,13 +137,14 @@ class TinyurlShortener(object):
         response = requests.get(self.api_url, params=dict(url=url))
         if response.ok:
             return response.text
-        return ''
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
 
     def expand(self, url):
         response = requests.get(url)
         if response.ok:
             return response.url
-        return ''
+        raise ExpandingErrorException("There was an error expanding this url")
 
 
 class AdflyShortener(object):
@@ -167,7 +172,8 @@ class AdflyShortener(object):
         response = requests.get(self.api_url, params=data)
         if response.ok:
             return response.text
-        return ''
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
 
     def expand(self, url):
         """
@@ -192,10 +198,11 @@ class DottkShortener(object):
             urls = response.text.strip().split('\n')
             if len(urls) > 0:
                 return urls[0]
-        return ''
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
 
     def expand(self, url):
         response = requests.get(url)
         if response.ok:
             return response.url
-        return ''
+        raise ExpandingErrorException("There was an error expanding this url")

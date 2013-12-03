@@ -9,6 +9,9 @@ except ImportError:
 
 from pyshorteners.shorteners import Shortener
 from pyshorteners.utils import is_valid_url
+from pyshorteners.exceptions import (UnknownShortenerException,
+                                     ShorteningErrorException,
+                                     ExpandingErrorException)
 
 
 class ShortenersTest(unittest.TestCase):
@@ -31,6 +34,10 @@ class ShortenersTest(unittest.TestCase):
 
         self.assertEqual(short.expand('http://goo.gl/fbsS'),
                          'http://www.google.com/')
+
+        #test exceptions
+        with self.assertRaises(ExpandingErrorException):
+            short.expand('http://www.a.co')
 
     def test_tinyurl_shortener(self):
         engine = 'TinyurlShortener'
@@ -81,7 +88,7 @@ class ShortenersTest(unittest.TestCase):
 
     def test_wrong_shortener_engine(self):
         engine = 'UnknownShortener'
-        with self.assertRaises(AttributeError):
+        with self.assertRaises(UnknownShortenerException):
             Shortener(engine)
 
     def test_is_valid_url(self):
