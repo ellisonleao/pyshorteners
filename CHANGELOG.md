@@ -1,3 +1,8 @@
+0.2.7
+=====
+* Add custom exceptions
+
+
 0.2.6
 =====
 

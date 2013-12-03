@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pyshorteners',
-    version='0.2.6',
+    version='0.2.7',
     license='MIT',
     description=('A simple URL shortening Python Lib, implementing '
                  'the most famous shorteners.'),
