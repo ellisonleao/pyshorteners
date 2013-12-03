@@ -21,8 +21,31 @@ Description
 A simple URL shortening Python Lib, implementing the most famous
 shorteners.
 
+
+Installing
+==========
+
+You can install pythorteners by pip or cloning/forking the repository and just typing
+
+Installing via pip
+
+.. code-block:: bash
+    pip install pyshorteners
+
+
+Installing with the cloned/downloaded code
+
+.. code-block:: bash
+    python setup.py install
+
+Testing
+-------
+
+Use tox to test with all environments needed by just typing `tox` on command line
+
+
 Usage
------
+=====
 
 Create a Shortener instance passing the engine as an argument. Google
 Shortener is the default engine if no engine param is passed.
