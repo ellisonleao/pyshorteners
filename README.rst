@@ -29,13 +29,15 @@ You can install pythorteners by pip or cloning/forking the repository and just t
 
 Installing via pip
 
-.. code-block:: bash
+::
+
     pip install pyshorteners
 
 
 Installing with the cloned/downloaded code
 
-.. code-block:: bash
+::
+
     python setup.py install
 
 Testing
