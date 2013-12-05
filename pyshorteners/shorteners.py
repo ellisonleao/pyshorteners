@@ -206,3 +206,28 @@ class DottkShortener(object):
         if response.ok:
             return response.url
         raise ExpandingErrorException("There was an error expanding this url")
+
+
+class IsgdShortener(object):
+    """
+    Is.gd shortener implementation
+    No config params needed
+    """
+    api_url = "http://is.gd/create.php"
+
+    def short(self, url):
+        params = {
+            'format': 'simple',
+            'url': url,
+        }
+        response = requests.get(self.api_url, params=params)
+        if response.ok:
+            return response.text.strip()
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
+
+    def expand(self, url):
+        response = requests.get(url)
+        if response.ok:
+            return response.url
+        raise ExpandingErrorException("There was an error expanding this url")

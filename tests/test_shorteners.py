@@ -10,7 +10,6 @@ except ImportError:
 from pyshorteners.shorteners import Shortener
 from pyshorteners.utils import is_valid_url
 from pyshorteners.exceptions import (UnknownShortenerException,
-                                     ShorteningErrorException,
                                      ExpandingErrorException)
 
 
@@ -21,7 +20,7 @@ class ShortenersTest(unittest.TestCase):
 
     def test_shorteners_type(self):
         shorteners = ['GoogleShortener', 'BitlyShortener', 'TinyurlShortener',
-                      'AdflyShortener', 'DottkShortener']
+                      'AdflyShortener', 'DottkShortener', 'IsgdShortener']
         for shortener in shorteners:
             short = Shortener(shortener)
             self.assertEqual(type(short), short.__class__)
@@ -85,6 +84,18 @@ class ShortenersTest(unittest.TestCase):
 
         expand = short.expand('http://adf.ly/test')
         self.assertEqual(expand, 'http://adf.ly/test')
+
+    def test_isgd_shortener(self):
+        engine = 'IsgdShortener'
+        short = Shortener(engine)
+        url = 'http://www.example.com'
+
+        short.short = MagicMock(return_value='http://is.gd/MOgh5q')
+        short.short(url)
+        short.short.assert_called_with(url)
+
+        expand = short.expand('http://is.gd/MOgh5q')
+        self.assertEqual(expand, url)
 
     def test_wrong_shortener_engine(self):
         engine = 'UnknownShortener'
