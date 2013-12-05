@@ -18,6 +18,7 @@ def show_current_apis():
     """
     return ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Dot.tk', 'Is.gd']
 
+
 class Shortener(object):
     def __init__(self, engine, **kwargs):
         self.engine = engine
