@@ -52,7 +52,7 @@ Usage
 Create a Shortener instance passing the engine as an argument. Google
 Shortener is the default engine if no engine param is passed.
 
-Googl Shortener
+Goo.gl Shortener
 ---------------
 
 No login or api key needed on kwargs
@@ -69,8 +69,8 @@ No login or api key needed on kwargs
     url = 'http://goo.gl/SsadY'
     print "My long url is {}".format(shortener.expand(url))
 
-Bit.ly
-------
+Bit.ly Shortener
+----------------
 
 API Key and login configs needed on kwargs
 
@@ -90,7 +90,7 @@ API Key and login configs needed on kwargs
     url = 'http://bit.ly/AvGsb'
     print "My long url is {}".format(shortener.expand(url))
 
-TinyURL Shortener
+TinyURL.com Shortener
 -----------------
 
 No login or api key needed
