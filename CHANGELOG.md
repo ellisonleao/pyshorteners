@@ -1,6 +1,7 @@
 0.2.7
 =====
 * Add custom exceptions
+* Add Is.gd API (Issue #7)
 
 
 0.2.6
