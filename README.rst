@@ -140,6 +140,24 @@ No login or api key needed
     print "My long url is {}".format(shortener.expand(url))
 
 
+Is.gd Shortener
+-----------------
+
+No login or api key needed
+
+::
+
+    from pyshorteners import Shortener
+
+    url = 'http://www.google.com'
+    shortener = Shortener('IsgdShortener')
+    print "My short url is {}".format(shortener.short(url))
+
+    # expanding
+    url = 'http://is.gd/SsaC'
+    print "My long url is {}".format(shortener.expand(url))
+
+
 .. image:: https://d2weczhvl823v0.cloudfront.net/ellisonleao/pyshorteners/trend.png
    :alt: Bitdeli badge
    :target: https://bitdeli.com/free

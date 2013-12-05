@@ -86,3 +86,20 @@ Example:
     # expanding
     url = 'http://432cd.tk/'
     print "My long url is {}".format(shortener.expand(url))
+
+## Is.gd Shortener
+
+* No kwargs needed
+
+Example:
+
+
+    from pyshorteners import Shortener
+
+    url = 'http://www.google.com'
+    shortener = Shortener('IsgdShortener')
+    print "My short url is {}".format(shortener.short(url))
+
+    # expanding
+    url = 'http://is.gd/AxcA'
+    print "My long url is {}".format(shortener.expand(url))
