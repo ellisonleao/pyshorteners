@@ -2,7 +2,8 @@
 =====
 * Add custom exceptions
 * Add Is.gd API (Issue #7)
-
+* Fix import Shortener on __init__.py
+* add show_current_apis function
 
 0.2.6
 =====
