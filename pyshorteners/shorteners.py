@@ -12,6 +12,12 @@ from .exceptions import (UnknownShortenerException, ShorteningErrorException,
 __all__ = ['Shortener', ]
 
 
+def show_current_apis():
+    """
+    Print on shell the current API's supported
+    """
+    return ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Dot.tk', 'Is.gd']
+
 class Shortener(object):
     def __init__(self, engine, **kwargs):
         self.engine = engine
