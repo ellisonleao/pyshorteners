@@ -16,7 +16,7 @@ def show_current_apis():
     """
     Print on shell the current API's supported
     """
-    return ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Dot.tk', 'Is.gd']
+    return ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Is.gd', 'Senta.la']
 
 
 class Shortener(object):
@@ -189,22 +189,21 @@ class AdflyShortener(object):
         return url
 
 
-class DottkShortener(object):
+class IsgdShortener(object):
     """
-    Dot.Tk shortener implementation
+    Is.gd shortener implementation
     No config params needed
     """
-    api_url = "http://api.dot.tk/tweak/shorten"
+    api_url = "http://is.gd/create.php"
 
     def short(self, url):
         params = {
-            'long': url
+            'format': 'simple',
+            'url': url,
         }
         response = requests.get(self.api_url, params=params)
         if response.ok:
-            urls = response.text.strip().split('\n')
-            if len(urls) > 0:
-                return urls[0]
+            return response.text.strip()
         raise ShorteningErrorException("There was an error shortening this "
                                        "url")
 
@@ -215,15 +214,16 @@ class DottkShortener(object):
         raise ExpandingErrorException("There was an error expanding this url")
 
 
-class IsgdShortener(object):
+class SentalaShortener(object):
     """
-    Is.gd shortener implementation
+    Senta.la shortener implementation
     No config params needed
     """
-    api_url = "http://is.gd/create.php"
+    api_url = "http://senta.la/api.php"
 
     def short(self, url):
         params = {
+            'dever': 'encurtar',
             'format': 'simple',
             'url': url,
         }

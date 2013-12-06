@@ -20,7 +20,7 @@ class ShortenersTest(unittest.TestCase):
 
     def test_shorteners_type(self):
         shorteners = ['GoogleShortener', 'BitlyShortener', 'TinyurlShortener',
-                      'AdflyShortener', 'DottkShortener', 'IsgdShortener']
+                      'AdflyShortener', 'IsgdShortener', 'SentalaShortener']
         for shortener in shorteners:
             short = Shortener(shortener)
             self.assertEqual(type(short), short.__class__)
@@ -73,28 +73,22 @@ class ShortenersTest(unittest.TestCase):
         short.expand(short_url)
         short.expand.assert_called_with(short_url)
 
-    def test_dottk_shortener(self):
-        engine = 'DottkShortener'
-        short = Shortener(engine)
-        url = 'http://www.google.com/'
-
-        short.short = MagicMock(return_value='http://3vzpu.tk')
-        short.short(url)
-        short.short.assert_called_with(url)
-
-        expand = short.expand('http://adf.ly/test')
-        self.assertEqual(expand, 'http://adf.ly/test')
-
     def test_isgd_shortener(self):
         engine = 'IsgdShortener'
         short = Shortener(engine)
-        url = 'http://www.example.com'
+        url = 'http://www.pilgrims.com'
 
-        short.short = MagicMock(return_value='http://is.gd/MOgh5q')
-        short.short(url)
-        short.short.assert_called_with(url)
+        shorten = short.short(url)
+        expand = short.expand(shorten)
+        self.assertEqual(expand, url)
 
-        expand = short.expand('http://is.gd/MOgh5q')
+    def test_sentala_shortener(self):
+        engine = 'SentalaShortener'
+        short = Shortener(engine)
+        url = 'http://www.pilgrims.com'
+
+        shorten = short.short(url)
+        expand = short.expand(shorten)
         self.assertEqual(expand, url)
 
     def test_wrong_shortener_engine(self):
@@ -103,7 +97,7 @@ class ShortenersTest(unittest.TestCase):
             Shortener(engine)
 
     def test_is_valid_url(self):
-        bad = 'ww.google.com'
+        bad = 'www.google.com'
         good = 'http://www.google.com'
 
         self.assertTrue(is_valid_url(good))
