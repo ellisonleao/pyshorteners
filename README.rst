@@ -122,22 +122,6 @@ No expanding for this shortener
     print "My short url is {}".format(shortener.short(url, uid=UID,
                                       api_key=API_KEY, type='int'))
 
-Dot.Tk Shortener
------------------
-
-No login or api key needed
-
-::
-
-    from pyshorteners import Shortener
-
-    url = 'http://www.google.com'
-    shortener = Shortener('DottkShortener')
-    print "My short url is {}".format(shortener.short(url))
-
-    # expanding
-    url = 'http://0ydtx.tk'
-    print "My long url is {}".format(shortener.expand(url))
 
 
 Is.gd Shortener
@@ -155,6 +139,24 @@ No login or api key needed
 
     # expanding
     url = 'http://is.gd/SsaC'
+    print "My long url is {}".format(shortener.expand(url))
+
+
+Senta.la Shortener
+-----------------
+
+No login or api key needed
+
+::
+
+    from pyshorteners import Shortener
+
+    url = 'http://www.google.com'
+    shortener = Shortener('SentalaShortener')
+    print "My short url is {}".format(shortener.short(url))
+
+    # expanding
+    url = 'http://senta.la/urubu'
     print "My long url is {}".format(shortener.expand(url))
 
 
