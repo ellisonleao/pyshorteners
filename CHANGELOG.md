@@ -1,3 +1,8 @@
+0.2.8
+=====
+* Remove Dot.tk API
+* Add Senta.la API
+
 0.2.7
 =====
 * Add custom exceptions
