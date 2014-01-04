@@ -17,6 +17,7 @@ class ShortenersTest(unittest.TestCase):
     def setUp(self):
         self.url = 'http://www.google.com'
         self.module = __import__('pyshorteners.shorteners')
+        self.test_url = 'http://www.pilgrims.com'
 
     def test_shorteners_type(self):
         shorteners = ['GoogleShortener', 'BitlyShortener', 'TinyurlShortener',
@@ -28,11 +29,17 @@ class ShortenersTest(unittest.TestCase):
     def test_googl_shortener(self):
         engine = 'GoogleShortener'
         short = Shortener(engine)
-        self.assertEqual(short.short('http://www.google.com'),
-                         'http://goo.gl/fbsS')
+        url = 'http://goo.gl/rjf0oI'
+        self.assertEqual(short.short(self.test_url), url)
 
-        self.assertEqual(short.expand('http://goo.gl/fbsS'),
-                         'http://www.google.com/')
+        self.assertEqual(short.expand(), self.test_url)
+        self.assertEqual(short.expanded, self.test_url)
+
+        self.assertEqual(short.shorten, url)
+        self.assertEqual(short.qrcode(), 'http://chart.apis.google.com/'
+                         'chart?cht=qr&chl={}&chs=120x120'.format(
+                             self.test_url
+                         ))
 
         #test exceptions
         with self.assertRaises(ExpandingErrorException):
@@ -41,11 +48,18 @@ class ShortenersTest(unittest.TestCase):
     def test_tinyurl_shortener(self):
         engine = 'TinyurlShortener'
         short = Shortener(engine)
-        self.assertEqual(short.short('http://www.google.com'),
-                         'http://tinyurl.com/1c2')
+        url = 'http://tinyurl.com/nc9m936'
+        self.assertEqual(short.short(self.test_url), url)
 
-        self.assertEqual(short.expand('http://tinyurl.com/ycus76'),
-                         'https://www.facebook.com')
+        self.assertEqual(short.expand(), self.test_url)
+        self.assertEqual(short.expand(url), self.test_url)
+
+        self.assertEqual(short.expanded, self.test_url)
+        self.assertEqual(short.shorten, url)
+        self.assertEqual(short.qrcode(), 'http://chart.apis.google.com/'
+                         'chart?cht=qr&chl={}&chs=120x120'.format(
+                             self.test_url
+                         ))
 
     def test_adfly_shortener(self):
         engine = 'AdflyShortener'
@@ -58,6 +72,8 @@ class ShortenersTest(unittest.TestCase):
 
         expand = short.expand('http://adf.ly/test')
         self.assertEqual(expand, 'http://adf.ly/test')
+        self.assertEqual(short.qrcode(), 'http://chart.apis.google.com/'
+                         'chart?cht=qr&chl=http://adf.ly/test&chs=120x120')
 
     def test_bitly_shortener(self):
         engine = 'BitlyShortener'
@@ -81,6 +97,10 @@ class ShortenersTest(unittest.TestCase):
         shorten = short.short(url)
         expand = short.expand(shorten)
         self.assertEqual(expand, url)
+        self.assertEqual(short.qrcode(), 'http://chart.apis.google.com/'
+                         'chart?cht=qr&chl={}&chs=120x120'.format(
+                             self.test_url
+                         ))
 
     def test_sentala_shortener(self):
         engine = 'SentalaShortener'
@@ -90,6 +110,10 @@ class ShortenersTest(unittest.TestCase):
         shorten = short.short(url)
         expand = short.expand(shorten)
         self.assertEqual(expand, url)
+        self.assertEqual(short.qrcode(), 'http://chart.apis.google.com/'
+                         'chart?cht=qr&chl={}&chs=120x120'.format(
+                             self.test_url
+                         ))
 
     def test_wrong_shortener_engine(self):
         engine = 'UnknownShortener'
