@@ -14,6 +14,10 @@ Pyshorteners
     :target: https://crate.io/packages/pyshorteners/
     :alt: Number of PyPI downloads
 
+.. image:: https://d2weczhvl823v0.cloudfront.net/ellisonleao/pyshorteners/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+
 
 Description
 ===========
@@ -160,7 +164,7 @@ No login or api key needed
     print "My long url is {}".format(shortener.expand(url))
 
 
-.. image:: https://d2weczhvl823v0.cloudfront.net/ellisonleao/pyshorteners/trend.png
-   :alt: Bitdeli badge
-   :target: https://bitdeli.com/free
+QR Code
+=======
 
+You can have the QR Code for your url by calling the `qr_code` method after shorteing your url. 
