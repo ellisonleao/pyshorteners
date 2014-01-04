@@ -23,6 +23,8 @@ class Shortener(object):
     def __init__(self, engine, **kwargs):
         self.engine = engine
         self.kwargs = kwargs
+        self.shorten = None
+        self.expanded = None
         self.module = __import__('pyshorteners.shorteners')
 
         try:
@@ -36,15 +38,28 @@ class Shortener(object):
     def short(self, url):
         if not is_valid_url(url):
             raise ValueError('Please enter a valid url')
+        self.expanded = url
 
         # Get the right short function based on self.engine
         _class = getattr(self.module.shorteners, self.engine)
-        return _class(**self.kwargs).short(url)
+        self.shorten = _class(**self.kwargs).short(url)
+        return self.shorten
 
-    def expand(self, url):
+    def expand(self, url=None):
         # Get the right short function based on self.engine
         _class = getattr(self.module.shorteners, self.engine)
-        return _class(**self.kwargs).expand(url)
+        if url:
+            self.expanded = _class(**self.kwargs).expand(url)
+        return self.expanded
+
+    def qrcode(self, width=120, height=120):
+        if not self.expanded:
+            return None
+
+        qrcode_url = ('http://chart.apis.google.com/chart?cht=qr&'
+                      'chl={}&chs={}x{}'.format(self.expanded, width,
+                                                height))
+        return qrcode_url
 
 
 class GoogleShortener(object):
