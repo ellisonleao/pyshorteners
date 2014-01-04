@@ -2,6 +2,8 @@
 =====
 * Remove Dot.tk API
 * Add Senta.la API
+* Add qr_code methor on Shortener class
+* add shorten and expanded properties on Shortener class
 
 0.2.7
 =====
