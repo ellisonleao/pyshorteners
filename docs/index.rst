@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
    
    installing
+   usage
    current_apis
    
 
