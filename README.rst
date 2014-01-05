@@ -61,7 +61,7 @@ Goo.gl Shortener
 
 No login or api key needed on kwargs
 
-.. code:: python
+.. code-block:: python
 
     from pyshorteners import Shortener
 
@@ -78,7 +78,7 @@ Bit.ly Shortener
 
 API Key and login configs needed on kwargs
 
-.. code:: python
+.. code-block:: python
 
     from pyshorteners import Shortener
 
@@ -99,7 +99,7 @@ TinyURL.com Shortener
 
 No login or api key needed
 
-.. code:: python
+.. code-block:: python
 
     from pyshorteners import Shortener
 
@@ -117,7 +117,7 @@ Adf.ly Shortener
 uid and api key needed, banner type optional (int or banner)
 No expanding for this shortener
 
-.. code:: python
+.. code-block:: python
 
     from pyshorteners import Shortener
 
@@ -133,7 +133,7 @@ Is.gd Shortener
 
 No login or api key needed
 
-.. code:: python
+.. code-block:: python
 
     from pyshorteners import Shortener
 
@@ -151,7 +151,7 @@ Senta.la Shortener
 
 No login or api key needed
 
-.. code:: python
+.. code-block:: python
 
     from pyshorteners import Shortener
 
