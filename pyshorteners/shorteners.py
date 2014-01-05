@@ -53,11 +53,11 @@ class Shortener(object):
         return self.expanded
 
     def qrcode(self, width=120, height=120):
-        if not self.expanded:
+        if not self.shorten:
             return None
 
         qrcode_url = ('http://chart.apis.google.com/chart?cht=qr&'
-                      'chl={}&chs={}x{}'.format(self.expanded, width,
+                      'chl={}&chs={}x{}'.format(self.shorten, width,
                                                 height))
         return qrcode_url
 
