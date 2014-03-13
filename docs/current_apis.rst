@@ -9,7 +9,7 @@ PyShorteners for now supports these shorteners API's:
 
 Example:
 
-    from pyshorteners.shortener import Shortener
+    from pyshorteners.shorteners  import Shortener
 
     url = 'http://www.google.com'
     shortener = Shortener('GoogleShortener')
@@ -26,7 +26,7 @@ Example:
 
 Example:
 
-    from pyshorteners.shortener import Shortener
+    from pyshorteners.shorteners  import Shortener
 
     # For Bit.ly you HAVE to provide the login and api key
     login = 'MY_LOGIN'
@@ -47,7 +47,7 @@ Example:
 Example:
 
 
-    from pyshorteners.shortener import Shortener
+    from pyshorteners.shorteners  import Shortener
 
     url = 'http://www.google.com'
     shortener = Shortener('TinyurlShortener')
@@ -64,7 +64,7 @@ Example:
 
 Example:
 
-    from pyshorteners.shortener import Shortener
+    from pyshorteners.shorteners  import Shortener
     
     url = 'http://www.google.com'
     shortener = Shortener('AdflyShortener')
@@ -77,7 +77,7 @@ Example:
 Example:
 
 
-    from pyshorteners.shortener import Shortener
+    from pyshorteners.shorteners  import Shortener
 
     url = 'http://www.google.com'
     shortener = Shortener('IsgdShortener')
@@ -94,7 +94,7 @@ Example:
 Example:
 
 
-    from pyshorteners.shortener import Shortener
+    from pyshorteners.shorteners  import Shortener
 
     url = 'http://www.google.com'
     shortener = Shortener('SentalaShortener')
