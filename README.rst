@@ -63,7 +63,7 @@ No login or api key needed on kwargs
 
 .. code-block:: python
 
-    from pyshorteners import Shortener
+    from pyshorteners.shortener import Shortener
 
     url = 'http://www.google.com'
     shortener = Shortener('GoogleShortener')
@@ -80,7 +80,7 @@ API Key and login configs needed on kwargs
 
 .. code-block:: python
 
-    from pyshorteners import Shortener
+    from pyshorteners.shortener import Shortener
 
     # For Bit.ly you HAVE to provide the login and api key
     login = 'MY_LOGIN'
@@ -101,7 +101,7 @@ No login or api key needed
 
 .. code-block:: python
 
-    from pyshorteners import Shortener
+    from pyshorteners.shortener import Shortener
 
     url = 'http://www.google.com'
     shortener = Shortener('TinyurlShortener')
@@ -119,7 +119,7 @@ No expanding for this shortener
 
 .. code-block:: python
 
-    from pyshorteners import Shortener
+    from pyshorteners.shortener import Shortener
 
     url = 'http://www.google.com'
     shortener = Shortener('AdflyShortener')
@@ -135,7 +135,7 @@ No login or api key needed
 
 .. code-block:: python
 
-    from pyshorteners import Shortener
+    from pyshorteners.shortener import Shortener
 
     url = 'http://www.google.com'
     shortener = Shortener('IsgdShortener')
@@ -153,7 +153,7 @@ No login or api key needed
 
 .. code-block:: python
 
-    from pyshorteners import Shortener
+    from pyshorteners.shortener import Shortener
 
     url = 'http://www.google.com'
     shortener = Shortener('SentalaShortener')
