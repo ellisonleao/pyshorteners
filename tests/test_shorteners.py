@@ -7,7 +7,7 @@ try:
 except ImportError:
     from mock import MagicMock
 
-from pyshorteners import Shortener
+from pyshorteners.shorteners import Shortener
 from pyshorteners.utils import is_valid_url
 from pyshorteners.exceptions import (UnknownShortenerException,
                                      ExpandingErrorException)

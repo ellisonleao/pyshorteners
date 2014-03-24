@@ -3,4 +3,5 @@
 from nose.core import run
 
 if __name__ == '__main__':
-    run()
+    args = ['', '--cover-package=pyshorteners', '--with-coverage']
+    run(argv=args)

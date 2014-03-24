@@ -18,6 +18,8 @@ Pyshorteners
    :alt: Bitdeli badge
    :target: https://bitdeli.com/free
 
+.. image:: https://coveralls.io/repos/ellisonleao/pyshorteners/badge.png?branch=master :target: https://coveralls.io/r/ellisonleao/pyshorteners?branch=master
+
 
 Description
 ===========
