@@ -14,8 +14,9 @@ Pyshorteners
     :target: https://crate.io/packages/pyshorteners/
     :alt: Number of PyPI downloads
 
-.. image:: https://coveralls.io/repos/ellisonleao/pyshorteners/badge.png?branch=master :target: https://coveralls.io/r/ellisonleao/pyshorteners?branch=master
-
+.. image:: https://coveralls.io/repos/ellisonleao/pyshorteners/badge.png?branch=master
+    :target: https://coveralls.io/r/ellisonleao/pyshorteners?branch=master
+    :alt: Coverage
 
 Description
 ===========
