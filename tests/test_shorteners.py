@@ -40,7 +40,7 @@ class ShortenersTest(unittest.TestCase):
         self.assertEqual(short.qrcode(), 'http://chart.apis.google.com/'
                          'chart?cht=qr&chl={}&chs=120x120'.format(shorten))
 
-        #test exceptions
+        # test exceptions
         with self.assertRaises(ExpandingErrorException):
             short.expand('http://www.a.co')
 
@@ -80,7 +80,7 @@ class ShortenersTest(unittest.TestCase):
         short.short(url)
         short.short.assert_called_with(url)
 
-        #expanding
+        # expanding
         short.expand = MagicMock(return_value=url)
         short.expand(short_url)
         short.expand.assert_called_with(short_url)
