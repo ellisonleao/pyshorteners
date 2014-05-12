@@ -21,7 +21,8 @@ class ShortenersTest(unittest.TestCase):
 
     def test_shorteners_type(self):
         shorteners = ['GoogleShortener', 'BitlyShortener', 'TinyurlShortener',
-                      'AdflyShortener', 'IsgdShortener', 'SentalaShortener']
+                      'AdflyShortener', 'IsgdShortener', 'SentalaShortener',
+                      'GenericExpander']
         for shortener in shorteners:
             short = Shortener(shortener)
             self.assertEqual(type(short), short.__class__)
@@ -123,3 +124,14 @@ class ShortenersTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             url = 'http://12'
             s.short(url)
+
+    def test_generic_expander(self):
+        # testing new generic expander. Uses another shortener to test
+        short = Shortener("TinyurlShortener")
+        shorten = short.short(self.test_url)
+
+        engine = "GenericExpander"
+        expander = Shortener(engine)
+        result_url = expander.expand(shorten)
+        # A valid url result is enough for answer
+        self.assertEqual(result_url, self.test_url)

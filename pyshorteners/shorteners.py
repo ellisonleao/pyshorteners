@@ -16,7 +16,7 @@ def show_current_apis():
     """
     Print on shell the current API's supported
     """
-    return ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Is.gd', 'Senta.la']
+    return ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Is.gd', 'Senta.la', 'Generic']
 
 
 class Shortener(object):
@@ -247,6 +247,19 @@ class SentalaShortener(object):
             return response.text.strip()
         raise ShorteningErrorException("There was an error shortening this "
                                        "url")
+
+    def expand(self, url):
+        response = requests.get(url)
+        if response.ok:
+            return response.url
+        raise ExpandingErrorException("There was an error expanding this url")
+
+"""
+Adding this generic expander, it doesn't shorten url's, just tries to retrieve URL's using a get http method
+"""
+class GenericExpander(object):
+    def short(self, url):
+        raise NotImplementedError("This class doesn't support shortening")
 
     def expand(self, url):
         response = requests.get(url)
