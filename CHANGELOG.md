@@ -1,3 +1,11 @@
+0.3
+===
+* Add GenericExpander
+
+0.2.10
+======
+
+
 0.2.8
 =====
 * Remove Dot.tk API
