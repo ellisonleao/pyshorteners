@@ -77,9 +77,10 @@ class GoogleShortener(object):
         response = requests.post(self.api_url, data=params,
                                  headers=headers)
         if response.ok:
+            # We could have lots os kids of exceptions here
             try:
                 data = response.json()
-            except:
+            except Exception:
                 return ''
             if 'id' in data:
                 return data['id']
