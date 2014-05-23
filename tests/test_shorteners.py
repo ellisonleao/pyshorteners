@@ -7,7 +7,7 @@ try:
 except ImportError:
     from mock import MagicMock
 
-from pyshorteners.shorteners import Shortener
+from pyshorteners.shorteners import Shortener, show_current_apis
 from pyshorteners.utils import is_valid_url
 from pyshorteners.exceptions import (UnknownShortenerException,
                                      ExpandingErrorException)
@@ -135,3 +135,11 @@ class ShortenersTest(unittest.TestCase):
         result_url = expander.expand(shorten)
         # A valid url result is enough for answer
         self.assertEqual(result_url, self.test_url)
+
+    def test_show_current_apis(self):
+        apis = ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Is.gd', 'Senta.la', 'Generic']
+        self.assertEqual(show_current_apis(), apis)
+
+    def test_none_qrcode(self):
+        shortener = Shortener('TinyurlShortener')
+        self.assertIsNone(shortener.qrcode())
