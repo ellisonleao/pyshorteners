@@ -72,6 +72,10 @@ class ShortenersTest(unittest.TestCase):
         expand = short.expand('http://adf.ly/test')
         self.assertEqual(expand, 'http://adf.ly/test')
 
+        # test with no key params
+        with self.assertRaises(TypeError):
+            short = Shortener(engine).short('http://www.google.com')
+
     def test_bitly_shortener(self):
         engine = 'BitlyShortener'
         short = Shortener(engine, bitly_api_key='abc', bitly_login='123x')
@@ -85,6 +89,10 @@ class ShortenersTest(unittest.TestCase):
         short.expand = MagicMock(return_value=url)
         short.expand(short_url)
         short.expand.assert_called_with(short_url)
+
+        # test with no key params
+        with self.assertRaises(TypeError):
+            short = Shortener(engine).short('http://www.google.com')
 
     def test_isgd_shortener(self):
         engine = 'IsgdShortener'
