@@ -112,9 +112,10 @@ class BitlyShortener(object):
     expand_url = 'http://api.bit.ly/expand'
 
     def __init__(self, *args, **kwargs):
-        if not all([kwargs.get('bitly_login'), kwargs.get('bitly_api_key')]):
-            raise ValueError('bitly_login AND bitly_api_key missing from '
-                             'kwargs')
+        if not all([kwargs.get('bitly_login', False),
+                    kwargs.get('bitly_api_key', False)]):
+            raise TypeError('bitly_login AND bitly_api_key missing from '
+                            'kwargs')
         self.login = kwargs.get('bitly_login')
         self.api_key = kwargs.get('bitly_api_key')
 
@@ -179,8 +180,8 @@ class AdflyShortener(object):
     api_url = 'http://api.adf.ly/api.php'
 
     def __init__(self, *args, **kwargs):
-        if not all([kwargs.get('key'), kwargs.get('uid')]):
-            raise ValueError('Please input the key and uid value')
+        if not all([kwargs.get('key', False), kwargs.get('uid', False)]):
+            raise TypeError('Please input the key and uid value')
         self.key = kwargs.get('key')
         self.uid = kwargs.get('uid')
         self.type = kwargs.get('type', 'int')
