@@ -77,11 +77,11 @@ class GoogleShortener(object):
         response = requests.post(self.api_url, data=params,
                                  headers=headers)
         if response.ok:
-            # We could have lots os kids of exceptions here
             try:
                 data = response.json()
-            except Exception:
-                return ''
+            except ValueError:
+                raise ShorteningErrorException("There was an error shortening"
+                                               " this url")
             if 'id' in data:
                 return data['id']
         raise ShorteningErrorException("There was an error shortening this "
@@ -93,8 +93,9 @@ class GoogleShortener(object):
         if response.ok:
             try:
                 data = response.json()
-            except:
-                return ''
+            except ValueError:
+                raise ExpandingErrorException("There was an error expanding"
+                                              " this url")
             if 'longUrl' in data:
                 return data['longUrl']
         raise ExpandingErrorException("There was an error expanding this url")
