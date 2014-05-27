@@ -10,6 +10,7 @@ from .exceptions import (UnknownShortenerException, ShorteningErrorException,
                          ExpandingErrorException)
 
 __all__ = ['Shortener', ]
+module = __import__('pyshorteners.shorteners')
 
 
 def show_current_apis():
@@ -25,10 +26,9 @@ class Shortener(object):
         self.kwargs = kwargs
         self.shorten = None
         self.expanded = None
-        self.module = __import__('pyshorteners.shorteners')
 
         try:
-            getattr(self.module.shorteners, self.engine)
+            getattr(module.shorteners, self.engine)
         except AttributeError:
             raise UnknownShortenerException('Please enter a valid shortener.')
 
@@ -41,13 +41,13 @@ class Shortener(object):
         self.expanded = url
 
         # Get the right short function based on self.engine
-        _class = getattr(self.module.shorteners, self.engine)
+        _class = getattr(module.shorteners, self.engine)
         self.shorten = _class(**self.kwargs).short(url)
         return self.shorten
 
     def expand(self, url=None):
         # Get the right short function based on self.engine
-        _class = getattr(self.module.shorteners, self.engine)
+        _class = getattr(module.shorteners, self.engine)
         if url:
             self.expanded = _class(**self.kwargs).expand(url)
         return self.expanded
