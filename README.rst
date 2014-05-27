@@ -186,6 +186,23 @@ Trying to shorten an url throws an exception
     # expanding
     print "My long url is {} using generic expander".format(expander.expand(shortened_url))
 
+Readbility Shortener
+-----------------
+
+No login or api key needed
+
+.. code-block:: python
+
+    from pyshorteners.shorteners  import Shortener
+
+    url = 'http://blog.arc90.com/2010/11/30/silence-is-golden/'
+    shortener = Shortener('ReadbilityShortener')
+    print "My short url is {}".format(shortener.short(url))
+
+    # expanding
+    url = 'http://tinyurl.com/ycus76'
+    print "My long url is {}".format(shortener.expand(url))
+
 
 
 QR Code
