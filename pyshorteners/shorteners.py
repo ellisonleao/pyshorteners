@@ -62,6 +62,44 @@ class Shortener(object):
         return qrcode_url
 
 
+class ReadabilityShortner(object):
+    """
+    Readbility url shortner api implementation
+    Located at: https://readability.com/developers/api/shortener
+    Doesnt' need anything from the app
+    """
+
+    def short(self, url):
+        api_endpoint = "http://www.readability.com/api/shortener/v1/urls"
+        params = {'url': url}
+        response = requests.post(api_endpoint, data=params)
+        if response.ok:
+            try:
+                data = response.json()
+            except ValueError:
+                raise ShorteningErrorException("There was an error shortening"
+                                               " this url")
+            return data['meta']['rdd_url']
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
+
+    def expand(self, url):
+        api_endpoint = "http://www.readability.com/api/shortener/v1/urls/"
+        url_list = url.split('/')
+        list_length = len(url_list)
+        url_id = url_list[list_length - 1]
+        api_url = api_endpoint + url_id
+        response = requests.get(api_url)
+        if response.ok:
+            try:
+                data = response.json()
+            except ValueError:
+                raise ExpandingErrorException("There was an error expanding"
+                                              " this url")
+            return data['meta']['article']['full_url']
+        raise ExpandingErrorException("There was an error expanding this url")
+
+
 class GoogleShortener(object):
     """
     Based on:
