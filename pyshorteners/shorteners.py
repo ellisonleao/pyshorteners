@@ -257,13 +257,13 @@ class SentalaShortener(object):
             return response.url
         raise ExpandingErrorException("There was an error expanding this url")
 
-"""
-Adding this generic expander, it doesn't shorten url's, just tries to retrieve
-URL's using a get http method
-"""
-
 
 class GenericExpander(object):
+    """
+    Adding this generic expander, it doesn't shorten url's, just tries to
+    retrieve URL's using a get http method
+    """
+
     def short(self, url):
         raise NotImplementedError("This class doesn't support shortening")
 
