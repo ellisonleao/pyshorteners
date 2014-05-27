@@ -62,7 +62,7 @@ class Shortener(object):
         return qrcode_url
 
 
-class ReadabilityShortner(object):
+class ReadabilityShortener(object):
     """
     Readbility url shortner api implementation
     Located at: https://readability.com/developers/api/shortener
@@ -96,7 +96,7 @@ class ReadabilityShortner(object):
             except ValueError:
                 raise ExpandingErrorException("There was an error expanding"
                                               " this url")
-            return data['meta']['article']['full_url']
+            return data['meta']['full_url']
         raise ExpandingErrorException("There was an error expanding this url")
 
 
