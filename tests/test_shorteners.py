@@ -116,6 +116,17 @@ class ShortenersTest(unittest.TestCase):
         self.assertEqual(short.qrcode(), 'http://chart.apis.google.com/'
                          'chart?cht=qr&chl={}&chs=120x120'.format(shorten))
 
+    def test_qrcx_shortener(self):
+        engine = 'QrCxShortener'
+        short = Shortener(engine)
+        url = 'https://www.facebook.com/'
+
+        shorten = short.short(url)
+        expand = short.expand(shorten)
+        self.assertEqual(expand, url)
+        self.assertEqual(short.qrcode(), 'http://chart.apis.google.com/'
+                         'chart?cht=qr&chl={}&chs=120x120'.format(shorten))
+
     def test_wrong_shortener_engine(self):
         engine = 'UnknownShortener'
         with self.assertRaises(UnknownShortenerException):
@@ -140,12 +151,17 @@ class ShortenersTest(unittest.TestCase):
 
         engine = "GenericExpander"
         expander = Shortener(engine)
+
+        with self.assertRaises(NotImplementedError):
+            expander.short('http://www.test.com')
+
         result_url = expander.expand(shorten)
         # A valid url result is enough for answer
         self.assertEqual(result_url, self.test_url)
 
     def test_show_current_apis(self):
-        apis = ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Is.gd', 'Senta.la', 'Generic']
+        apis = ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Is.gd', 'Senta.la',
+                'Generic', 'QrCx']
         self.assertEqual(show_current_apis(), apis)
 
     def test_none_qrcode(self):

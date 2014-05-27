@@ -17,7 +17,8 @@ def show_current_apis():
     """
     Print on shell the current API's supported
     """
-    return ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Is.gd', 'Senta.la', 'Generic']
+    return ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Is.gd', 'Senta.la', 'Generic',
+            'QrCx']
 
 
 class Shortener(object):
@@ -244,6 +245,30 @@ class SentalaShortener(object):
             'dever': 'encurtar',
             'format': 'simple',
             'url': url,
+        }
+        response = requests.get(self.api_url, params=params)
+        if response.ok:
+            return response.text.strip()
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
+
+    def expand(self, url):
+        response = requests.get(url)
+        if response.ok:
+            return response.url
+        raise ExpandingErrorException("There was an error expanding this url")
+
+
+class QrCxShortener(object):
+    """
+    Qr.cx shortener implementation
+    No config params needed
+    """
+    api_url = "http://qr.cx/api/"
+
+    def short(self, url):
+        params = {
+            'longurl': url,
         }
         response = requests.get(self.api_url, params=params)
         if response.ok:
