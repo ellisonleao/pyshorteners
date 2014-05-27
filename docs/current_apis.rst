@@ -103,3 +103,21 @@ Example:
     # expanding
     url = 'http://senta.la/urubu'
     print "My long url is {}".format(shortener.expand(url))
+
+
+## Qr.cx Shortener
+
+* No kwargs needed
+
+Example:
+
+
+    from pyshorteners.shorteners import Shortener
+
+    url = 'http://www.google.com'
+    shortener = Shortener('QrCxShortener')
+    print "My short url is {}".format(shortener.short(url))
+
+    # expanding
+    url = 'http://qr.cx/WsCv'
+    print "My long url is {}".format(shortener.expand(url))

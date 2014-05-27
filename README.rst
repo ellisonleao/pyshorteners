@@ -163,6 +163,24 @@ No login or api key needed
     print "My long url is {}".format(shortener.expand(url))
 
 
+Qr.cx Shortener
+-----------------
+
+No login or api key needed
+
+.. code-block:: python
+
+    from pyshorteners.shorteners  import Shortener
+
+    url = 'http://www.google.com'
+    shortener = Shortener('QrCxShortener')
+    print "My short url is {}".format(shortener.short(url))
+
+    # expanding
+    url = 'http://qr.cx/XsC'
+    print "My long url is {}".format(shortener.expand(url))
+
+
 Generic expander
 ----------------
 
