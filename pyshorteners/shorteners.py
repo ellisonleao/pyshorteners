@@ -22,6 +22,8 @@ def show_current_apis():
 
 
 class Shortener(object):
+    api_url = None
+
     def __init__(self, engine, **kwargs):
         self.engine = engine
         self.kwargs = kwargs
