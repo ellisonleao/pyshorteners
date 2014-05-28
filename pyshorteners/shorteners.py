@@ -63,6 +63,43 @@ class Shortener(object):
         return qrcode_url
 
 
+class OwlyShortener(object):
+    """
+    Ow.ly url shortner api implementation
+    Located at: http://ow.ly/api-docs
+    Doesnt' need anything from the app
+    """
+
+    def short(self, url):
+        api_key = "G9e50Q4A1aiwcQUKHVeBt"
+        api_url = "http://ow.ly/api/1.1/url/shorten?apiKey=%s&longUrl=%s" % (
+                  api_key, url)
+        response = requests.get(api_url)
+        if response.ok:
+            try:
+                data = response.json()
+            except ValueError:
+                raise ShorteningErrorException("There was an error shortening"
+                                               " this url")
+            return data['results']['shortUrl']
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
+
+    def expand(self, url):
+        api_key = "G9e50Q4A1aiwcQUKHVeBt"
+        api_url = "http://ow.ly/api/1.1/url/expand?apiKey=%s&shortUrl=%s" % (
+                  api_key, url)
+        response = requests.get(api_url)
+        if response.ok:
+            try:
+                data = response.json()
+            except ValueError:
+                raise ShorteningErrorException("There was an error shortening"
+                                               " this url")
+            return data['results']['longUrl']
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
+
 class ReadabilityShortener(object):
     """
     Readbility url shortner api implementation
