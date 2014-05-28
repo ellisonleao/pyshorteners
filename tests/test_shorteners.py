@@ -49,9 +49,18 @@ class ShortenersTest(unittest.TestCase):
         engine = 'ReadabilityShortener'
         short = Shortener(engine)
         url = 'http://blog.arc90.com/2010/11/30/silence-is-golden/'
+        short_url = 'http://rdd.me/tg8if9uj'
+        readbility_url = 'http://readability.com/articles/tg8if9uj'
         shorten = short.short(url)
+        self.assertEqual(shorten, short_url)
+
         expand = short.expand(shorten)
-        self.assertEqual(expand, url)
+        self.assertEqual(expand, readbility_url)
+
+        # Test wrong url_id
+        short = Shortener(engine)
+        with self.assertRaises(ExpandingErrorException):
+            expand = short.expand('http://www.wqe.cc')
 
     def test_tinyurl_shortener(self):
         engine = 'TinyurlShortener'

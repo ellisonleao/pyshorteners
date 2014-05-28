@@ -74,11 +74,11 @@ class ReadabilityShortener(object):
     Located at: https://readability.com/developers/api/shortener
     Doesnt' need anything from the app
     """
+    api_url = "http://www.readability.com/api/shortener/v1/urls/"
 
     def short(self, url):
-        api_url = "http://www.readability.com/api/shortener/v1/urls"
         params = {'url': url}
-        response = requests.post(api_url, data=params)
+        response = requests.post(self.api_url, data=params)
         if response.ok:
             try:
                 data = response.json()
@@ -90,11 +90,8 @@ class ReadabilityShortener(object):
                                        "url")
 
     def expand(self, url):
-        api_url = "http://www.readability.com/api/shortener/v1/urls/"
-        url_list = url.split('/')
-        list_length = len(url_list)
-        url_id = url_list[list_length - 1]
-        api_url = api_url + url_id
+        url_id = url.split('/')[-1:][0]
+        api_url = self.api_url + url_id
         response = requests.get(api_url)
         if response.ok:
             try:
