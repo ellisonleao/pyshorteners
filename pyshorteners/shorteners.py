@@ -47,6 +47,9 @@ class Shortener(object):
         return self.shorten
 
     def expand(self, url=None):
+        if url and not is_valid_url(url):
+            raise ValueError('Please enter a valid url')
+
         # Get the right short function based on self.engine
         _class = getattr(module.shorteners, self.engine)
         if url:
