@@ -70,9 +70,9 @@ class ReadabilityShortener(object):
     """
 
     def short(self, url):
-        api_endpoint = "http://www.readability.com/api/shortener/v1/urls"
+        api_url = "http://www.readability.com/api/shortener/v1/urls"
         params = {'url': url}
-        response = requests.post(api_endpoint, data=params)
+        response = requests.post(api_url, data=params)
         if response.ok:
             try:
                 data = response.json()
@@ -84,11 +84,11 @@ class ReadabilityShortener(object):
                                        "url")
 
     def expand(self, url):
-        api_endpoint = "http://www.readability.com/api/shortener/v1/urls/"
+        api_url = "http://www.readability.com/api/shortener/v1/urls/"
         url_list = url.split('/')
         list_length = len(url_list)
         url_id = url_list[list_length - 1]
-        api_url = api_endpoint + url_id
+        api_url = api_url + url_id
         response = requests.get(api_url)
         if response.ok:
             try:
