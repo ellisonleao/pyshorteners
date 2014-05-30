@@ -204,6 +204,7 @@ Trying to shorten an url throws an exception
     # expanding
     print "My long url is {} using generic expander".format(expander.expand(shortened_url))
 
+
 Readbility Shortener
 -----------------
 
@@ -221,6 +222,26 @@ No login or api key needed
     url = 'http://tinyurl.com/ycus76'
     print "My long url is {}".format(shortener.expand(url))
 
+
+Ow.ly Shortener
+----------------
+
+API Key needed on kwargs
+
+.. code-block:: python
+
+    from pyshorteners.shorteners  import Shortener
+
+    # For Ow.ly you HAVE to provide the login and api key
+    api_key = 'MY_API_KEY'
+
+    url = 'http://www.google.com'
+    shortener = Shortener('OwlyShortener',api_key=api_key)
+    print "My short url is {}".format(shortener.short(url))
+
+    # expanding
+    url = 'http://ow.ly/AvGsb'
+    print "My long url is {}".format(shortener.expand(url))
 
 
 QR Code
