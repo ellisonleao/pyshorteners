@@ -18,7 +18,7 @@ def show_current_apis():
     Print on shell the current API's supported
     """
     return ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Is.gd', 'Senta.la', 'Generic',
-            'QrCx']
+            'QrCx', 'Ow.ly']
 
 
 class Shortener(object):
@@ -66,78 +66,6 @@ class Shortener(object):
                       'chl={}&chs={}x{}'.format(self.shorten, width,
                                                 height))
         return qrcode_url
-
-
-class OwlyShortener(object):
-    """
-    Ow.ly url shortner api implementation
-    Located at: http://ow.ly/api-docs
-    Doesnt' need anything from the app
-    """
-
-    def short(self, url):
-        api_key = "G9e50Q4A1aiwcQUKHVeBt"
-        api_url = "http://ow.ly/api/1.1/url/shorten?apiKey=%s&longUrl=%s" % (
-                  api_key, url)
-        response = requests.get(api_url)
-        if response.ok:
-            try:
-                data = response.json()
-            except ValueError:
-                raise ShorteningErrorException("There was an error shortening"
-                                               " this url")
-            return data['results']['shortUrl']
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
-
-    def expand(self, url):
-        api_key = "G9e50Q4A1aiwcQUKHVeBt"
-        api_url = "http://ow.ly/api/1.1/url/expand?apiKey=%s&shortUrl=%s" % (
-                  api_key, url)
-        response = requests.get(api_url)
-        if response.ok:
-            try:
-                data = response.json()
-            except ValueError:
-                raise ShorteningErrorException("There was an error shortening"
-                                               " this url")
-            return data['results']['longUrl']
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
-
-class ReadabilityShortener(object):
-    """
-    Readbility url shortner api implementation
-    Located at: https://readability.com/developers/api/shortener
-    Doesnt' need anything from the app
-    """
-    api_url = "http://www.readability.com/api/shortener/v1/urls/"
-
-    def short(self, url):
-        params = {'url': url}
-        response = requests.post(self.api_url, data=params)
-        if response.ok:
-            try:
-                data = response.json()
-            except ValueError:
-                raise ShorteningErrorException("There was an error shortening"
-                                               " this url")
-            return data['meta']['rdd_url']
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
-
-    def expand(self, url):
-        url_id = url.split('/')[-1:][0]
-        api_url = self.api_url + url_id
-        response = requests.get(api_url)
-        if response.ok:
-            try:
-                data = response.json()
-            except ValueError:
-                raise ExpandingErrorException("There was an error expanding"
-                                              " this url")
-            return data['meta']['full_url']
-        raise ExpandingErrorException("There was an error expanding this url")
 
 
 class GoogleShortener(object):
@@ -357,6 +285,83 @@ class QrCxShortener(object):
         response = requests.get(url)
         if response.ok:
             return response.url
+        raise ExpandingErrorException("There was an error expanding this url")
+
+
+class OwlyShortener(object):
+    """
+    Ow.ly url shortner api implementation
+    Located at: http://ow.ly/api-docs
+    Doesnt' need anything from the app
+    """
+    api_url = 'http://ow.ly/api/1.1/url/'
+
+    def __init__(self, *args, **kwargs):
+        if not kwargs.get('api_key', False):
+            raise TypeError('api_key is missing from kwargs')
+        self.api_key = kwargs.get('api_key')
+
+    def short(self, url):
+        shorten_url = self.api_url + "shorten"
+        data = {'apiKey': self.api_key, 'longUrl': url}
+        response = requests.get(shorten_url, params=data)
+        if response.ok:
+            try:
+                data = response.json()
+            except ValueError:
+                raise ShorteningErrorException("There was an error shortening"
+                                               " this url")
+            return data['results']['shortUrl']
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
+
+    def expand(self, url):
+        expand_url = self.api_url + "expand"
+        data = {'apiKey': self.api_key, 'shortUrl': url}
+        response = requests.get(expand_url, params=data)
+        if response.ok:
+            try:
+                data = response.json()
+            except ValueError:
+                raise ShorteningErrorException("There was an error shortening"
+                                               " this url")
+            return data['results']['longUrl']
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
+
+
+class ReadabilityShortener(object):
+    """
+    Readbility url shortner api implementation
+    Located at: https://readability.com/developers/api/shortener
+    Doesnt' need anything from the app
+    """
+    api_url = "http://www.readability.com/api/shortener/v1/urls/"
+
+    def short(self, url):
+        params = {'url': url}
+        response = requests.post(self.api_url, data=params)
+        if response.ok:
+            try:
+                data = response.json()
+            except ValueError:
+                raise ShorteningErrorException("There was an error shortening"
+                                               " this url")
+            return data['meta']['rdd_url']
+        raise ShorteningErrorException("There was an error shortening this "
+                                       "url")
+
+    def expand(self, url):
+        url_id = url.split('/')[-1:][0]
+        api_url = self.api_url + url_id
+        response = requests.get(api_url)
+        if response.ok:
+            try:
+                data = response.json()
+            except ValueError:
+                raise ExpandingErrorException("There was an error expanding"
+                                              " this url")
+            return data['meta']['full_url']
         raise ExpandingErrorException("There was an error expanding this url")
 
 

@@ -10,6 +10,7 @@ except ImportError:
 from pyshorteners.shorteners import Shortener, show_current_apis
 from pyshorteners.utils import is_valid_url
 from pyshorteners.exceptions import (UnknownShortenerException,
+                                     ShorteningErrorException,
                                      ExpandingErrorException)
 
 
@@ -22,7 +23,7 @@ class ShortenersTest(unittest.TestCase):
     def test_shorteners_type(self):
         shorteners = ['GoogleShortener', 'BitlyShortener', 'TinyurlShortener',
                       'AdflyShortener', 'IsgdShortener', 'SentalaShortener',
-                      'GenericExpander']
+                      'GenericExpander', 'OwlyShortener']
         for shortener in shorteners:
             short = Shortener(shortener)
             self.assertEqual(type(short), short.__class__)
@@ -98,12 +99,41 @@ class ShortenersTest(unittest.TestCase):
         short = Shortener(engine, bitly_api_key='abc', bitly_login='123x')
         url = 'http://www.google.com/'
         short_url = 'http://bit.ly/xxx'
+
+        # test with no mock
+        with self.assertRaises(ShorteningErrorException):
+            short = short.short(url)
+
+        # mocking the results
+        short.expand = MagicMock(return_value=url)
         short.short = MagicMock(return_value='http://bit.ly/SsdA')
+
+        short.short(url)
+        short.short.assert_called_with(url)
+        short.expand(short_url)
+        short.expand.assert_called_with(short_url)
+
+        # test with no key params
+        with self.assertRaises(TypeError):
+            short = Shortener(engine).short('http://www.google.com')
+
+    def test_owly_shortener(self):
+        engine = 'OwlyShortener'
+        short = Shortener(engine, api_key='abc')
+        url = 'http://www.google.com/'
+        short_url = 'http://ow.ly/xxx'
+
+        # test with no mock
+        with self.assertRaises(ShorteningErrorException):
+            short = short.short(url)
+
+        # mocking
+        short.short = MagicMock(return_value='http://ow.ly/SsdA')
+        short.expand = MagicMock(return_value=url)
+
         short.short(url)
         short.short.assert_called_with(url)
 
-        # expanding
-        short.expand = MagicMock(return_value=url)
         short.expand(short_url)
         short.expand.assert_called_with(short_url)
 
@@ -178,7 +208,7 @@ class ShortenersTest(unittest.TestCase):
 
     def test_show_current_apis(self):
         apis = ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Is.gd', 'Senta.la',
-                'Generic', 'QrCx']
+                'Generic', 'QrCx', 'Ow.ly']
         self.assertEqual(show_current_apis(), apis)
 
     def test_none_qrcode(self):
