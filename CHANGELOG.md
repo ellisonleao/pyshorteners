@@ -1,3 +1,8 @@
+0.4
+===
+* Ow.ly shortener added
+* Readability shortener added
+
 0.3
 ===
 * Add GenericExpander
