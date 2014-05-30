@@ -114,8 +114,7 @@ class BitlyShortener(object):
     BITLY_LOGIN - Your bit.ly login user
     BITLY_API_KEY - Your bit.ly api key
     """
-    shorten_url = 'http://api.bit.ly/shorten'
-    expand_url = 'http://api.bit.ly/expand'
+    api_url = 'http://api.bit.ly/'
 
     def __init__(self, *args, **kwargs):
         if not all([kwargs.get('bitly_login', False),
@@ -126,13 +125,14 @@ class BitlyShortener(object):
         self.api_key = kwargs.get('bitly_api_key')
 
     def short(self, url):
+        shorten_url = self.api_url + 'shorten'
         params = dict(
             version="2.0.1",
             longUrl=url,
             login=self.login,
             apiKey=self.api_key,
         )
-        response = requests.post(self.shorten_url, data=params)
+        response = requests.post(shorten_url, data=params)
         if response.ok:
             data = response.json()
             if 'statusCode' in data and data['statusCode'] == 'OK':
@@ -141,13 +141,14 @@ class BitlyShortener(object):
                                        "url")
 
     def expand(self, url):
+        expand_url = self.api_url + 'expand'
         params = dict(
             version="2.0.1",
             shortUrl=url,
             login=self.login,
             apiKey=self.api_key,
         )
-        response = requests.get(self.expand_url, params=params)
+        response = requests.get(expand_url, params=params)
         if response.ok:
             data = response.json()
             if 'statusCode' in data and data['statusCode'] == 'OK':
