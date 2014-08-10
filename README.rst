@@ -1,8 +1,7 @@
-============
 Pyshorteners
 ============
 
-.. image:: https://api.travis-ci.org/ellisonleao/pyshorteners.png
+.. image:: http://img.shields.io/travis/ellisonleao/pyshorteners.svg
    :alt: Build Status
    :target: https://travis-ci.org/ellisonleao/pyshorteners
 
@@ -10,13 +9,17 @@ Pyshorteners
     :target: https://crate.io/packages/pyshorteners/
     :alt: Latest PyPI version
 
-.. image:: https://pypip.in/d/pyshorteners/badge.png
+.. image:: http://img.shields.io/pypi/dm/pyshorteners.svg
     :target: https://crate.io/packages/pyshorteners/
     :alt: Number of PyPI downloads
 
-.. image:: https://coveralls.io/repos/ellisonleao/pyshorteners/badge.png?branch=master
+.. image:: http://img.shields.io/coveralls/ellisonleao/pyshorteners.svg
     :target: https://coveralls.io/r/ellisonleao/pyshorteners?branch=master
     :alt: Coverage
+    
+.. image:: http://img.shields.io/pypi/l/pyshorteners.svg
+    :target: https://crate.io/packages/pyshorteners/
+    :alt: License
 
 Description
 ===========
