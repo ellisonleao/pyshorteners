@@ -17,6 +17,10 @@ Pyshorteners
     :target: https://coveralls.io/r/ellisonleao/pyshorteners?branch=master
     :alt: Coverage
     
+.. image:: https://landscape.io/github/ellisonleao/pyshorteners/master/landscape.svg
+   :target: https://landscape.io/github/ellisonleao/pyshorteners/master
+   :alt: Code Health
+    
 .. image:: http://img.shields.io/pypi/l/pyshorteners.svg
     :target: https://crate.io/packages/pyshorteners/
     :alt: License
