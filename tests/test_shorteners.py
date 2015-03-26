@@ -214,3 +214,4 @@ class ShortenersTest(unittest.TestCase):
     def test_none_qrcode(self):
         shortener = Shortener('TinyurlShortener')
         self.assertIsNone(shortener.qrcode())
+
