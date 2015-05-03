@@ -136,7 +136,7 @@ class BitlyShortener(object):
         if response.ok:
             data = response.json()
             if 'statusCode' in data and data['statusCode'] == 'OK':
-                return data['results'][self.url]['shortUrl']
+                return data['results'][url]['shortUrl']
         raise ShorteningErrorException("There was an error shortening this "
                                        "url")
 
