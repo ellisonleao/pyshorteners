@@ -91,9 +91,11 @@ API Key and login configs needed on kwargs
     # For Bit.ly you HAVE to provide the login and api key
     login = 'MY_LOGIN'
     api_key = 'MY_API_KEY'
+    access_token = 'MY_ACCESS_TOKEN'
 
     url = 'http://www.google.com'
-    shortener = Shortener('BitlyShortener', bitly_login=login, bitly_api_key=api_key)
+    shortener = Shortener('BitlyShortener', bitly_login=login, bitly_api_key=api_key,
+                          bitly_token=access_token)
     print "My short url is {}".format(shortener.short(url))
 
     # expanding
