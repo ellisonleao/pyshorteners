@@ -77,13 +77,13 @@ class GoogleShortener(object):
         if response.ok:
             try:
                 data = response.json()
-            except ValueError:
-                raise ShorteningErrorException("There was an error shortening"
-                                               " this url")
+            except ValueError as e:
+                raise ShorteningErrorException('There was an error shortening'
+                                               ' this url - {0}'.format(e))
             if 'id' in data:
                 return data['id']
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
+        raise ShorteningErrorException('There was an error shortening this '
+                                       'url - {0}'.format(response.content))
 
     def expand(self, url):
         params = {'shortUrl': url}
@@ -92,11 +92,11 @@ class GoogleShortener(object):
             try:
                 data = response.json()
             except ValueError:
-                raise ExpandingErrorException("There was an error expanding"
-                                              " this url")
+                raise ExpandingErrorException('There was an error expanding'
+                                              ' this url')
             if 'longUrl' in data:
                 return data['longUrl']
-        raise ExpandingErrorException("There was an error expanding this url")
+        raise ExpandingErrorException('There was an error expanding this url')
 
 
 class BitlyShortener(object):
@@ -119,7 +119,7 @@ class BitlyShortener(object):
     def short(self, url):
         shorten_url = self.api_url + 'shorten'
         params = dict(
-            version="2.0.1",
+            version='2.0.1',
             longUrl=url,
             login=self.login,
             apiKey=self.api_key,
@@ -129,13 +129,13 @@ class BitlyShortener(object):
             data = response.json()
             if 'statusCode' in data and data['statusCode'] == 'OK':
                 return data['results'][self.url]['shortUrl']
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
+        raise ShorteningErrorException('There was an error shortening this '
+                                       'url')
 
     def expand(self, url):
         expand_url = self.api_url + 'expand'
         params = dict(
-            version="2.0.1",
+            version='2.0.1',
             shortUrl=url,
             login=self.login,
             apiKey=self.api_key,
@@ -147,7 +147,7 @@ class BitlyShortener(object):
                 # get the hash key that contains the longUrl
                 hash_key = list(data['results'].keys())[0]
                 return data['results'][hash_key]['longUrl']
-        raise ExpandingErrorException("There was an error expanding this url")
+        raise ExpandingErrorException('There was an error expanding this url')
 
 
 class TinyurlShortener(object):
@@ -155,20 +155,20 @@ class TinyurlShortener(object):
     TinyURL.com shortener implementation
     No config params needed
     """
-    api_url = "http://tinyurl.com/api-create.php"
+    api_url = 'http://tinyurl.com/api-create.php'
 
     def short(self, url):
         response = requests.get(self.api_url, params=dict(url=url))
         if response.ok:
             return response.text
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
+        raise ShorteningErrorException('There was an error shortening this '
+                                       'url')
 
     def expand(self, url):
         response = requests.get(url)
         if response.ok:
             return response.url
-        raise ExpandingErrorException("There was an error expanding this url")
+        raise ExpandingErrorException('There was an error expanding this url')
 
 
 class AdflyShortener(object):
@@ -196,8 +196,8 @@ class AdflyShortener(object):
         response = requests.get(self.api_url, params=data)
         if response.ok:
             return response.text
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
+        raise ShorteningErrorException('There was an error shortening this '
+                                       'url')
 
     def expand(self, url):
         """
@@ -211,7 +211,7 @@ class IsgdShortener(object):
     Is.gd shortener implementation
     No config params needed
     """
-    api_url = "http://is.gd/create.php"
+    api_url = 'http://is.gd/create.php'
 
     def short(self, url):
         params = {
@@ -221,14 +221,14 @@ class IsgdShortener(object):
         response = requests.get(self.api_url, params=params)
         if response.ok:
             return response.text.strip()
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
+        raise ShorteningErrorException('There was an error shortening this '
+                                       'url')
 
     def expand(self, url):
         response = requests.get(url)
         if response.ok:
             return response.url
-        raise ExpandingErrorException("There was an error expanding this url")
+        raise ExpandingErrorException('There was an error expanding this url')
 
 
 class SentalaShortener(object):
@@ -236,7 +236,7 @@ class SentalaShortener(object):
     Senta.la shortener implementation
     No config params needed
     """
-    api_url = "http://senta.la/api.php"
+    api_url = 'http://senta.la/api.php'
 
     def short(self, url):
         params = {
@@ -247,14 +247,14 @@ class SentalaShortener(object):
         response = requests.get(self.api_url, params=params)
         if response.ok:
             return response.text.strip()
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
+        raise ShorteningErrorException('There was an error shortening this '
+                                       'url')
 
     def expand(self, url):
         response = requests.get(url)
         if response.ok:
             return response.url
-        raise ExpandingErrorException("There was an error expanding this url")
+        raise ExpandingErrorException('There was an error expanding this url')
 
 
 class QrCxShortener(object):
@@ -262,7 +262,7 @@ class QrCxShortener(object):
     Qr.cx shortener implementation
     No config params needed
     """
-    api_url = "http://qr.cx/api/"
+    api_url = 'http://qr.cx/api/'
 
     def short(self, url):
         params = {
@@ -271,14 +271,14 @@ class QrCxShortener(object):
         response = requests.get(self.api_url, params=params)
         if response.ok:
             return response.text.strip()
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
+        raise ShorteningErrorException('There was an error shortening this '
+                                       'url')
 
     def expand(self, url):
         response = requests.get(url)
         if response.ok:
             return response.url
-        raise ExpandingErrorException("There was an error expanding this url")
+        raise ExpandingErrorException('There was an error expanding this url')
 
 
 class OwlyShortener(object):
@@ -295,32 +295,32 @@ class OwlyShortener(object):
         self.api_key = kwargs.get('api_key')
 
     def short(self, url):
-        shorten_url = self.api_url + "shorten"
+        shorten_url = self.api_url + 'shorten'
         data = {'apiKey': self.api_key, 'longUrl': url}
         response = requests.get(shorten_url, params=data)
         if response.ok:
             try:
                 data = response.json()
             except ValueError:
-                raise ShorteningErrorException("There was an error shortening"
-                                               " this url")
+                raise ShorteningErrorException('There was an error shortening'
+                                               ' this url')
             return data['results']['shortUrl']
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
+        raise ShorteningErrorException('There was an error shortening this '
+                                       'url')
 
     def expand(self, url):
-        expand_url = self.api_url + "expand"
+        expand_url = self.api_url + 'expand'
         data = {'apiKey': self.api_key, 'shortUrl': url}
         response = requests.get(expand_url, params=data)
         if response.ok:
             try:
                 data = response.json()
             except ValueError:
-                raise ShorteningErrorException("There was an error shortening"
-                                               " this url")
+                raise ShorteningErrorException('There was an error shortening'
+                                               ' this url')
             return data['results']['longUrl']
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
+        raise ShorteningErrorException('There was an error shortening this '
+                                       'url')
 
 
 class ReadabilityShortener(object):
@@ -329,7 +329,7 @@ class ReadabilityShortener(object):
     Located at: https://readability.com/developers/api/shortener
     Doesnt' need anything from the app
     """
-    api_url = "http://www.readability.com/api/shortener/v1/urls/"
+    api_url = 'http://www.readability.com/api/shortener/v1/urls/'
 
     def short(self, url):
         params = {'url': url}
@@ -338,11 +338,11 @@ class ReadabilityShortener(object):
             try:
                 data = response.json()
             except ValueError:
-                raise ShorteningErrorException("There was an error shortening"
-                                               " this url")
+                raise ShorteningErrorException('There was an error shortening'
+                                               ' this url')
             return data['meta']['rdd_url']
-        raise ShorteningErrorException("There was an error shortening this "
-                                       "url")
+        raise ShorteningErrorException('There was an error shortening this '
+                                       'url')
 
     def expand(self, url):
         url_id = url.split('/')[-1:][0]
@@ -352,10 +352,10 @@ class ReadabilityShortener(object):
             try:
                 data = response.json()
             except ValueError:
-                raise ExpandingErrorException("There was an error expanding"
-                                              " this url")
+                raise ExpandingErrorException('There was an error expanding'
+                                              ' this url')
             return data['meta']['full_url']
-        raise ExpandingErrorException("There was an error expanding this url")
+        raise ExpandingErrorException('There was an error expanding this url')
 
 
 class GenericExpander(object):
@@ -365,10 +365,10 @@ class GenericExpander(object):
     """
 
     def short(self, url):
-        raise NotImplementedError("This class doesn't support shortening")
+        raise NotImplementedError('This class doesn\'t support shortening')
 
     def expand(self, url):
         response = requests.get(url)
         if response.ok:
             return response.url
-        raise ExpandingErrorException("There was an error expanding this url")
+        raise ExpandingErrorException('There was an error expanding this url')
