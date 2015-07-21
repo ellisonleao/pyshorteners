@@ -13,18 +13,10 @@ __all__ = ['Shortener', ]
 module = __import__('pyshorteners.shorteners')
 
 
-def show_current_apis():
-    """
-    Print on shell the current API's supported
-    """
-    return ['Goo.gl', 'Bit.ly', 'Ad.fly', 'Is.gd', 'Senta.la', 'Generic',
-            'QrCx', 'Ow.ly']
-
-
 class Shortener(object):
     api_url = None
 
-    def __init__(self, engine, **kwargs):
+    def __init__(self, engine='GenericExpander', **kwargs):
         self.engine = engine
         self.kwargs = kwargs
         self.shorten = None

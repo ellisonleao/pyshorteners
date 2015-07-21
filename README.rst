@@ -192,7 +192,7 @@ Generic expander
 ----------------
 
 No login or api key needed.
-Generic expander service, allows to expand url's generically no matter what source shortening service was used
+This is the default shortener class, which allows to expand url's generically no matter what source shortening service was used
 It works with regular url's returning the same url.
 Trying to shorten an url throws an exception
 
@@ -206,7 +206,7 @@ Trying to shorten an url throws an exception
     shortened_url = shortener.short(url)
     print "My short url is {}".format(shortened_url)
 
-    expander = Shortener('GenericExpander')
+    expander = Shortener()
 
     # expanding
     print "My long url is {} using generic expander".format(expander.expand(shortened_url))
@@ -254,4 +254,4 @@ API Key needed on kwargs
 QR Code
 =======
 
-You can have the QR Code for your url by calling the `qr_code` method after shorteing your url. 
+You can have the QR Code for your url by calling the `qr_code` method after shorteing your url.
