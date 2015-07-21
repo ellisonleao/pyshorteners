@@ -108,32 +108,35 @@ class BitlyShortener(object):
     needs on app.config:
     BITLY_LOGIN - Your bit.ly login user
     BITLY_API_KEY - Your bit.ly api key
+    BITLY_TOKEN - Your bit.ly app access token
     """
-    api_url = 'http://api.bit.ly/'
+    api_url = 'https://api-ssl.bit.ly/'
 
     def __init__(self, *args, **kwargs):
         if not all([kwargs.get('bitly_login', False),
+                    kwargs.get('bitly_token', False),
                     kwargs.get('bitly_api_key', False)]):
-            raise TypeError('bitly_login AND bitly_api_key missing from '
-                            'kwargs')
+            raise TypeError('bitly_login, bitly_api_key and bitly_token '
+                            'missing from kwargs')
         self.login = kwargs.get('bitly_login')
         self.api_key = kwargs.get('bitly_api_key')
+        self.token = kwargs.get('bitly_token')
 
     def short(self, url):
-        shorten_url = self.api_url + 'shorten'
+        shorten_url = '{}{}'.format(self.api_url, 'v3/shorten')
         params = dict(
-            version='2.0.1',
-            longUrl=url,
-            login=self.login,
-            apiKey=self.api_key,
+            uri=url,
+            x_apiKey=self.api_key,
+            x_login=self.login,
+            access_token=self.token,
         )
         response = requests.post(shorten_url, data=params)
         if response.ok:
             data = response.json()
-            if 'statusCode' in data and data['statusCode'] == 'OK':
-                return data['results'][self.url]['shortUrl']
+            if 'status_code' in data and data['status_code'] == 200:
+                return data['data']['url']
         raise ShorteningErrorException('There was an error shortening this '
-                                       'url')
+                                       'url - {0}'.format(response.content))
 
     def expand(self, url):
         expand_url = self.api_url + 'expand'
