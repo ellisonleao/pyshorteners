@@ -139,21 +139,21 @@ class BitlyShortener(object):
                                        'url - {0}'.format(response.content))
 
     def expand(self, url):
-        expand_url = self.api_url + 'expand'
+        expand_url = '{0}{1}'.format(self.api_url, 'v3/expand')
         params = dict(
-            version='2.0.1',
             shortUrl=url,
-            login=self.login,
-            apiKey=self.api_key,
+            x_login=self.login,
+            x_apiKey=self.api_key,
+            access_token=self.token
         )
         response = requests.get(expand_url, params=params)
         if response.ok:
             data = response.json()
-            if 'statusCode' in data and data['statusCode'] == 'OK':
-                # get the hash key that contains the longUrl
-                hash_key = list(data['results'].keys())[0]
-                return data['results'][hash_key]['longUrl']
-        raise ExpandingErrorException('There was an error expanding this url')
+            if 'status_code' in data and data['status_code'] == 200:
+                return data['data']['expand']['long_url']
+        raise ExpandingErrorException('There was an error expanding'
+                                      ' this url - {0}'.format(
+                                          response.content))
 
 
 class TinyurlShortener(object):
