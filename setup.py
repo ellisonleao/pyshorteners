@@ -2,14 +2,15 @@
 from __future__ import unicode_literals
 
 from setuptools import setup, find_packages
+import pyshorteners
 
 setup(
     name='pyshorteners',
-    version='0.4',
+    version=pyshorteners.__version__,
     license='MIT',
-    description=('A pure python URL shortening lib'),
+    description=('A Python lib to consume the most used shorteners APIs'),
     long_description=open('README.rst').read(),
-    author='Ellison Leão',
+    author=pyshorteners.__author__,
     author_email='ellisonleao@gmail.com',
     url='https://github.com/ellisonleao/pyshorteners/',
     platforms='any',

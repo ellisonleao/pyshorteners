@@ -1,0 +1,4 @@
+nose
+flake8
+coverage
+responses
