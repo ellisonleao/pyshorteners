@@ -150,7 +150,7 @@ class BitlyShortener(object):
         if response.ok:
             data = response.json()
             if 'status_code' in data and data['status_code'] == 200:
-                return data['data']['expand']['long_url']
+                return data['data']['expand'][0]['long_url']
         raise ExpandingErrorException('There was an error expanding'
                                       ' this url - {0}'.format(
                                           response.content))
