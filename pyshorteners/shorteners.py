@@ -62,17 +62,21 @@ class Shortener(object):
 
 class GoogleShortener(object):
     """
-    Based on:
-    https://github.com/avelino/django-googl/blob/master/googl/short.py
     Googl Shortener Implementation
-    Doesn't need anything from the app
+    Needs a API_KEY
     """
     api_url = 'https://www.googleapis.com/urlshortener/v1/url'
+
+    def __init__(self, *args, **kwargs):
+        if not kwargs.get('api_key', False):
+            raise TypeError('api_key missing from kwargs')
+        self.api_key = kwargs.get('api_key')
 
     def short(self, url):
         params = json.dumps({'longUrl': url})
         headers = {'content-type': 'application/json'}
-        response = requests.post(self.api_url, data=params,
+        url = '{}?key={}'.format(self.api_url, self.api_key)
+        response = requests.post(url, data=params,
                                  headers=headers)
         if response.ok:
             try:
