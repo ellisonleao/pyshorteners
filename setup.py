@@ -9,7 +9,7 @@ setup(
     version=pyshorteners.__version__,
     license='MIT',
     description=('A Python lib to consume the most used shorteners APIs'),
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
     author=pyshorteners.__author__,
     author_email='ellisonleao@gmail.com',
     url='https://github.com/ellisonleao/pyshorteners/',
