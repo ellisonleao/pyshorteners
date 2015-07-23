@@ -23,7 +23,7 @@ class Shortener(object):
         self.expanded = None
 
         try:
-            getattr(module.shorteners, self.engine)
+            self._class = getattr(module.shorteners, self.engine)
         except AttributeError:
             raise UnknownShortenerException('Please enter a valid shortener.')
 
@@ -35,19 +35,15 @@ class Shortener(object):
             raise ValueError('Please enter a valid url')
         self.expanded = url
 
-        # Get the right short function based on self.engine
-        _class = getattr(module.shorteners, self.engine)
-        self.shorten = _class(**self.kwargs).short(url)
+        self.shorten = self._class(**self.kwargs).short(url)
         return self.shorten
 
     def expand(self, url=None):
         if url and not is_valid_url(url):
             raise ValueError('Please enter a valid url')
 
-        # Get the right short function based on self.engine
-        _class = getattr(module.shorteners, self.engine)
         if url:
-            self.expanded = _class(**self.kwargs).expand(url)
+            self.expanded = self._class(**self.kwargs).expand(url)
         return self.expanded
 
     def qrcode(self, width=120, height=120):
