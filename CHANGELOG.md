@@ -1,3 +1,9 @@
+0.4.2
+=====
+
+* Goo.gl now needs an `api_key` in order to short and expand urls
+* Bit.ly now needs an extra `bitly_token` in order to short and expand urls
+
 0.4
 ===
 * Ow.ly shortener added
