@@ -67,7 +67,7 @@ class GoogleShortener(object):
     """
     api_url = 'https://www.googleapis.com/urlshortener/v1/url'
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         if not kwargs.get('api_key', False):
             raise TypeError('api_key missing from kwargs')
         self.api_key = kwargs.get('api_key')
@@ -118,7 +118,7 @@ class BitlyShortener(object):
     """
     api_url = 'https://api-ssl.bit.ly/'
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         if not all([kwargs.get('bitly_login', False),
                     kwargs.get('bitly_token', False),
                     kwargs.get('bitly_api_key', False)]):
