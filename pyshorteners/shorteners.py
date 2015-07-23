@@ -91,7 +91,9 @@ class GoogleShortener(object):
 
     def expand(self, url):
         params = {'shortUrl': url}
-        response = requests.get(self.api_url, params=params)
+        url = '{}?key={}'.format(self.api_url, self.api_key)
+        response = requests.get(url, params=params)
+
         if response.ok:
             try:
                 data = response.json()
