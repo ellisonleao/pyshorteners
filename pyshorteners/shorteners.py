@@ -192,7 +192,7 @@ class AdflyShortener(object):
     """
     api_url = 'http://api.adf.ly/api.php'
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         if not all([kwargs.get('key', False), kwargs.get('uid', False)]):
             raise TypeError('Please input the key and uid value')
         self.key = kwargs.get('key')
@@ -308,7 +308,7 @@ class OwlyShortener(object):
     """
     api_url = 'http://ow.ly/api/1.1/url/'
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         if not kwargs.get('api_key', False):
             raise TypeError('api_key is missing from kwargs')
         self.api_key = kwargs.get('api_key')
@@ -379,6 +379,7 @@ class ReadabilityShortener(object):
         raise ExpandingErrorException('There was an error expanding this url')
 
 
+# pylint: disable=R0921
 class GenericExpander(object):
     """
     Adding this generic expander, it doesn't shorten url's, just tries to
