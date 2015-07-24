@@ -5,7 +5,7 @@ from pyshorteners.shorteners import Shortener
 def hello():
     short = Shortener('TinyurlShortener')
     print """
-Hello World! Testing www.google.com
+Hello World! Testing TinyurlShortener with www.google.com URL
 Shorten url: {}
 Expanded: {}
     """.format(short.short('http://www.google.com'),

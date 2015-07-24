@@ -1,7 +1,0 @@
-[run]
-source = pyshorteners
-
-[report]
-omit =
-    */python?.?/*
-    */site-packages/nose/*

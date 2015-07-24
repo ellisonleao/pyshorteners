@@ -159,28 +159,6 @@ url = 'http://qr.cx/XsC'
 print "My long url is {}".format(shortener.expand(url))
 ```
 
-## Generic expander
-
-No login or api key needed. This is the default shortener class, which
-allows to expand url's generically no matter what source shortening
-service was used It works with regular url's returning the same url.
-Trying to shorten an url throws an exception
-
-```python
-from pyshorteners.shorteners import Shortener
-
-# Another service is used to shorten to simulate an already shortened url
-url = 'http://www.google.com'
-shortener = Shortener('GoogleShortener')
-shortened_url = shortener.short(url)
-print "My short url is {}".format(shortened_url)
-
-expander = Shortener()
-
-### expanding
-print "My long url is {} using generic expander".format(expander.expand(shortened_url))
-```
-
 ## Readbility Shortener
 
 No login or api key needed

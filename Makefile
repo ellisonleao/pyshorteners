@@ -1,7 +1,7 @@
 
 .PHONY: test
 test: pep8
-	python runtests.py
+	py.test --cov pyshorteners
 
 .PHONY: pep8
 pep8:

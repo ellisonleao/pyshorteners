@@ -1,6 +1,0 @@
-requests
-flake8
-nose
-tox
-mock
-coverage
