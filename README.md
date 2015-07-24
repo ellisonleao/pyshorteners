@@ -7,10 +7,8 @@ Status](http://img.shields.io/travis/ellisonleao/pyshorteners.svg)](https://trav
 version](https://pypip.in/v/pyshorteners/badge.png)](https://crate.io/packages/pyshorteners/)
 [![Number of PyPI
 downloads](http://img.shields.io/pypi/dm/pyshorteners.svg)](https://crate.io/packages/pyshorteners/)
-[![Coverage](http://img.shields.io/coveralls/ellisonleao/pyshorteners.svg)](https://coveralls.io/r/ellisonleao/pyshorteners?branch=master)
 [![Code
 Health](https://landscape.io/github/ellisonleao/pyshorteners/master/landscape.svg)](https://landscape.io/github/ellisonleao/pyshorteners/master)
-[![License](http://img.shields.io/pypi/l/pyshorteners.svg)](https://crate.io/packages/pyshorteners/)
 
 # Description
 
