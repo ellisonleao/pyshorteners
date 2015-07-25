@@ -30,9 +30,7 @@ Installing with the cloned/downloaded code
 
 # Testing
 
-```
-make test
-```
+	make test
 
 # Usage
 
@@ -169,7 +167,7 @@ shortener = Shortener('ReadbilityShortener')
 print "My short url is {}".format(shortener.short(url))
 
 ### expanding
-url = 'http://tinyurl.com/ycus76'
+url = 'http://rdd.me/ycus76'
 print "My long url is {}".format(shortener.expand(url))
 ```
 
@@ -196,3 +194,18 @@ print "My long url is {}".format(shortener.expand(url))
 
 You can have the QR Code for your url by calling the `qr_code` method
 after shortening your url.
+
+```python
+from pyshorteners.shorteners  import Shortener
+
+url = 'http://www.google.com'
+shortener = Shortener('TinyurlShortener')
+shortener.short(url)
+print shortener.qrcode()
+
+Output
+http://chart.apis.google.com/chart?cht=qr&chl=http://tinyurl.com/1c2&chs=120x120
+```
+Image:
+
+![](http://chart.apis.google.com/chart?cht=qr&chl=http://tinyurl.com/1c2&chs=120x120)
