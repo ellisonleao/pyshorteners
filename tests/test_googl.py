@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import json
-import urllib
+try:
+    from urllib import urlencode
+except ImportError:
+    from urllib.parse import urlencode
 
 from pyshorteners.shorteners import Shortener
 from pyshorteners.exceptions import (ShorteningErrorException,
@@ -31,7 +34,7 @@ def test_googl_short_method():
 @responses.activate
 def test_googl_short_method_bad_response():
     # mock response
-    body = dict(id=short_url)
+    body = "{'badid': 'test'}"
 
     url = '{}?key={}'.format(s.api_url, api_key)
     responses.add(responses.POST, url, body=body, match_querystring=True)
@@ -44,7 +47,7 @@ def test_googl_short_method_bad_response():
 def test_googl_expand_method():
     # mock response
     body = json.dumps(dict(longUrl=expanded))
-    param = urllib.urlencode({
+    param = urlencode({
         'key': api_key,
         'shortUrl': short_url,
     })
@@ -58,8 +61,8 @@ def test_googl_expand_method():
 @responses.activate
 def test_googl_expand_method_bad_response():
     # mock response
-    body = dict(longUrl=expanded)
-    param = urllib.urlencode({
+    body = "{'badkey': 'test'}"
+    param = urlencode({
         'key': api_key,
         'shortUrl': short_url,
     })

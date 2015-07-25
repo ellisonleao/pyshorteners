@@ -22,7 +22,7 @@ class GoogleShortener(BaseShortener):
     def short(self, url):
         params = json.dumps({'longUrl': url})
         headers = {'content-type': 'application/json'}
-        url = '{}?key={}'.format(self.api_url, self.api_key)
+        url = '{0}?key={1}'.format(self.api_url, self.api_key)
         response = requests.post(url, data=params,
                                  headers=headers)
         if response.ok:
@@ -38,9 +38,8 @@ class GoogleShortener(BaseShortener):
 
     def expand(self, url):
         params = {'shortUrl': url}
-        url = '{}?key={}'.format(self.api_url, self.api_key)
+        url = '{0}?key={1}'.format(self.api_url, self.api_key)
         response = requests.get(url, params=params)
-        print response.url
 
         if response.ok:
             try:

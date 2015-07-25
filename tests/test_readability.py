@@ -32,9 +32,7 @@ def test_readability_short_method():
 @responses.activate
 def test_readability_short_method_bad_response():
     # mock responses
-    body = {
-        'meta': {'rdd_url': shorten}
-    }
+    body = "{'mmmeta': {'rdd_url': shorten}}"
     responses.add(responses.POST, s.api_url, body=body)
 
     with pytest.raises(ShorteningErrorException):
@@ -59,9 +57,7 @@ def test_readbility_expand_method():
 @responses.activate
 def test_readbility_expand_method_bad_response():
     # mock responses
-    body = {
-        'meta': {'full_url': expanded}
-    }
+    body = "{'mmmmeta': {'full_url': expanded}}"
     mock_url = '{0}{1}'.format(s.api_url, 'test')
     responses.add(responses.GET, mock_url, body=body)
 

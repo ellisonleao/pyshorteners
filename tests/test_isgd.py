@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
-import urllib
+try:
+    from urllib import urlencode
+except ImportError:
+    from urllib.parse import urlencode
 
 from pyshorteners.shorteners import Shortener
 
@@ -14,7 +17,7 @@ expanded = 'http://www.test.com'
 @responses.activate
 def test_isgd_short_method():
     # mock responses
-    params = urllib.urlencode({
+    params = urlencode({
         'format': 'simple',
         'url': expanded,
     })

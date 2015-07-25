@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
-import urllib
+try:
+    from urllib import urlencode
+except ImportError:
+    from urllib.parse import urlencode
+
 import json
 
 from pyshorteners.shorteners import Shortener
@@ -17,7 +21,7 @@ expanded = 'http://www.test.com'
 @responses.activate
 def test_owly_short_method():
     # mock responses
-    params = urllib.urlencode({
+    params = urlencode({
         'apiKey': 'TEST_KEY',
         'longUrl': expanded,
     })
@@ -38,13 +42,11 @@ def test_owly_short_method():
 @responses.activate
 def test_owly_short_method_bad_response():
     # mock responses
-    params = urllib.urlencode({
+    params = urlencode({
         'apiKey': 'TEST_KEY',
         'longUrl': expanded,
     })
-    body = {
-        'results': {'shortUrl': shorten}
-    }
+    body = "{'rerrsults': {'shortUrl': shorten}}"
     mock_url = '{}shorten?{}'.format(s.api_url, params)
     responses.add(responses.GET, mock_url, body=body,
                   match_querystring=True)
@@ -56,7 +58,7 @@ def test_owly_short_method_bad_response():
 @responses.activate
 def test_owly_expand_method():
     # mock responses
-    params = urllib.urlencode({
+    params = urlencode({
         'apiKey': 'TEST_KEY',
         'shortUrl': shorten,
     })
