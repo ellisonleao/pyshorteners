@@ -1,3 +1,11 @@
+0.5
+===
+
+* tests running now with pytest
+* fix some py3 issues
+* Remove GenericExpander in favor of new BaseShortener class
+* All shorteners now must inherit from BaseShortener
+
 0.4.2
 =====
 
