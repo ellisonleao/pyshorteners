@@ -9,6 +9,8 @@ version](https://pypip.in/v/pyshorteners/badge.png)](https://crate.io/packages/p
 downloads](http://img.shields.io/pypi/dm/pyshorteners.svg)](https://crate.io/packages/pyshorteners/)
 [![Code
 Health](https://landscape.io/github/ellisonleao/pyshorteners/master/landscape.svg)](https://landscape.io/github/ellisonleao/pyshorteners/master)
+[![codecov.io](http://codecov.io/github/ellisonleao/pyshorteners/coverage.svg?branch=master)](http://codecov.io/github/ellisonleao/pyshorteners?branch=master)
+
 
 # Description
 
