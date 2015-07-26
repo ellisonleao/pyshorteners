@@ -3,8 +3,6 @@ pyshorteners
 
 [![Build
 Status](http://img.shields.io/travis/ellisonleao/pyshorteners.svg)](https://travis-ci.org/ellisonleao/pyshorteners)
-[![Latest PyPI
-version](https://pypip.in/v/pyshorteners/badge.png)](https://crate.io/packages/pyshorteners/)
 [![Number of PyPI
 downloads](http://img.shields.io/pypi/dm/pyshorteners.svg)](https://crate.io/packages/pyshorteners/)
 [![Code
