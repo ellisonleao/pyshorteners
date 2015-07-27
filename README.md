@@ -42,7 +42,7 @@ Shortener is the default engine if no engine param is passed.
 `api_key` needed on kwargs
 
 ```python
-from pyshorteners.shorteners  import Shortener
+from pyshorteners import Shortener
 
 url = 'http://www.google.com'
 api_key = 'YOUR_API_KEY'
@@ -60,7 +60,7 @@ print "My long url is {}".format(shortener.expand(url))
 kwargs
 
 ```python
-from pyshorteners.shorteners  import Shortener
+from pyshorteners import Shortener
 
 # For Bit.ly you HAVE to provide the login and api key
 login = 'MY_LOGIN'
@@ -82,7 +82,7 @@ print "My long url is {}".format(shortener.expand(url))
 No login or api key needed
 
 ```python
-from pyshorteners.shorteners  import Shortener
+from pyshorteners import Shortener
 
 url = 'http://www.google.com'
 shortener = Shortener('TinyurlShortener')
@@ -99,7 +99,7 @@ print "My long url is {}".format(shortener.expand(url))
 No expanding for this shortener
 
 ```python
-from pyshorteners.shorteners  import Shortener
+from pyshorteners import Shortener
 
 url = 'http://www.google.com'
 shortener = Shortener('AdflyShortener')
@@ -112,7 +112,7 @@ print "My short url is {}".format(shortener.short(url, uid=UID,
 No login or api key needed
 
 ```python
-from pyshorteners.shorteners  import Shortener
+from pyshorteners import Shortener
 
 url = 'http://www.google.com'
 shortener = Shortener('IsgdShortener')
@@ -128,7 +128,7 @@ print "My long url is {}".format(shortener.expand(url))
 No login or api key needed
 
 ```python
-from pyshorteners.shorteners  import Shortener
+from pyshorteners import Shortener
 
 url = 'http://www.google.com'
 shortener = Shortener('SentalaShortener')
@@ -144,7 +144,7 @@ print "My long url is {}".format(shortener.expand(url))
 No login or api key needed
 
 ````python
-from pyshorteners.shorteners import Shortener
+from pyshorteners import Shortener
 
 url = 'http://www.google.com'
 shortener = Shortener('QrCxShortener')
@@ -160,7 +160,7 @@ print "My long url is {}".format(shortener.expand(url))
 No login or api key needed
 
 ```python
-from pyshorteners.shorteners  import Shortener
+from pyshorteners import Shortener
 
 url = 'http://blog.arc90.com/2010/11/30/silence-is-golden/'
 shortener = Shortener('ReadbilityShortener')
@@ -176,7 +176,7 @@ print "My long url is {}".format(shortener.expand(url))
 `api_key` needed on kwargs
 
 ```python
-from pyshorteners.shorteners  import Shortener
+from pyshorteners import Shortener
 
 # For Ow.ly you HAVE to provide the login and api key
 api_key = 'MY_API_KEY'
@@ -196,7 +196,7 @@ You can have the QR Code for your url by calling the `qr_code` method
 after shortening your url.
 
 ```python
-from pyshorteners.shorteners  import Shortener
+from pyshorteners import Shortener
 
 url = 'http://www.google.com'
 shortener = Shortener('TinyurlShortener')
