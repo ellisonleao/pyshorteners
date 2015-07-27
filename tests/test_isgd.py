@@ -5,9 +5,11 @@ try:
 except ImportError:
     from urllib.parse import urlencode
 
-from pyshorteners.shorteners import Shortener
+from pyshorteners import Shortener
+from pyshorteners.exceptions import ShorteningErrorException
 
 import responses
+import pytest
 
 s = Shortener('IsgdShortener')
 shorten = 'http://is.gd/test'
@@ -30,3 +32,18 @@ def test_isgd_short_method():
     assert shorten_result == shorten
     assert s.shorten == shorten_result
     assert s.expanded == expanded
+
+
+@responses.activate
+def test_isgd_short_method_bad_response():
+    # mock responses
+    params = urlencode({
+        'format': 'simple',
+        'url': expanded,
+    })
+    mock_url = '{}?{}'.format(s.api_url, params)
+    responses.add(responses.GET, mock_url, body=shorten, status=400,
+                  match_querystring=True)
+
+    with pytest.raises(ShorteningErrorException):
+        s.short(expanded)

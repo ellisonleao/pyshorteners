@@ -71,3 +71,13 @@ def test_googl_expand_method_bad_response():
 
     with pytest.raises(ExpandingErrorException):
         s.expand(short_url)
+
+
+def test_google_bad_params():
+    s = Shortener('GoogleShortener')
+
+    with pytest.raises(TypeError):
+        s.short(expanded)
+
+    with pytest.raises(TypeError):
+        s.expand(expanded)

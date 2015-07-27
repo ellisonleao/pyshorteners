@@ -34,9 +34,10 @@ class ReadabilityShortener(BaseShortener):
         if response.ok:
             try:
                 data = response.json()
-            except ValueError:
+            except ValueError as e:
                 raise ExpandingErrorException('There was an error expanding'
-                                              ' this url - {0}'.format(
-                                                  response.content))
+                                              ' this url - {0}'.format(e))
             return data['meta']['full_url']
-        raise ExpandingErrorException('There was an error expanding this url')
+        raise ExpandingErrorException('There was an error expanding'
+                                      ' this url - {0}'.format(
+                                          response.content))

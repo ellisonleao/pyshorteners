@@ -7,8 +7,9 @@ except ImportError:
 
 import json
 
-from pyshorteners.shorteners import Shortener
-from pyshorteners.exceptions import ShorteningErrorException
+from pyshorteners import Shortener
+from pyshorteners.exceptions import (ShorteningErrorException,
+                                     ExpandingErrorException)
 
 import responses
 import pytest
@@ -56,6 +57,22 @@ def test_owly_short_method_bad_response():
 
 
 @responses.activate
+def test_owly_short_method_bad_response_status():
+    # mock responses
+    params = urlencode({
+        'apiKey': 'TEST_KEY',
+        'longUrl': expanded,
+    })
+    body = "{'rerrsults': {'shortUrl': shorten}}"
+    mock_url = '{}shorten?{}'.format(s.api_url, params)
+    responses.add(responses.GET, mock_url, body=body, status=400,
+                  match_querystring=True)
+
+    with pytest.raises(ShorteningErrorException):
+        s.short(expanded)
+
+
+@responses.activate
 def test_owly_expand_method():
     # mock responses
     params = urlencode({
@@ -75,13 +92,23 @@ def test_owly_expand_method():
     assert s.expanded == expanded
 
 
+@responses.activate
+def test_owly_expand_method_bad_response():
+    # mock responses
+    params = urlencode({'apiKey': 'TEST_KEY', 'shortUrl': shorten})
+    body = "{'results': {'longUrl': ''}}"
+    mock_url = '{}expand?{}'.format(s.api_url, params)
+    responses.add(responses.GET, mock_url, body=body,
+                  match_querystring=True)
+
+    with pytest.raises(ExpandingErrorException):
+        s.expand(shorten)
+
+
 def test_owly_bad_key():
     b = Shortener('OwlyShortener')
     with pytest.raises(TypeError):
         b.short('http://www.test.com')
 
-
-def test_owly_exception():
-    b = Shortener('OwlyShortener', api_key='TK')
-    with pytest.raises(ShorteningErrorException):
-        b.short('http://www.test.com')
+    with pytest.raises(TypeError):
+        b.expand('http://www.test.com')

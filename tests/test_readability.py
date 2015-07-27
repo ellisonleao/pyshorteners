@@ -57,9 +57,20 @@ def test_readbility_expand_method():
 @responses.activate
 def test_readbility_expand_method_bad_response():
     # mock responses
-    body = "{'mmmmeta': {'full_url': expanded}}"
+    body = "{'meta': {'full_url': }}"
     mock_url = '{0}{1}'.format(s.api_url, 'test')
     responses.add(responses.GET, mock_url, body=body)
+
+    with pytest.raises(ExpandingErrorException):
+        s.expand(shorten)
+
+
+@responses.activate
+def test_readbility_expand_method_bad_response_status():
+    # mock responses
+    body = "{'meta': {'full_url': }}"
+    mock_url = '{0}{1}'.format(s.api_url, 'test')
+    responses.add(responses.GET, mock_url, body=body, status=400)
 
     with pytest.raises(ExpandingErrorException):
         s.expand(shorten)

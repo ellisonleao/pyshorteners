@@ -5,7 +5,7 @@ Located at: http://ow.ly/api-docs
 Doesnt' need anything from the app
 """
 from .base import BaseShortener
-from ..exceptions import ShorteningErrorException
+from ..exceptions import ShorteningErrorException, ExpandingErrorException
 
 import requests
 
@@ -40,8 +40,8 @@ class OwlyShortener(BaseShortener):
             try:
                 data = response.json()
             except ValueError:
-                raise ShorteningErrorException('There was an error shortening'
-                                               ' this url')
+                raise ExpandingErrorException('There was an error shortening'
+                                              ' this url')
             return data['results']['longUrl']
-        raise ShorteningErrorException('There was an error shortening this '
-                                       'url - {0}'.format(response.content))
+        raise ExpandingErrorException('There was an error shortening this '
+                                      'url - {0}'.format(response.content))

@@ -10,6 +10,7 @@ from .sentala import SentalaShortener
 from .qrcx import QrCxShortener
 from .owly import OwlyShortener
 from .readability import ReadabilityShortener
+from .awsm import AwsmShortener
 
 from ..utils import is_valid_url
 from ..exceptions import UnknownShortenerException
