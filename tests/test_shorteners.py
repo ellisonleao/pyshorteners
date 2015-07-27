@@ -1,8 +1,8 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
+from pyshorteners import Shortener
 from pyshorteners.utils import is_valid_url
-from pyshorteners.shorteners import Shortener
 from pyshorteners.exceptions import UnknownShortenerException
 
 import pytest

@@ -25,8 +25,13 @@ class AwsmShortener(BaseShortener):
     @staticmethod
     def _generate_random_tool():
         import string
+        try:
+            letters = string.letters
+        except AttributeError:
+            letters = string.ascii_letters
+
         import random
-        return ''.join(random.choice(string.letters + string.digits)
+        return ''.join(random.choice(letters + string.digits)
                        for _ in range(4))
 
     def short(self, url):
