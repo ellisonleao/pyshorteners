@@ -1,7 +1,7 @@
 # coding: utf-8
 from __future__ import print_function
 
-from pyshorteners.shorteners import Shortener
+from pyshorteners import Shortener
 
 
 def hello():
