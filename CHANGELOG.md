@@ -1,3 +1,7 @@
+0.5.1
+=====
+* add import shortcut
+
 0.5
 ===
 
