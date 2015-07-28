@@ -7,7 +7,7 @@ import pyshorteners
 setup(
     name='pyshorteners',
     version=pyshorteners.__version__,
-    license='MIT',
+    license=pyshorteners.__license__,
     description=('A Python lib to consume the most used shorteners APIs'),
     long_description=open('README.md').read(),
     author=pyshorteners.__author__,

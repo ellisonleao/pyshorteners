@@ -46,7 +46,7 @@ def test_awsm_short_method_bad_response():
 
 
 @responses.activate
-def test_googl_expand_method_bad_response():
+def test_awsm_expand_method_bad_response():
     responses.add(responses.GET, short_url, body='', status=400,
                   match_querystring=True)
 
