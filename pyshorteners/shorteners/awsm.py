@@ -6,8 +6,6 @@ Optional Params
 `tool` - String
 `channel` - 'twitter' 'facebook'. 'twitter' default value
 """
-import requests
-
 from ..exceptions import ShorteningErrorException
 from .base import BaseShortener
 
@@ -43,7 +41,7 @@ class AwsmShortener(BaseShortener):
             'channel': self.channel
         }
         url = '{0}url.txt'.format(self.api_url)
-        response = requests.post(url, params=params)
+        response = self._post(url, params=params)
         if response.ok:
             return response.text
         raise ShorteningErrorException('There was an error shortening '

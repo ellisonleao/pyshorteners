@@ -6,8 +6,6 @@ Needs api key and uid
 from ..exceptions import ShorteningErrorException
 from .base import BaseShortener
 
-import requests
-
 
 class AdflyShortener(BaseShortener):
     api_url = 'http://api.adf.ly/api.php'
@@ -27,7 +25,7 @@ class AdflyShortener(BaseShortener):
             'uid': self.uid,
             'url': url,
         }
-        response = requests.get(self.api_url, params=data)
+        response = self._get(self.api_url, params=data)
         if response.ok:
             return response.text
         raise ShorteningErrorException('There was an error shortening this '

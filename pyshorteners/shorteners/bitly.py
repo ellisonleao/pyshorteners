@@ -9,8 +9,6 @@ BITLY_TOKEN - Your bit.ly app access token
 from ..exceptions import ShorteningErrorException, ExpandingErrorException
 from .base import BaseShortener
 
-import requests
-
 
 class BitlyShortener(BaseShortener):
     api_url = 'https://api-ssl.bit.ly/'
@@ -33,7 +31,7 @@ class BitlyShortener(BaseShortener):
             x_login=self.login,
             access_token=self.token,
         )
-        response = requests.post(shorten_url, data=params)
+        response = self._post(shorten_url, data=params)
         if response.ok:
             data = response.json()
             if 'status_code' in data and data['status_code'] == 200:
@@ -49,7 +47,7 @@ class BitlyShortener(BaseShortener):
             x_apiKey=self.api_key,
             access_token=self.token
         )
-        response = requests.get(expand_url, params=params)
+        response = self._get(expand_url, params=params)
         if response.ok:
             data = response.json()
             if 'status_code' in data and data['status_code'] == 200:

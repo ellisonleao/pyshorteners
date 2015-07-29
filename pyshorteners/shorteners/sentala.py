@@ -6,8 +6,6 @@ No config params needed
 from .base import BaseShortener
 from ..exceptions import ShorteningErrorException
 
-import requests
-
 
 class SentalaShortener(BaseShortener):
     api_url = 'http://senta.la/api.php'
@@ -18,7 +16,7 @@ class SentalaShortener(BaseShortener):
             'format': 'simple',
             'url': url,
         }
-        response = requests.get(self.api_url, params=params)
+        response = self._get(self.api_url, params=params)
         if response.ok:
             return response.text.strip()
         raise ShorteningErrorException('There was an error shortening this '

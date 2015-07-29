@@ -5,8 +5,6 @@ Needs a API_KEY
 """
 import json
 
-import requests
-
 from ..exceptions import ShorteningErrorException, ExpandingErrorException
 from .base import BaseShortener
 
@@ -23,8 +21,7 @@ class GoogleShortener(BaseShortener):
         params = json.dumps({'longUrl': url})
         headers = {'content-type': 'application/json'}
         url = '{0}?key={1}'.format(self.api_url, self.api_key)
-        response = requests.post(url, data=params,
-                                 headers=headers)
+        response = self._post(url, data=params, headers=headers)
         if response.ok:
             try:
                 data = response.json()
@@ -39,7 +36,7 @@ class GoogleShortener(BaseShortener):
     def expand(self, url):
         params = {'shortUrl': url}
         url = '{0}?key={1}'.format(self.api_url, self.api_key)
-        response = requests.get(url, params=params)
+        response = self._get(url, params=params)
 
         if response.ok:
             try:

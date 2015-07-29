@@ -15,9 +15,6 @@ from .awsm import AwsmShortener
 from ..utils import is_valid_url
 from ..exceptions import UnknownShortenerException
 
-__all__ = ['Shortener', ]
-module = __import__('pyshorteners.shorteners')
-
 
 class Shortener(object):
     """
@@ -30,6 +27,7 @@ class Shortener(object):
         self.shorten = None
         self.expanded = None
 
+        module = __import__('pyshorteners.shorteners')
         try:
             self._class = getattr(module.shorteners, self.engine)
         except AttributeError:

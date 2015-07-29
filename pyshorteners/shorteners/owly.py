@@ -7,8 +7,6 @@ Doesnt' need anything from the app
 from .base import BaseShortener
 from ..exceptions import ShorteningErrorException, ExpandingErrorException
 
-import requests
-
 
 class OwlyShortener(BaseShortener):
     api_url = 'http://ow.ly/api/1.1/url/'
@@ -21,7 +19,7 @@ class OwlyShortener(BaseShortener):
     def short(self, url):
         shorten_url = '{0}{1}'.format(self.api_url, 'shorten')
         data = {'apiKey': self.api_key, 'longUrl': url}
-        response = requests.get(shorten_url, params=data)
+        response = self._get(shorten_url, params=data)
         if response.ok:
             try:
                 data = response.json()
@@ -35,7 +33,7 @@ class OwlyShortener(BaseShortener):
     def expand(self, url):
         expand_url = '{0}{1}'.format(self.api_url, 'expand')
         data = {'apiKey': self.api_key, 'shortUrl': url}
-        response = requests.get(expand_url, params=data)
+        response = self._get(expand_url, params=data)
         if response.ok:
             try:
                 data = response.json()

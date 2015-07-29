@@ -7,15 +7,13 @@ Doesnt' need anything from the app
 from .base import BaseShortener
 from ..exceptions import ShorteningErrorException, ExpandingErrorException
 
-import requests
-
 
 class ReadabilityShortener(BaseShortener):
     api_url = 'http://www.readability.com/api/shortener/v1/urls/'
 
     def short(self, url):
         params = {'url': url}
-        response = requests.post(self.api_url, data=params)
+        response = self._post(self.api_url, data=params)
         if response.ok:
             try:
                 data = response.json()
@@ -30,7 +28,7 @@ class ReadabilityShortener(BaseShortener):
     def expand(self, url):
         url_id = url.split('/')[-1]
         api_url = '{0}{1}'.format(self.api_url, url_id)
-        response = requests.get(api_url)
+        response = self._get(api_url)
         if response.ok:
             try:
                 data = response.json()
