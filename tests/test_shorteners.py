@@ -43,6 +43,19 @@ def test_is_valid_url():
         url = 'www.11.xom'
         s.expand(url)
 
+
+def test_short_method_bad_url():
+    s = Shortener()
+    with pytest.raises(ValueError):
+        s.short('test.com')
+
+
+def test_expand_method_bad_url():
+    s = Shortener()
+    with pytest.raises(ValueError):
+        s.expand('test.com')
+
+
 def test_none_qrcode():
     shortener = Shortener('TinyurlShortener')
     assert shortener.qrcode() is None
@@ -59,3 +72,24 @@ def test_qrcode():
     s.short(url)
     # flake8: noqa
     assert s.qrcode() == 'http://chart.apis.google.com/chart?cht=qr&chl={0}&chs=120x120'.format(shorten)
+
+
+def test_total_clicks_no_url_or_shorten():
+    s = Shortener()
+
+    with pytest.raises(TypeError):
+        s.total_clicks()
+
+def test_total_clicks_bad_url():
+    s = Shortener()
+
+    with pytest.raises(ValueError):
+        s.total_clicks('test.com')
+
+
+def test_shortener_debug_enabled():
+    s = Shortener(debug=True)
+    s.short('http://www.test.com')
+    s.expand('http://small.com')
+    with pytest.raises(NotImplementedError):
+        s.total_clicks('http://small.com')

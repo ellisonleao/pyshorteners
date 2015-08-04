@@ -44,6 +44,19 @@ def test_googl_short_method_bad_response():
 
 
 @responses.activate
+def test_googl_short_method_bad_status_code():
+    # mock response
+    body = "{'bad': 'test'}"
+
+    url = '{}?key={}'.format(s.api_url, api_key)
+    responses.add(responses.POST, url, body=body, match_querystring=True,
+                  status=400)
+
+    with pytest.raises(ShorteningErrorException):
+        s.short(expanded)
+
+
+@responses.activate
 def test_googl_expand_method():
     # mock response
     body = json.dumps(dict(longUrl=expanded))
@@ -68,6 +81,22 @@ def test_googl_expand_method_bad_response():
     })
     url = '{}?{}'.format(s.api_url, param)
     responses.add(responses.GET, url, body=body, match_querystring=True)
+
+    with pytest.raises(ExpandingErrorException):
+        s.expand(short_url)
+
+
+@responses.activate
+def test_googl_expand_method_bad_status_code():
+    # mock response
+    body = "{'badkey': 'test'}"
+    param = urlencode({
+        'key': api_key,
+        'shortUrl': short_url,
+    })
+    url = '{}?{}'.format(s.api_url, param)
+    responses.add(responses.GET, url, body=body, status=400,
+                  match_querystring=True)
 
     with pytest.raises(ExpandingErrorException):
         s.expand(short_url)

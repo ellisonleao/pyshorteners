@@ -105,6 +105,19 @@ def test_owly_expand_method_bad_response():
         s.expand(shorten)
 
 
+@responses.activate
+def test_owly_expand_method_bad_status_code():
+    # mock responses
+    params = urlencode({'apiKey': 'TEST_KEY', 'shortUrl': shorten})
+    body = "{'results': {'longUrl': ''}}"
+    mock_url = '{}expand?{}'.format(s.api_url, params)
+    responses.add(responses.GET, mock_url, body=body, status=400,
+                  match_querystring=True)
+
+    with pytest.raises(ExpandingErrorException):
+        s.expand(shorten)
+
+
 def test_owly_bad_key():
     b = Shortener('OwlyShortener')
     with pytest.raises(TypeError):

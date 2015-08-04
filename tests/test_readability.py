@@ -40,6 +40,16 @@ def test_readability_short_method_bad_response():
 
 
 @responses.activate
+def test_readability_short_method_bad_status_code():
+    # mock responses
+    body = "{'mmmeta': {'rdd_url': shorten}}"
+    responses.add(responses.POST, s.api_url, body=body, status=400)
+
+    with pytest.raises(ShorteningErrorException):
+        s.short(expanded)
+
+
+@responses.activate
 def test_readbility_expand_method():
     # mock responses
     body = json.dumps({
