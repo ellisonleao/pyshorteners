@@ -17,6 +17,13 @@ def test_base_short_method():
     assert shorten_result == expanded
 
 
+def test_base_total_clicks():
+    s = Shortener()
+    s.shorten = 'http://test.com'
+    with pytest.raises(NotImplementedError):
+        s.total_clicks()
+
+
 @responses.activate
 def test_expand_method_bad_response():
     responses.add(responses.GET, short, body='', status=400)

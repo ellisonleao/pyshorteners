@@ -43,15 +43,26 @@ class BitlyShortener(BaseShortener):
         expand_url = '{0}{1}'.format(self.api_url, 'v3/expand')
         params = dict(
             shortUrl=url,
-            x_login=self.login,
-            x_apiKey=self.api_key,
-            access_token=self.token
+            access_token=self.token,
+            format='txt'
         )
         response = self._get(expand_url, params=params)
         if response.ok:
-            data = response.json()
-            if 'status_code' in data and data['status_code'] == 200:
-                return data['data']['expand'][0]['long_url']
+            return response.text.strip()
         raise ExpandingErrorException('There was an error expanding'
                                       ' this url - {0}'.format(
                                           response.content))
+
+    def total_clicks(self, url=None):
+        url = url or self.shorten
+        total_clicks = 0
+        clicks_url = '{0}{1}'.format(self.api_url, 'v3/link/clicks')
+        params = dict(
+            link=url,
+            access_token=self.token,
+            format='txt'
+        )
+        response = self._get(clicks_url, params=params)
+        if response.ok:
+            total_clicks = int(response.text)
+        return total_clicks

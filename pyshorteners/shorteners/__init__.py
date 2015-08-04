@@ -52,6 +52,21 @@ class Shortener(object):
     def api_url(self):
         return self._class.api_url
 
+    def total_clicks(self, url=None):
+        if self.debug:
+            logger.info('total_clicks property called with url:'
+                        ' {0}'.format(url))
+
+        url = url or self.shorten
+        if not url:
+            raise TypeError('You need to pass an url or have an already '
+                            'shortened one')
+
+        if not is_valid_url(url):
+            raise ValueError('Please enter a valid url')
+
+        return self._class(**self.kwargs).total_clicks(url)
+
     def short(self, url):
         if self.debug:
             logger.info('Short method called with url: {0}'.format(url))

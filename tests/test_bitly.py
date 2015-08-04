@@ -94,3 +94,56 @@ def test_bitly_bad_keys():
 
     with pytest.raises(TypeError):
         s.expand(shorten)
+
+
+@responses.activate
+def test_bitly_total_clicks():
+    body = '20'
+    params = urlencode(dict(
+        link=shorten,
+        access_token=token,
+        format='txt'
+    ))
+    url = '{0}{1}?{2}'.format(s.api_url, 'v3/link/clicks', params)
+    responses.add(responses.GET, url, body=body, match_querystring=True)
+
+    # shorten mock
+    body = shorten
+    params = urlencode(dict(
+        uri=expanded,
+        access_token=token,
+        format='txt'
+    ))
+    url = '{0}{1}?{2}'.format(s.api_url, 'v3/shorten', params)
+    responses.add(responses.GET, url, body=body, match_querystring=True)
+
+    s.short(expanded)
+    assert s.total_clicks() == 20
+    assert s.total_clicks(shorten) == 20
+
+
+@responses.activate
+def test_bitly_total_clicks_bad_response():
+    body = '20'
+    params = urlencode(dict(
+        link=shorten,
+        access_token=token,
+        format='txt'
+    ))
+    url = '{0}{1}?{2}'.format(s.api_url, 'v3/link/clicks', params)
+    responses.add(responses.GET, url, body=body, status=400,
+                  match_querystring=True)
+
+    # shorten mock
+    body = shorten
+    params = urlencode(dict(
+        uri=expanded,
+        access_token=token,
+        format='txt'
+    ))
+    url = '{0}{1}?{2}'.format(s.api_url, 'v3/shorten', params)
+    responses.add(responses.GET, url, body=body, match_querystring=True)
+
+    s.short(expanded)
+    assert s.total_clicks() == 0
+    assert s.total_clicks(shorten) == 0

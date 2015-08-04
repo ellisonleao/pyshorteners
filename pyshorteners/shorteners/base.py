@@ -28,3 +28,6 @@ class BaseShortener(object):
         raise ExpandingErrorException('There was an error expanding '
                                       'this url - {0}'.format(
                                           response.content))
+
+    def total_clicks(self, url=None):
+        raise NotImplementedError()
