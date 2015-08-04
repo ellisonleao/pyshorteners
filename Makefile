@@ -8,7 +8,7 @@ pep8:
 	@flake8 * --ignore=F403,F401 --exclude=requirements.txt,*.pyc,*.md,Makefile,LICENSE,*.in,*.rst,*.ini,docs,requirements_test.txt
 
 .PHONY: clean-pyc clean-build clean
-clean: clean-build clean-pyc clean-test
+clean: clean-build clean-pyc
 
 clean-build:
 	rm -fr build/
@@ -21,7 +21,3 @@ clean-pyc:
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -fr {} +
-
-clean-test:
-	rm -f .coverage
-	rm -fr htmlcov/

@@ -23,12 +23,12 @@ class AwsmShortener(BaseShortener):
     @staticmethod
     def _generate_random_tool():
         import string
+        import random
         try:
             letters = string.letters
         except AttributeError:
             letters = string.ascii_letters
 
-        import random
         return ''.join(random.choice(letters + string.digits)
                        for _ in range(4))
 

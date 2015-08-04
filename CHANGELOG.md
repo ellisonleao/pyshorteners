@@ -1,3 +1,9 @@
+0.5.2
+=====
+* Fix import shortcut
+* add `_get` and `_post` helper methods on BaseShortener
+
+
 0.5.1
 =====
 * add import shortcut
