@@ -1,4 +1,6 @@
 # encoding: utf-8
+import logging
+
 # flake8: noqa
 from .base import BaseShortener
 from .googl import GoogleShortener
@@ -15,6 +17,15 @@ from .awsm import AwsmShortener
 from ..utils import is_valid_url
 from ..exceptions import UnknownShortenerException
 
+# Log Configs
+logger = logging.getLogger('pyshorteners')
+logger.setLevel(logging.DEBUG)
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter("%(asctime)s - %(name)s -  %(message)s")
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
 
 class Shortener(object):
     """
@@ -26,6 +37,7 @@ class Shortener(object):
         self.kwargs = kwargs
         self.shorten = None
         self.expanded = None
+        self.debug = kwargs.pop('debug', False)
 
         module = __import__('pyshorteners.shorteners')
         try:
@@ -41,19 +53,29 @@ class Shortener(object):
         return self._class.api_url
 
     def short(self, url):
+        if self.debug:
+            logger.info('Short method called with url: {0}'.format(url))
+
         if not is_valid_url(url):
             raise ValueError('Please enter a valid url')
         self.expanded = url
 
         self.shorten = self._class(**self.kwargs).short(url)
+        if self.debug:
+            logger.info('Shorten url result: {0}'.format(self.shorten))
         return self.shorten
 
     def expand(self, url=None):
+        if self.debug:
+            logger.info('Expand method called with url: {0}'.format(url))
+
         if url and not is_valid_url(url):
             raise ValueError('Please enter a valid url')
 
         if url:
             self.expanded = self._class(**self.kwargs).expand(url)
+        if self.debug:
+            logger.info('Expanded url result: {0}'.format(self.expanded))
         return self.expanded
 
     def qrcode(self, width=120, height=120):
