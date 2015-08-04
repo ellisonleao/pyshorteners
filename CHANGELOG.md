@@ -1,3 +1,13 @@
+0.5.3
+=====
+* add `debug` kwarg on Shortener class
+* implemented `total_clicks` method on BaseShortener class.
+* implemented `total_clicks` on BitlyShortener
+* change BitlyShortener `short` and `expand` to use GET requests
+* BitlyShortener only requires `bitly_token` for shortening/expading/analytics
+* 100% Coverage :smiley:
+
+
 0.5.2
 =====
 * Fix import shortcut
