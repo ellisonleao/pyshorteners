@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import json
+try:
+    from urllib import urlencode
+except ImportError:
+    from urllib.parse import urlencode
 
 from pyshorteners import Shortener
 from pyshorteners.exceptions import (ShorteningErrorException,
@@ -9,8 +13,8 @@ from pyshorteners.exceptions import (ShorteningErrorException,
 import responses
 import pytest
 
-s = Shortener('BitlyShortener', bitly_api_key='TEST_KEY',
-              bitly_token='TEST_TOKEN', bitly_login='TEST_LOGIN')
+token = 'TEST_TOKEN'
+s = Shortener('BitlyShortener', bitly_token=token)
 shorten = 'http://bit.ly/test'
 expanded = 'http://www.test.com'
 
@@ -18,12 +22,15 @@ expanded = 'http://www.test.com'
 @responses.activate
 def test_bitly_short_method():
     # mock responses
-    body = json.dumps({
-        'status_code': 200,
-        'data': {'url': shorten}
-    })
-    url = '{0}{1}'.format(s.api_url, 'v3/shorten')
-    responses.add(responses.POST, url, body=body)
+    body = shorten
+    params = urlencode(dict(
+        uri=expanded,
+        access_token=token,
+        format='txt'
+    ))
+
+    url = '{0}{1}?{2}'.format(s.api_url, 'v3/shorten', params)
+    responses.add(responses.GET, url, body=body, match_querystring=True)
 
     shorten_result = s.short(expanded)
 
@@ -35,12 +42,15 @@ def test_bitly_short_method():
 @responses.activate
 def test_bitly_short_method_bad_response():
     # mock responses
-    body = json.dumps({
-        'status_code': 200,
-        'data': {'url': shorten}
-    })
-    url = '{0}{1}'.format(s.api_url, 'v3/shorten')
-    responses.add(responses.POST, url, body=body, status=400)
+    body = shorten
+    params = urlencode(dict(
+        uri=expanded,
+        access_token=token,
+        format='txt'
+    ))
+    url = '{0}{1}?{2}'.format(s.api_url, 'v3/shorten', params)
+    responses.add(responses.GET, url, body=body, status=400,
+                  match_querystring=True)
 
     with pytest.raises(ShorteningErrorException):
         s.short(expanded)
@@ -49,38 +59,29 @@ def test_bitly_short_method_bad_response():
 @responses.activate
 def test_bitly_expand_method():
     # mock responses
-    body = json.dumps({
-        'status_code': 200,
-        'data': {'expand': [{'long_url': expanded}]}
-    })
-    url = '{0}{1}'.format(s.api_url, 'v3/expand')
-    responses.add(responses.GET, url, body=body)
+    body = expanded
+    params = urlencode(dict(
+        shortUrl=shorten,
+        access_token=token,
+        format='txt'
+    ))
+    url = '{0}{1}?{2}'.format(s.api_url, 'v3/expand', params)
+    responses.add(responses.GET, url, body=body, match_querystring=True)
     assert s.expand(shorten) == expanded
 
 
 @responses.activate
 def test_bitly_expand_method_bad_response():
     # mock responses
-    body = json.dumps({
-        'status_code': 400,
-        'data': {'expand': [{'long_url': expanded}]}
-    })
-    url = '{0}{1}'.format(s.api_url, 'v3/expand')
-    responses.add(responses.GET, url, body=body)
-
-    with pytest.raises(ExpandingErrorException):
-        s.expand(shorten)
-
-
-@responses.activate
-def test_bitly_expand_method_bad_status_code():
-    # mock responses
-    body = json.dumps({
-        'status_code': 200,
-        'data': {'expand': [{'long_url': expanded}]}
-    })
-    url = '{0}{1}'.format(s.api_url, 'v3/expand')
-    responses.add(responses.GET, url, body=body, status=400)
+    body = expanded
+    params = urlencode(dict(
+        shortUrl=shorten,
+        access_token=token,
+        format='txt'
+    ))
+    url = '{0}{1}?{2}'.format(s.api_url, 'v3/expand', params)
+    responses.add(responses.GET, url, body=body, status=400,
+                  match_querystring=True)
 
     with pytest.raises(ExpandingErrorException):
         s.expand(shorten)

@@ -2,9 +2,8 @@
 """
 Bit.ly shortener Implementation
 needs on app.config:
-BITLY_LOGIN - Your bit.ly login user
-BITLY_API_KEY - Your bit.ly api key
 BITLY_TOKEN - Your bit.ly app access token
+How to get an access token: http://dev.bitly.com/authentication.html
 """
 from ..exceptions import ShorteningErrorException, ExpandingErrorException
 from .base import BaseShortener
@@ -14,28 +13,20 @@ class BitlyShortener(BaseShortener):
     api_url = 'https://api-ssl.bit.ly/'
 
     def __init__(self, **kwargs):
-        if not all([kwargs.get('bitly_login', False),
-                    kwargs.get('bitly_token', False),
-                    kwargs.get('bitly_api_key', False)]):
-            raise TypeError('bitly_login, bitly_api_key and bitly_token '
-                            'missing from kwargs')
-        self.login = kwargs.get('bitly_login')
-        self.api_key = kwargs.get('bitly_api_key')
+        if not kwargs.get('bitly_token', False):
+            raise TypeError('bitly_token missing from kwargs')
         self.token = kwargs.get('bitly_token')
 
     def short(self, url):
-        shorten_url = '{}{}'.format(self.api_url, 'v3/shorten')
+        shorten_url = '{0}{1}'.format(self.api_url, 'v3/shorten')
         params = dict(
             uri=url,
-            x_apiKey=self.api_key,
-            x_login=self.login,
             access_token=self.token,
+            format='txt'
         )
-        response = self._post(shorten_url, data=params)
+        response = self._get(shorten_url, params=params)
         if response.ok:
-            data = response.json()
-            if 'status_code' in data and data['status_code'] == 200:
-                return data['data']['url']
+            return response.text.strip()
         raise ShorteningErrorException('There was an error shortening this '
                                        'url - {0}'.format(response.content))
 
