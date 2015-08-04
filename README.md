@@ -56,8 +56,7 @@ print "My long url is {}".format(shortener.expand(url))
 
 ## Bit.ly Shortener
 
-`bitly_api_key`, `bitly_api_key` and `bitly_api_token` configs needed on
-kwargs
+`bitly_api_token` needed on kwargs
 
 ```python
 from pyshorteners import Shortener
@@ -68,8 +67,7 @@ api_key = 'MY_API_KEY'
 access_token = 'MY_ACCESS_TOKEN'
 
 url = 'http://www.google.com'
-shortener = Shortener('BitlyShortener', bitly_login=login, bitly_api_key=api_key,
-                      bitly_token=access_token)
+shortener = Shortener('BitlyShortener', bitly_token=access_token)
 print "My short url is {}".format(shortener.short(url))
 
 ### expanding
