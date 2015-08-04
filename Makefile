@@ -1,7 +1,7 @@
 
 .PHONY: test
 test: pep8
-	py.test --cov pyshorteners
+	py.test --cov-report term-missing --cov pyshorteners
 
 .PHONY: pep8
 pep8:
