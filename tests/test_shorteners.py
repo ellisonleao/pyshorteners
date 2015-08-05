@@ -86,8 +86,13 @@ def test_total_clicks_bad_url():
     with pytest.raises(ValueError):
         s.total_clicks('test.com')
 
-
+@responses.activate
 def test_shortener_debug_enabled():
+    url = 'http://www.test.com'
+    small = 'http://small.com'
+    responses.add(responses.GET, url, body=small)
+    responses.add(responses.GET, small, body=url)
+
     s = Shortener(debug=True)
     s.short('http://www.test.com')
     s.expand('http://small.com')
