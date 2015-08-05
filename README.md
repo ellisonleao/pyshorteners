@@ -205,3 +205,28 @@ http://chart.apis.google.com/chart?cht=qr&chl=http://tinyurl.com/1c2&chs=120x120
 Image:
 
 ![](http://chart.apis.google.com/chart?cht=qr&chl=http://tinyurl.com/1c2&chs=120x120)
+
+
+# Creating your own Shortener
+
+To create your shortener handler you will need to:
+
+1. Create a new file on shorteners/ folder (e.g shorteners/myshort.py)
+2. Create a MyShortShortener class implementing `short`, `expand` and optionally `total_clicks` methods:
+
+```python
+class MyShortShortener(BaseShortener):
+	api_url = 'http://myapishortener.com/api'
+
+	def short(self, url):
+		pass
+
+	def expand(self, url):
+		pass
+
+	def total_clicks(self, url):
+		pass
+```
+3. If you need to pass extra keyword args like a `token` or `api_key` , you will need to handle it on the `__init__()` method.
+4. Import this shortener on `shorteners/__init__.py` file
+5. Send a PR with a test included
