@@ -186,6 +186,16 @@ url = 'http://ow.ly/AvGsb'
 print "My long url is {}".format(shortener.expand(url))
 ```
 
+## Osdb.link Shortener
+
+```python
+from pyshorteners import Shortener
+
+url = 'http://www.google.com'
+shortener = Shortener('OsdbShortener')
+print "My short url is {}".format(shortener.short(url))
+```
+
 # Generating QR Code
 
 You can have the QR Code for your url by calling the `qr_code` method
