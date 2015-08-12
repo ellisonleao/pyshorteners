@@ -10,7 +10,7 @@ from ..exceptions import ShorteningErrorException
 
 class OsdbShortener(BaseShortener):
     api_url = 'http://osdb.link/'
-    p = re.compile(ur'(http:\/\/osdb.link\/[a-zA-Z0-9]+)')
+    p = re.compile(r'(http:\/\/osdb.link\/[a-zA-Z0-9]+)')
 
     def _parse(self, response):
         """
