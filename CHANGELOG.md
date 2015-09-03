@@ -1,3 +1,7 @@
+0.5.5
+=====
+* Add timeout kwarg #9
+
 0.5.3
 =====
 * add `debug` kwarg on Shortener class
