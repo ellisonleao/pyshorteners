@@ -76,6 +76,9 @@ class Shortener(object):
             raise ValueError('Please enter a valid url')
         self.expanded = url
 
+        if not self.kwargs.get('timeout'):
+            self.kwargs['timeout'] = 0.5
+
         self.shorten = self._class(**self.kwargs).short(url)
         if self.debug:
             logger.info('Shorten url result: {0}'.format(self.shorten))
@@ -89,6 +92,8 @@ class Shortener(object):
             raise ValueError('Please enter a valid url')
 
         if url:
+            if not self.kwargs.get('timeout'):
+                self.kwargs['timeout'] = 0.5
             self.expanded = self._class(**self.kwargs).expand(url)
         if self.debug:
             logger.info('Expanded url result: {0}'.format(self.expanded))

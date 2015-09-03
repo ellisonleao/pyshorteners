@@ -16,6 +16,7 @@ class AdflyShortener(BaseShortener):
         self.key = kwargs.get('key')
         self.uid = kwargs.get('uid')
         self.type = kwargs.get('type', 'int')
+        super(AdflyShortener, self).__init__(**kwargs)
 
     def short(self, url):
         data = {

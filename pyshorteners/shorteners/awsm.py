@@ -19,6 +19,7 @@ class AwsmShortener(BaseShortener):
         self.api_key = kwargs.get('api_key')
         self.tool = kwargs.get('tool', AwsmShortener._generate_random_tool())
         self.channel = kwargs.get('channel', 'twitter')
+        super(AwsmShortener, self).__init__(**kwargs)
 
     @staticmethod
     def _generate_random_tool():

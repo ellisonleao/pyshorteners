@@ -16,6 +16,7 @@ class GoogleShortener(BaseShortener):
         if not kwargs.get('api_key', False):
             raise TypeError('api_key missing from kwargs')
         self.api_key = kwargs.get('api_key')
+        super(GoogleShortener, self).__init__(**kwargs)
 
     def short(self, url):
         params = json.dumps({'longUrl': url})

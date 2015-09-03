@@ -8,14 +8,20 @@ class BaseShortener(object):
     """
     api_url = None
 
-    def _get(self, url, params=None):
+    def __init__(self, **kwargs):
         import requests
-        response = requests.get(url, params=params)
+        self.kwargs = kwargs
+        self.requests = requests
+
+    def _get(self, url, params=None):
+        response = self.requests.get(url, params=params,
+                                     timeout=self.kwargs['timeout'])
         return response
 
     def _post(self, url, data=None, params=None, headers=None):
-        import requests
-        response = requests.post(url, data=data, params=params, headers=None)
+        response = self.requests.post(url, data=data, params=params,
+                                      headers=None,
+                                      timeout=self.kwargs['timeout'])
         return response
 
     def short(self, url):

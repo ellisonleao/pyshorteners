@@ -15,6 +15,7 @@ class OwlyShortener(BaseShortener):
         if not kwargs.get('api_key', False):
             raise TypeError('api_key is missing from kwargs')
         self.api_key = kwargs.get('api_key')
+        super(OwlyShortener, self).__init__(**kwargs)
 
     def short(self, url):
         shorten_url = '{0}{1}'.format(self.api_url, 'shorten')

@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 from pyshorteners import Shortener
+from pyshorteners.shorteners.base import BaseShortener
 from pyshorteners.exceptions import ExpandingErrorException
 
 import responses
@@ -31,3 +32,14 @@ def test_expand_method_bad_response():
 
     with pytest.raises(ExpandingErrorException):
         s.expand(short)
+
+
+def test_timeout():
+    import requests
+    b = BaseShortener(timeout=2)
+    assert b.kwargs['timeout'] == 2
+
+    # flake8: noqa
+    # https://github.com/kennethreitz/requests/blob/master/test_requests.py#L46-L48
+    with pytest.raises(requests.exceptions.Timeout):
+        b.expand('http://10.255.255.1')
