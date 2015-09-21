@@ -25,5 +25,4 @@ setup(
     ],
     install_requires=['requests', ],
     packages=find_packages(exclude=['*tests*']),
-    namespace_packages=['pyshorteners'],
 )
