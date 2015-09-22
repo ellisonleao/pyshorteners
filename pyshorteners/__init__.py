@@ -4,4 +4,7 @@ __author__ = 'Ellison Leão'
 __license__ = 'MIT'
 
 # flake8: noqa
-from shorteners import Shortener
+try:
+    from shorteners import Shortener
+except ImportError:
+    from .shorteners import Shortener
