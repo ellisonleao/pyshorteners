@@ -1,4 +1,7 @@
 # encoding: utf-8
+
+from abc import ABCMeta, abstractmethod
+
 from ..exceptions import ExpandingErrorException
 
 
@@ -6,6 +9,9 @@ class BaseShortener(object):
     """
     Base class for all Shorteners
     """
+
+    __metaclass__ = ABCMeta
+
     api_url = None
 
     def __init__(self, **kwargs):
@@ -24,8 +30,9 @@ class BaseShortener(object):
                                       timeout=self.kwargs['timeout'])
         return response
 
+    @abstractmethod
     def short(self, url):
-        return url
+        raise NotImplementedError()
 
     def expand(self, url):
         response = self._get(url)
@@ -37,3 +44,15 @@ class BaseShortener(object):
 
     def total_clicks(self, url=None):
         raise NotImplementedError()
+
+    @classmethod
+    def __subclasshook__(cls, C):
+        if cls is BaseShortener:
+            if all(hasattr(C, name) for name in ('short', 'expand')):
+                return True
+        return NotImplemented
+
+
+class SimpleShortener(BaseShortener):
+    def short(self, url):
+        return url

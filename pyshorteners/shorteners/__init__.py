@@ -2,7 +2,7 @@
 import logging
 
 # flake8: noqa
-from .base import BaseShortener
+from .base import SimpleShortener
 from .googl import GoogleShortener
 from .bitly import BitlyShortener
 from .tinyurl import TinyurlShortener
@@ -33,7 +33,7 @@ class Shortener(object):
     Factory class for all Shorteners
     """
 
-    def __init__(self, engine='BaseShortener', **kwargs):
+    def __init__(self, engine='SimpleShortener', **kwargs):
         self.engine = engine
         self.kwargs = kwargs
         self.shorten = None
