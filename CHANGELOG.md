@@ -1,3 +1,7 @@
+0.5.8
+=====
+* Fix goog.gl shortener
+
 0.5.5
 =====
 * Add timeout kwarg #9
