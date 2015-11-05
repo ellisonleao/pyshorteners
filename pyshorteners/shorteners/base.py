@@ -20,7 +20,7 @@ class BaseShortener(object):
 
     def _post(self, url, data=None, params=None, headers=None):
         response = self.requests.post(url, data=data, params=params,
-                                      headers=None,
+                                      headers=headers,
                                       timeout=self.kwargs['timeout'])
         return response
 
