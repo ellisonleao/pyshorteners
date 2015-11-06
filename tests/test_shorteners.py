@@ -1,7 +1,7 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
-from pyshorteners import Shortener
+from pyshorteners import Shortener, shorteners
 from pyshorteners.utils import is_valid_url
 from pyshorteners.exceptions import UnknownShortenerException
 
@@ -12,10 +12,11 @@ module = __import__('pyshorteners.shorteners')
 
 
 def test_shorteners_type():
-    shorteners = ['GoogleShortener', 'BitlyShortener', 'TinyurlShortener',
-                  'AdflyShortener', 'IsgdShortener', 'SentalaShortener',
-                  'OwlyShortener', 'AwsmShortener']
-    for shortener in shorteners:
+    shorteners_list = [shorteners.GOOGLE_SHORTENER, shorteners.BITLY_SHORTENER,
+                  shorteners.TINYURL_SHORTENER, shorteners.ADFLY_SHORTENER,
+                  shorteners.ISGD_SHORTENER, shorteners.SENTALA_SHORTENER,
+                  shorteners.OWLY_SHORTENER, shorteners.AWSM_SHORTENER]
+    for shortener in shorteners_list:
         short = Shortener(shortener)
         assert type(short) == short.__class__
 
@@ -33,7 +34,7 @@ def test_is_valid_url():
     assert is_valid_url(good)
     assert not is_valid_url(bad)
 
-    s = Shortener('TinyurlShortener')
+    s = Shortener(shorteners.TINYURL_SHORTENER)
     with pytest.raises(ValueError):
         url = 'http://12'
         s.short(url)
@@ -57,13 +58,13 @@ def test_expand_method_bad_url():
 
 
 def test_none_qrcode():
-    shortener = Shortener('TinyurlShortener')
+    shortener = Shortener(shorteners.TINYURL_SHORTENER)
     assert shortener.qrcode() is None
 
 
 @responses.activate
 def test_qrcode():
-    s = Shortener('TinyurlShortener')
+    s = Shortener(shorteners.TINYURL_SHORTENER)
     url = 'http://www.google.com'
     mock_url = '{}?url={}'.format(s.api_url, url)
     shorten = 'http://tinyurl.com/test'
