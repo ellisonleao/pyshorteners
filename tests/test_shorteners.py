@@ -101,3 +101,12 @@ def test_shortener_debug_enabled():
     s.expand('http://small.com')
     with pytest.raises(NotImplementedError):
         s.total_clicks('http://small.com')
+
+def test_custom_shortener():
+    class MyShortenerWithBlackJackAndHookers(BaseShortener):
+        def short(self, url):
+            return url
+
+    s = Shortener(MyShortenerWithBlackJackAndHookers)
+    url = 'http://www.test.com'
+    assert s.short(url) == url

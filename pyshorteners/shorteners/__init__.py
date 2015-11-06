@@ -1,8 +1,9 @@
 # encoding: utf-8
 import logging
+import inspect
 
 # flake8: noqa
-from .base import SimpleShortener
+from .base import SimpleShortener, BaseShortener
 from .googl import GoogleShortener
 from .bitly import BitlyShortener
 from .tinyurl import TinyurlShortener
@@ -47,17 +48,23 @@ class Shortener(object):
     """
 
     def __init__(self, engine=SIMPLE_SHORTENER, **kwargs):
-        self.engine = engine
         self.kwargs = kwargs
         self.shorten = None
         self.expanded = None
         self.debug = kwargs.pop('debug', False)
 
-        module = __import__('pyshorteners.shorteners')
-        try:
-            self._class = getattr(module.shorteners, self.engine)
-        except AttributeError:
-            raise UnknownShortenerException('Please enter a valid shortener.')
+        if inspect.isclass(engine) and issubclass(engine, BaseShortener):
+            self.engine = engine.__name__
+            self._class = engine
+        else:
+            self.engine = engine
+            module = __import__('pyshorteners.shorteners')
+            try:
+                self._class = getattr(module.shorteners, self.engine)
+            except AttributeError:
+                raise UnknownShortenerException(
+                          'Please enter a valid shortener.'
+                        )
 
         for key, item in list(kwargs.items()):
             setattr(self, key, item)
