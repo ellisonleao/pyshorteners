@@ -32,7 +32,7 @@ class BaseShortener(object):
 
     @abstractmethod
     def short(self, url):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     def expand(self, url):
         response = self._get(url)
@@ -43,7 +43,7 @@ class BaseShortener(object):
                                           response.content))
 
     def total_clicks(self, url=None):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @classmethod
     def __subclasshook__(cls, C):

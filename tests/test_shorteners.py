@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from pyshorteners import Shortener, shorteners
 from pyshorteners.utils import is_valid_url
 from pyshorteners.exceptions import UnknownShortenerException
+from pyshorteners.shorteners.base import BaseShortener
 
 import pytest
 import responses
@@ -18,6 +19,7 @@ def test_shorteners_type():
                   shorteners.OWLY_SHORTENER, shorteners.AWSM_SHORTENER]
     for shortener in shorteners_list:
         short = Shortener(shortener)
+        assert issubclass(short._class, BaseShortener)
         assert type(short) == short.__class__
 
 
