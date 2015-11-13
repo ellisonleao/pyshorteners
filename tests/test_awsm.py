@@ -5,7 +5,7 @@ try:
 except ImportError:
     from urllib.parse import urlencode
 
-from pyshorteners import Shortener
+from pyshorteners import Shortener, shorteners
 from pyshorteners.shorteners import AwsmShortener
 from pyshorteners.exceptions import (ShorteningErrorException,
                                      ExpandingErrorException)
@@ -14,7 +14,7 @@ import responses
 import pytest
 
 api_key = 'FAKE_KEY'
-s = Shortener('AwsmShortener', api_key=api_key, tool='abcde')
+s = Shortener(shorteners.AWSM_SHORTENER, api_key=api_key, tool='abcde')
 short_url = 'http://aw.sm/rjf0oI'
 expanded = 'http://www.test.com'
 
@@ -60,7 +60,7 @@ def test_generate_tool_staticmethod():
 
 
 def test_bad_key():
-    s = Shortener('AwsmShortener')
+    s = Shortener(shorteners.AWSM_SHORTENER)
 
     with pytest.raises(TypeError):
         s.short(expanded)

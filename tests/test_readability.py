@@ -2,14 +2,14 @@
 # encoding: utf-8
 import json
 
-from pyshorteners.shorteners import Shortener
+from pyshorteners import Shortener, shorteners
 from pyshorteners.exceptions import (ShorteningErrorException,
                                      ExpandingErrorException)
 
 import responses
 import pytest
 
-s = Shortener('ReadabilityShortener')
+s = Shortener(shorteners.READABILITY_SHORTENER)
 shorten = 'http://rdd.me/test'
 expanded = 'http://www.test.com'
 

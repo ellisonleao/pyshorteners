@@ -6,7 +6,7 @@ try:
 except ImportError:
     from urllib.parse import urlencode
 
-from pyshorteners import Shortener
+from pyshorteners import Shortener, shorteners
 from pyshorteners.exceptions import (ShorteningErrorException,
                                      ExpandingErrorException)
 
@@ -14,7 +14,7 @@ import responses
 import pytest
 
 token = 'TEST_TOKEN'
-s = Shortener('BitlyShortener', bitly_token=token)
+s = Shortener(shorteners.BITLY_SHORTENER, bitly_token=token)
 shorten = 'http://bit.ly/test'
 expanded = 'http://www.test.com'
 
@@ -88,7 +88,7 @@ def test_bitly_expand_method_bad_response():
 
 
 def test_bitly_bad_keys():
-    s = Shortener('BitlyShortener')
+    s = Shortener(shorteners.BITLY_SHORTENER)
 
     with pytest.raises(TypeError):
         s.short(expanded)

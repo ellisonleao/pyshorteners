@@ -240,3 +240,19 @@ class MyShortShortener(BaseShortener):
 3. If you need to pass extra keyword args like a `token` or `api_key` , you will need to handle it on the `__init__()` method.
 4. Import this shortener on `shorteners/__init__.py` file
 5. Send a PR with a test included
+
+# Passing a custom Shortener dynamically
+
+You can create custome shorteners by implementig a class that provides
+a mandatory `short` method:
+
+```python
+
+class MyCustomShortenerClass(object):
+
+	def short(self, url):
+		pass
+
+shortener = Shortener(engine=MyCustomShortenerClass) # That's it)
+```
+

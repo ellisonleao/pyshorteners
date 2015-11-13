@@ -1,8 +1,9 @@
 # encoding: utf-8
 import logging
+import inspect
 
 # flake8: noqa
-from .base import BaseShortener
+from .base import SimpleShortener, BaseShortener
 from .googl import GoogleShortener
 from .bitly import BitlyShortener
 from .tinyurl import TinyurlShortener
@@ -27,24 +28,43 @@ formatter = logging.Formatter("%(asctime)s - %(name)s -  %(message)s")
 ch.setFormatter(formatter)
 logger.addHandler(ch)
 
+SIMPLE_SHORTENER = 'SimpleShortener'
+GOOGLE_SHORTENER = 'GoogleShortener'
+BITLY_SHORTENER = 'BitlyShortener'
+TINYURL_SHORTENER = 'TinyurlShortener'
+ADFLY_SHORTENER = 'AdflyShortener'
+ISGD_SHORTENER = 'IsgdShortener'
+SENTALA_SHORTENER = 'SentalaShortener'
+QRCX_SHORTENER = 'QrCxShortener'
+OWLY_SHORTENER = 'OwlyShortener'
+READABILITY_SHORTENER = 'ReadabilityShortener'
+AWSM_SHORTENER = 'AwsmShortener'
+OSDB_SHORTENER = 'OsdbShortener'
+
 
 class Shortener(object):
     """
     Factory class for all Shorteners
     """
 
-    def __init__(self, engine='BaseShortener', **kwargs):
-        self.engine = engine
+    def __init__(self, engine=SIMPLE_SHORTENER, **kwargs):
         self.kwargs = kwargs
         self.shorten = None
         self.expanded = None
         self.debug = kwargs.pop('debug', False)
 
-        module = __import__('pyshorteners.shorteners')
-        try:
-            self._class = getattr(module.shorteners, self.engine)
-        except AttributeError:
-            raise UnknownShortenerException('Please enter a valid shortener.')
+        if inspect.isclass(engine) and issubclass(engine, BaseShortener):
+            self.engine = engine.__name__
+            self._class = engine
+        else:
+            self.engine = engine
+            module = __import__('pyshorteners.shorteners')
+            try:
+                self._class = getattr(module.shorteners, self.engine)
+            except AttributeError:
+                raise UnknownShortenerException(
+                          'Please enter a valid shortener.'
+                        )
 
         for key, item in list(kwargs.items()):
             setattr(self, key, item)
