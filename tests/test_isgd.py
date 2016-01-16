@@ -5,13 +5,13 @@ try:
 except ImportError:
     from urllib.parse import urlencode
 
-from pyshorteners import Shortener, shorteners
+from pyshorteners import Shortener, Shorteners
 from pyshorteners.exceptions import ShorteningErrorException
 
 import responses
 import pytest
 
-s = Shortener(shorteners.ISGD_SHORTENER)
+s = Shortener(Shorteners.ISGD)
 shorten = 'http://is.gd/test'
 expanded = 'http://www.test.com'
 

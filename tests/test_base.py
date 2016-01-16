@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 from pyshorteners import Shortener
-from pyshorteners.shorteners.base import SimpleShortener
+from pyshorteners.shorteners.base import BaseShortener, SimpleShortener
 from pyshorteners.exceptions import ExpandingErrorException
 
 import responses
@@ -43,3 +43,7 @@ def test_timeout():
     # https://github.com/kennethreitz/requests/blob/master/test_requests.py#L46-L48
     with pytest.raises(requests.exceptions.Timeout):
         b.expand('http://10.255.255.1')
+
+def test_base_verify_arg():
+    s = Shortener(verify=False)
+    assert s.kwargs['verify'] == False

@@ -7,14 +7,14 @@ except ImportError:
 
 import json
 
-from pyshorteners import Shortener, shorteners
+from pyshorteners import Shortener, Shorteners
 from pyshorteners.exceptions import (ShorteningErrorException,
                                      ExpandingErrorException)
 
 import responses
 import pytest
 
-s = Shortener(shorteners.OWLY_SHORTENER, api_key='TEST_KEY')
+s = Shortener(Shorteners.OWLY, api_key='TEST_KEY')
 shorten = 'http://ow.ly/test'
 expanded = 'http://www.test.com'
 
@@ -119,7 +119,7 @@ def test_owly_expand_method_bad_status_code():
 
 
 def test_owly_bad_key():
-    b = Shortener(shorteners.OWLY_SHORTENER)
+    b = Shortener(Shorteners.OWLY)
     with pytest.raises(TypeError):
         b.short('http://www.test.com')
 

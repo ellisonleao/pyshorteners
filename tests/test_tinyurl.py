@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # encoding: utf-8
-from pyshorteners import Shortener, shorteners
+from pyshorteners import Shortener, Shorteners
 from pyshorteners.exceptions import ShorteningErrorException
 
 import responses
 import pytest
 
-s = Shortener(shorteners.TINYURL_SHORTENER)
+s = Shortener(Shorteners.TINYURL)
 shorten = 'http://tinyurl.com/test'
 expanded = 'http://www.test.com'
 

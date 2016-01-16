@@ -28,18 +28,20 @@ formatter = logging.Formatter("%(asctime)s - %(name)s -  %(message)s")
 ch.setFormatter(formatter)
 logger.addHandler(ch)
 
-SIMPLE_SHORTENER = 'SimpleShortener'
-GOOGLE_SHORTENER = 'GoogleShortener'
-BITLY_SHORTENER = 'BitlyShortener'
-TINYURL_SHORTENER = 'TinyurlShortener'
-ADFLY_SHORTENER = 'AdflyShortener'
-ISGD_SHORTENER = 'IsgdShortener'
-SENTALA_SHORTENER = 'SentalaShortener'
-QRCX_SHORTENER = 'QrCxShortener'
-OWLY_SHORTENER = 'OwlyShortener'
-READABILITY_SHORTENER = 'ReadabilityShortener'
-AWSM_SHORTENER = 'AwsmShortener'
-OSDB_SHORTENER = 'OsdbShortener'
+
+class Shorteners(object):
+    SIMPLE = 'SimpleShortener'
+    GOOGLE = 'GoogleShortener'
+    BITLY = 'BitlyShortener'
+    TINYURL = 'TinyurlShortener'
+    ADFLY = 'AdflyShortener'
+    ISGD = 'IsgdShortener'
+    SENTALA = 'SentalaShortener'
+    QRCX = 'QrCxShortener'
+    OWLY = 'OwlyShortener'
+    READABILITY = 'ReadabilityShortener'
+    AWSM = 'AwsmShortener'
+    OSDB = 'OsdbShortener'
 
 
 class Shortener(object):
@@ -47,7 +49,7 @@ class Shortener(object):
     Factory class for all Shorteners
     """
 
-    def __init__(self, engine=SIMPLE_SHORTENER, **kwargs):
+    def __init__(self, engine=Shorteners.SIMPLE, **kwargs):
         self.kwargs = kwargs
         self.shorten = None
         self.expanded = None

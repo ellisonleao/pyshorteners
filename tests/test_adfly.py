@@ -5,13 +5,13 @@ try:
 except ImportError:
     from urllib.parse import urlencode
 
-from pyshorteners import Shortener, shorteners
+from pyshorteners import Shortener, Shorteners
 from pyshorteners.exceptions import ShorteningErrorException
 
 import responses
 import pytest
 
-s = Shortener(shorteners.ADFLY_SHORTENER, uid='TEST', key='TEST_KEY')
+s = Shortener(Shorteners.ADFLY, uid='TEST', key='TEST_KEY')
 shorten = 'http://ad.fly/test'
 expanded = 'http://www.test.com'
 
@@ -56,7 +56,7 @@ def test_adfly_short_method_bad_response():
 
 
 def test_adfly_bad_params():
-    s = Shortener(shorteners.ADFLY_SHORTENER)
+    s = Shortener(Shorteners.ADFLY)
 
     with pytest.raises(TypeError):
         s.short(expanded)

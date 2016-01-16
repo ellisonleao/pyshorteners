@@ -6,13 +6,13 @@ except ImportError:
     from urllib.parse import urlencode
 
 
-from pyshorteners import Shortener, shorteners
+from pyshorteners import Shortener, Shorteners
 from pyshorteners.exceptions import ShorteningErrorException
 
 import responses
 import pytest
 
-s = Shortener(shorteners.SENTALA_SHORTENER)
+s = Shortener(Shorteners.SENTALA)
 shorten = 'http://senta.la/test'
 expanded = 'http://www.test.com'
 

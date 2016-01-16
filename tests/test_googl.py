@@ -6,7 +6,7 @@ try:
 except ImportError:
     from urllib.parse import urlencode
 
-from pyshorteners import Shortener, shorteners
+from pyshorteners import Shortener, Shorteners
 from pyshorteners.exceptions import (ShorteningErrorException,
                                      ExpandingErrorException)
 
@@ -14,7 +14,7 @@ import responses
 import pytest
 
 api_key = 'FAKE_KEY'
-s = Shortener(shorteners.GOOGLE_SHORTENER, api_key=api_key)
+s = Shortener(Shorteners.GOOGLE, api_key=api_key)
 short_url = 'http://goo.gl/rjf0oI'
 expanded = 'http://www.test.com'
 
@@ -103,7 +103,7 @@ def test_googl_expand_method_bad_status_code():
 
 
 def test_google_bad_params():
-    s = Shortener(shorteners.GOOGLE_SHORTENER)
+    s = Shortener(Shorteners.GOOGLE)
 
     with pytest.raises(TypeError):
         s.short(expanded)
