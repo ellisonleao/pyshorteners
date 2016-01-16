@@ -21,12 +21,14 @@ class BaseShortener(object):
 
     def _get(self, url, params=None):
         response = self.requests.get(url, params=params,
+                                     verify=self.kwargs.get('verify', True),
                                      timeout=self.kwargs['timeout'])
         return response
 
     def _post(self, url, data=None, params=None, headers=None):
         response = self.requests.post(url, data=data, params=params,
                                       headers=headers,
+                                      verify=self.kwargs.get('verify', True),
                                       timeout=self.kwargs['timeout'])
         return response
 

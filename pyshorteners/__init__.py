@@ -5,6 +5,6 @@ __license__ = 'MIT'
 
 # flake8: noqa
 try:
-    from shorteners import Shortener
+    from shorteners import Shortener, Shorteners
 except ImportError:
-    from .shorteners import Shortener
+    from .shorteners import Shortener, Shorteners
