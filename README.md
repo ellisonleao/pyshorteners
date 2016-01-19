@@ -4,7 +4,7 @@ pyshorteners
 [![Build
 Status](http://img.shields.io/travis/ellisonleao/pyshorteners.svg)](https://travis-ci.org/ellisonleao/pyshorteners)
 [![Number of PyPI
-downloads](http://img.shields.io/pypi/dm/pyshorteners.svg)](https://pypi.python.org/pypi/pyshorteners/0.5.3)
+downloads](http://img.shields.io/pypi/dm/pyshorteners.svg)](https://pypi.python.org/pypi/pyshorteners)
 [![Code
 Health](https://landscape.io/github/ellisonleao/pyshorteners/master/landscape.svg)](https://landscape.io/github/ellisonleao/pyshorteners/master)
 [![codecov.io](http://codecov.io/github/ellisonleao/pyshorteners/coverage.svg?branch=master)](http://codecov.io/github/ellisonleao/pyshorteners?branch=master)
