@@ -6,7 +6,7 @@ from .base import BaseShortener
 from ..exceptions import ShorteningErrorException
 
 
-class TinyurlShortener(BaseShortener):
+class Tinyurl(BaseShortener):
     api_url = 'http://tinyurl.com/api-create.php'
 
     def short(self, url):

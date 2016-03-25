@@ -9,14 +9,14 @@ from ..exceptions import ShorteningErrorException, ExpandingErrorException
 from .base import BaseShortener
 
 
-class BitlyShortener(BaseShortener):
+class Bitly(BaseShortener):
     api_url = 'https://api-ssl.bit.ly/'
 
     def __init__(self, **kwargs):
         if not kwargs.get('bitly_token', False):
             raise TypeError('bitly_token missing from kwargs')
         self.token = kwargs.get('bitly_token')
-        super(BitlyShortener, self).__init__(**kwargs)
+        super(Bitly, self).__init__(**kwargs)
 
     def short(self, url):
         shorten_url = '{0}{1}'.format(self.api_url, 'v3/shorten')

@@ -7,7 +7,7 @@ from .base import BaseShortener
 from ..exceptions import ShorteningErrorException
 
 
-class QrCxShortener(BaseShortener):
+class QrCx(BaseShortener):
     api_url = 'http://qr.cx/api/'
 
     def short(self, url):

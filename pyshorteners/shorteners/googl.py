@@ -9,14 +9,14 @@ from ..exceptions import ShorteningErrorException, ExpandingErrorException
 from .base import BaseShortener
 
 
-class GoogleShortener(BaseShortener):
+class Google(BaseShortener):
     api_url = 'https://www.googleapis.com/urlshortener/v1/url'
 
     def __init__(self, **kwargs):
         if not kwargs.get('api_key', False):
             raise TypeError('api_key missing from kwargs')
         self.api_key = kwargs.get('api_key')
-        super(GoogleShortener, self).__init__(**kwargs)
+        super(Google, self).__init__(**kwargs)
 
     def short(self, url):
         params = json.dumps({'longUrl': url})

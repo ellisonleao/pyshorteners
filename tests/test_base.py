@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 from pyshorteners import Shortener
-from pyshorteners.shorteners.base import BaseShortener, SimpleShortener
+from pyshorteners.shorteners.base import BaseShortener, Simple
 from pyshorteners.exceptions import ExpandingErrorException
 
 import responses
@@ -36,7 +36,7 @@ def test_expand_method_bad_response():
 
 def test_timeout():
     import requests
-    b = SimpleShortener(timeout=2)
+    b = Simple(timeout=2)
     assert b.kwargs['timeout'] == 2
 
     # flake8: noqa

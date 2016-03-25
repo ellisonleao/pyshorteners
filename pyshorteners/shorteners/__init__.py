@@ -3,18 +3,19 @@ import logging
 import inspect
 
 # flake8: noqa
-from .base import SimpleShortener, BaseShortener
-from .googl import GoogleShortener
-from .bitly import BitlyShortener
-from .tinyurl import TinyurlShortener
-from .adfly import AdflyShortener
-from .isgd import IsgdShortener
-from .sentala import SentalaShortener
-from .qrcx import QrCxShortener
-from .owly import OwlyShortener
-from .readability import ReadabilityShortener
-from .awsm import AwsmShortener
-from .osdb import OsdbShortener
+from .base import Simple, BaseShortener
+from .wpaco import WPACO
+from .googl import Google
+from .bitly import Bitly
+from .tinyurl import Tinyurl
+from .adfly import Adfly
+from .isgd import Isgd
+from .sentala import Sentala
+from .qrcx import QrCx
+from .owly import Owly
+from .readability import Readability
+from .awsm import Awsm
+from .osdb import Osdb
 
 from ..utils import is_valid_url
 from ..exceptions import UnknownShortenerException
@@ -28,20 +29,22 @@ formatter = logging.Formatter("%(asctime)s - %(name)s -  %(message)s")
 ch.setFormatter(formatter)
 logger.addHandler(ch)
 
+__all__ = ['Shorteners', 'Shortener']
 
 class Shorteners(object):
-    SIMPLE = 'SimpleShortener'
-    GOOGLE = 'GoogleShortener'
-    BITLY = 'BitlyShortener'
-    TINYURL = 'TinyurlShortener'
-    ADFLY = 'AdflyShortener'
-    ISGD = 'IsgdShortener'
-    SENTALA = 'SentalaShortener'
-    QRCX = 'QrCxShortener'
-    OWLY = 'OwlyShortener'
-    READABILITY = 'ReadabilityShortener'
-    AWSM = 'AwsmShortener'
-    OSDB = 'OsdbShortener'
+    SIMPLE = 'Simple'
+    GOOGLE = 'Google'
+    BITLY = 'Bitly'
+    TINYURL = 'Tinyurl'
+    ADFLY = 'Adfly'
+    ISGD = 'Isgd'
+    SENTALA = 'Sentala'
+    QRCX = 'QrCx'
+    OWLY = 'Owly'
+    READABILITY = 'Readability'
+    AWSM = 'Awsm'
+    OSDB = 'Osdb'
+    WPACO = 'WPACO'
 
 
 class Shortener(object):
@@ -65,8 +68,9 @@ class Shortener(object):
                 self._class = getattr(module.shorteners, self.engine)
             except AttributeError:
                 raise UnknownShortenerException(
-                          'Please enter a valid shortener.'
-                        )
+                    'Please enter a valid shortener.'
+                    ' {} class does not exists'.format(self.engine)
+                )
 
         for key, item in list(kwargs.items()):
             setattr(self, key, item)

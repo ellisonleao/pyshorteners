@@ -8,7 +8,7 @@ from .base import BaseShortener
 from ..exceptions import ShorteningErrorException, ExpandingErrorException
 
 
-class ReadabilityShortener(BaseShortener):
+class Readability(BaseShortener):
     api_url = 'http://www.readability.com/api/shortener/v1/urls/'
 
     def short(self, url):

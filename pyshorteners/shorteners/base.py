@@ -55,6 +55,6 @@ class BaseShortener(object):
         return NotImplemented
 
 
-class SimpleShortener(BaseShortener):
+class Simple(BaseShortener):
     def short(self, url):
         return url

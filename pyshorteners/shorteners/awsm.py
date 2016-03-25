@@ -10,16 +10,16 @@ from ..exceptions import ShorteningErrorException
 from .base import BaseShortener
 
 
-class AwsmShortener(BaseShortener):
+class Awsm(BaseShortener):
     api_url = 'http://api.awe.sm/'
 
     def __init__(self, **kwargs):
         if not kwargs.get('api_key', False):
             raise TypeError('api_key missing from kwargs')
         self.api_key = kwargs.get('api_key')
-        self.tool = kwargs.get('tool', AwsmShortener._generate_random_tool())
+        self.tool = kwargs.get('tool', Awsm._generate_random_tool())
         self.channel = kwargs.get('channel', 'twitter')
-        super(AwsmShortener, self).__init__(**kwargs)
+        super(Awsm, self).__init__(**kwargs)
 
     @staticmethod
     def _generate_random_tool():

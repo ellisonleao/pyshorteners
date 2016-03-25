@@ -8,7 +8,7 @@ from .base import BaseShortener
 from ..exceptions import ShorteningErrorException
 
 
-class OsdbShortener(BaseShortener):
+class Osdb(BaseShortener):
     api_url = 'http://osdb.link/'
     p = re.compile(r'(http:\/\/osdb.link\/[a-zA-Z0-9]+)')
 

@@ -6,7 +6,7 @@ except ImportError:
     from urllib.parse import urlencode
 
 from pyshorteners import Shortener, Shorteners
-from pyshorteners.shorteners import AwsmShortener
+from pyshorteners.shorteners import Awsm
 from pyshorteners.exceptions import (ShorteningErrorException,
                                      ExpandingErrorException)
 
@@ -55,7 +55,7 @@ def test_awsm_expand_method_bad_response():
 
 
 def test_generate_tool_staticmethod():
-    tool = AwsmShortener._generate_random_tool()
+    tool = Awsm._generate_random_tool()
     assert len(tool) == 4
 
 

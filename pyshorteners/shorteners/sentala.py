@@ -7,7 +7,7 @@ from .base import BaseShortener
 from ..exceptions import ShorteningErrorException
 
 
-class SentalaShortener(BaseShortener):
+class Sentala(BaseShortener):
     api_url = 'http://senta.la/api.php'
 
     def short(self, url):

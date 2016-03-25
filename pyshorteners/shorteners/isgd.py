@@ -7,7 +7,7 @@ from .base import BaseShortener
 from ..exceptions import ShorteningErrorException
 
 
-class IsgdShortener(BaseShortener):
+class Isgd(BaseShortener):
     api_url = 'http://is.gd/create.php'
 
     def short(self, url):

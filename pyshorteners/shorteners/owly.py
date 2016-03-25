@@ -8,14 +8,14 @@ from .base import BaseShortener
 from ..exceptions import ShorteningErrorException, ExpandingErrorException
 
 
-class OwlyShortener(BaseShortener):
+class Owly(BaseShortener):
     api_url = 'http://ow.ly/api/1.1/url/'
 
     def __init__(self, **kwargs):
         if not kwargs.get('api_key', False):
             raise TypeError('api_key is missing from kwargs')
         self.api_key = kwargs.get('api_key')
-        super(OwlyShortener, self).__init__(**kwargs)
+        super(Owly, self).__init__(**kwargs)
 
     def short(self, url):
         shorten_url = '{0}{1}'.format(self.api_url, 'shorten')

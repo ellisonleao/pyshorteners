@@ -7,7 +7,7 @@ from ..exceptions import ShorteningErrorException
 from .base import BaseShortener
 
 
-class AdflyShortener(BaseShortener):
+class Adfly(BaseShortener):
     api_url = 'http://api.adf.ly/api.php'
 
     def __init__(self, **kwargs):
@@ -16,7 +16,7 @@ class AdflyShortener(BaseShortener):
         self.key = kwargs.get('key')
         self.uid = kwargs.get('uid')
         self.type = kwargs.get('type', 'int')
-        super(AdflyShortener, self).__init__(**kwargs)
+        super(Adfly, self).__init__(**kwargs)
 
     def short(self, url):
         data = {
