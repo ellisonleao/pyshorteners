@@ -3,8 +3,7 @@ pyshorteners
 
 [![Build
 Status](http://img.shields.io/travis/ellisonleao/pyshorteners.svg)](https://travis-ci.org/ellisonleao/pyshorteners)
-[![Number of PyPI
-downloads](http://img.shields.io/pypi/dm/pyshorteners.svg)](https://pypi.python.org/pypi/pyshorteners/)
+[![Number of PyPI downloads](http://img.shields.io/pypi/dm/pyshorteners.svg)](https://pypi.python.org/pypi/pyshorteners)
 [![Code
 Health](https://landscape.io/github/ellisonleao/pyshorteners/master/landscape.svg)](https://landscape.io/github/ellisonleao/pyshorteners/master)
 [![codecov.io](http://codecov.io/github/ellisonleao/pyshorteners/coverage.svg?branch=master)](http://codecov.io/github/ellisonleao/pyshorteners?branch=master)
@@ -46,7 +45,7 @@ from pyshorteners import Shortener
 
 url = 'http://www.google.com'
 api_key = 'YOUR_API_KEY'
-shortener = Shortener('GoogleShortener', api_key=api_key)
+shortener = Shortener('Google', api_key=api_key)
 print "My short url is {}".format(shortener.short(url))
 
 ### expanding
@@ -65,7 +64,7 @@ from pyshorteners import Shortener
 access_token = 'MY_ACCESS_TOKEN'
 
 url = 'http://www.google.com'
-shortener = Shortener('BitlyShortener', bitly_token=access_token)
+shortener = Shortener('Bitly', bitly_token=access_token)
 print "My short url is {}".format(shortener.short(url))
 
 ### expanding
