@@ -1,3 +1,12 @@
+0.6.0
+=====
+
+Breaking changes on the shorteners classes
+
+* Removing the `Shortener` class on the Shortener classes. Check the README for the new examples
+* Adding wp-a.co Shortener #40
+
+
 0.5.8
 =====
 * Fix goog.gl shortener

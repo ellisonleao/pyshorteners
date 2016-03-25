@@ -4,7 +4,7 @@ pyshorteners
 [![Build
 Status](http://img.shields.io/travis/ellisonleao/pyshorteners.svg)](https://travis-ci.org/ellisonleao/pyshorteners)
 [![Number of PyPI
-downloads](http://img.shields.io/pypi/dm/pyshorteners.svg)](https://pypi.python.org/pypi/pyshorteners/0.5.3)
+downloads](http://img.shields.io/pypi/dm/pyshorteners.svg)](https://pypi.python.org/pypi/pyshorteners/)
 [![Code
 Health](https://landscape.io/github/ellisonleao/pyshorteners/master/landscape.svg)](https://landscape.io/github/ellisonleao/pyshorteners/master)
 [![codecov.io](http://codecov.io/github/ellisonleao/pyshorteners/coverage.svg?branch=master)](http://codecov.io/github/ellisonleao/pyshorteners?branch=master)
@@ -81,7 +81,7 @@ No login or api key needed
 from pyshorteners import Shortener
 
 url = 'http://www.google.com'
-shortener = Shortener('TinyurlShortener')
+shortener = Shortener('Tinyurl')
 print "My short url is {}".format(shortener.short(url))
 
 ### expanding
@@ -98,7 +98,7 @@ No expanding for this shortener
 from pyshorteners import Shortener
 
 url = 'http://www.google.com'
-shortener = Shortener('AdflyShortener')
+shortener = Shortener('Adfly')
 print "My short url is {}".format(shortener.short(url, uid=UID,
                                   api_key=API_KEY, type='int'))
 ```
@@ -111,7 +111,7 @@ No login or api key needed
 from pyshorteners import Shortener
 
 url = 'http://www.google.com'
-shortener = Shortener('IsgdShortener')
+shortener = Shortener('Isgd')
 print "My short url is {}".format(shortener.short(url))
 
 ### expanding
@@ -127,7 +127,7 @@ No login or api key needed
 from pyshorteners import Shortener
 
 url = 'http://www.google.com'
-shortener = Shortener('SentalaShortener')
+shortener = Shortener('Sentala')
 print "My short url is {}".format(shortener.short(url))
 
 ### expanding
@@ -143,7 +143,7 @@ No login or api key needed
 from pyshorteners import Shortener
 
 url = 'http://www.google.com'
-shortener = Shortener('QrCxShortener')
+shortener = Shortener('QrCx')
 print "My short url is {}".format(shortener.short(url))
 
 ### expanding
@@ -159,7 +159,7 @@ No login or api key needed
 from pyshorteners import Shortener
 
 url = 'http://blog.arc90.com/2010/11/30/silence-is-golden/'
-shortener = Shortener('ReadbilityShortener')
+shortener = Shortener('Readbility')
 print "My short url is {}".format(shortener.short(url))
 
 ### expanding
@@ -178,7 +178,7 @@ from pyshorteners import Shortener
 api_key = 'MY_API_KEY'
 
 url = 'http://www.google.com'
-shortener = Shortener('OwlyShortener',api_key=api_key)
+shortener = Shortener('Owly',api_key=api_key)
 print "My short url is {}".format(shortener.short(url))
 
 ### expanding
@@ -192,7 +192,7 @@ print "My long url is {}".format(shortener.expand(url))
 from pyshorteners import Shortener
 
 url = 'http://www.google.com'
-shortener = Shortener('OsdbShortener')
+shortener = Shortener('Osdb')
 print "My short url is {}".format(shortener.short(url))
 ```
 
@@ -205,7 +205,7 @@ after shortening your url.
 from pyshorteners import Shortener
 
 url = 'http://www.google.com'
-shortener = Shortener('TinyurlShortener')
+shortener = Shortener('Tinyurl')
 shortener.short(url)
 print shortener.qrcode()
 
@@ -255,4 +255,3 @@ class MyCustomShortenerClass(object):
 
 shortener = Shortener(engine=MyCustomShortenerClass) # That's it)
 ```
-
