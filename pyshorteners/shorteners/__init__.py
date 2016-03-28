@@ -15,6 +15,7 @@ from .owly import Owly
 from .readability import Readability
 from .awsm import Awsm
 from .osdb import Osdb
+from .clckru import Clckru
 
 from ..utils import is_valid_url
 from ..exceptions import UnknownShortenerException
@@ -44,6 +45,7 @@ class Shorteners(object):
     AWSM = 'Awsm'
     OSDB = 'Osdb'
     WPACO = 'WPACO'
+    CLCKRU = 'Clckru'
 
 
 class Shortener(object):
