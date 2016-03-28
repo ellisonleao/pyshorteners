@@ -13,7 +13,7 @@ import responses
 import pytest
 
 s = Shortener(Shorteners.CLCKRU)
-shorten = 'http://senta.la/test'
+shorten = 'http://clck.ru/test'
 expanded = 'http://www.test.com'
 
 
