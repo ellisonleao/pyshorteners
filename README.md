@@ -25,7 +25,14 @@ Installing via pip
 
 Installing with the cloned/downloaded code
 
+	git clone https://github.com/ellisonleao/pyshorteners.git
+	cd pyshorteners
     python setup.py install
+
+Installing latest without cloning
+
+	pip install -e git+git@github.com:ellisonleao/pyshorteners.git#egg=pyshorteners
+
 
 # Testing
 
