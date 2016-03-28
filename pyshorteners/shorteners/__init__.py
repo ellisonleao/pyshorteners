@@ -11,7 +11,6 @@ from .tinyurl import Tinyurl
 from .adfly import Adfly
 from .isgd import Isgd
 from .sentala import Sentala
-from .qrcx import QrCx
 from .owly import Owly
 from .readability import Readability
 from .awsm import Awsm
