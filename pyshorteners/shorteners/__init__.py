@@ -16,6 +16,7 @@ from .readability import Readability
 from .awsm import Awsm
 from .osdb import Osdb
 from .clckru import Clckru
+from .qpsru import Qpsru
 
 from ..utils import is_valid_url
 from ..exceptions import UnknownShortenerException
@@ -46,6 +47,7 @@ class Shorteners(object):
     OSDB = 'Osdb'
     WPACO = 'WPACO'
     CLCKRU = 'Clckru'
+    QPSRU = 'Qpsru'
 
 
 class Shortener(object):
