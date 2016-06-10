@@ -24,7 +24,10 @@ class Dagd(BaseShortener):
         # da.gd's coshorten expects only the shorturl identifier
         # (i.e. the "stuff" in http://da.gd/stuff), not the full short URL.
         sanitized_url = url.split('da.gd/', 1)[-1]
-        expand_url = '{0}{1}/{2}'.format(self.api_url, 'coshorten', sanitized_url)
+        expand_url = '{0}{1}/{2}'.format(
+            self.api_url,
+            'coshorten',
+            sanitized_url)
         response = self._get(expand_url)
         if response.ok:
             return response.text.strip()
