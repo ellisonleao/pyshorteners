@@ -39,7 +39,7 @@ class Owly(BaseShortener):
             try:
                 data = response.json()
             except ValueError:
-                raise ExpandingErrorException('There was an error shortening'
+                raise ExpandingErrorException('There was an error expanding'
                                               ' this url')
             return data['results']['longUrl']
         raise ExpandingErrorException('There was an error shortening this '

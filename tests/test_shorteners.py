@@ -16,7 +16,8 @@ def test_shorteners_type():
     shorteners = [Shorteners.GOOGLE, Shorteners.BITLY,
                   Shorteners.TINYURL, Shorteners.ADFLY,
                   Shorteners.ISGD, Shorteners.SENTALA,
-                  Shorteners.OWLY, Shorteners.AWSM]
+                  Shorteners.OWLY, Shorteners.AWSM,
+                  Shorteners.DAGD]
     for shortener in shorteners:
         short = Shortener(shortener)
         assert issubclass(short._class, BaseShortener)
