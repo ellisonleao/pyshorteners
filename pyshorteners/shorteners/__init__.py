@@ -17,6 +17,7 @@ from .awsm import Awsm
 from .osdb import Osdb
 from .clckru import Clckru
 from .qpsru import Qpsru
+from .dagd import Dagd
 
 from ..utils import is_valid_url
 from ..exceptions import UnknownShortenerException
@@ -48,6 +49,7 @@ class Shorteners(object):
     WPACO = 'WPACO'
     CLCKRU = 'Clckru'
     QPSRU = 'Qpsru'
+    DAGD = 'Dagd'
 
 
 class Shortener(object):
@@ -72,7 +74,7 @@ class Shortener(object):
             except AttributeError:
                 raise UnknownShortenerException(
                     'Please enter a valid shortener.'
-                    ' {} class does not exists'.format(self.engine)
+                    ' {} class does not exist'.format(self.engine)
                 )
 
         for key, item in list(kwargs.items()):

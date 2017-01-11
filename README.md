@@ -202,6 +202,16 @@ shortener = Shortener('Osdb')
 print "My short url is {}".format(shortener.short(url))
 ```
 
+## da.gd Shortener
+
+```python
+from pyshorteners import Shortener
+
+url = 'http://www.google.com'
+shortener = Shortener('Dagd')
+print "My short url is {}".format(shortener.short(url))
+```
+
 # Generating QR Code
 
 You can have the QR Code for your url by calling the `qr_code` method
