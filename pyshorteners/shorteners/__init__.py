@@ -18,6 +18,7 @@ from .osdb import Osdb
 from .clckru import Clckru
 from .qpsru import Qpsru
 from .dagd import Dagd
+from .chilpit import Chilpit
 
 from ..utils import is_valid_url
 from ..exceptions import UnknownShortenerException
@@ -50,6 +51,7 @@ class Shorteners(object):
     CLCKRU = 'Clckru'
     QPSRU = 'Qpsru'
     DAGD = 'Dagd'
+    CHILPIT = 'Chilpit'
 
 
 class Shortener(object):
