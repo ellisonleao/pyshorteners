@@ -145,7 +145,7 @@ print "My long url is {}".format(shortener.expand(url))
 
 No login or api key needed
 
-````python
+```python
 from pyshorteners import Shortener
 
 url = 'http://www.google.com'
