@@ -8,7 +8,7 @@ from ..exceptions import ShorteningErrorException
 
 
 class Isgd(BaseShortener):
-    api_url = 'http://is.gd/create.php'
+    api_url = 'https://is.gd/create.php'
 
     def short(self, url):
         params = {
