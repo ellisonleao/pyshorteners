@@ -12,7 +12,7 @@ import responses
 import pytest
 
 s = Shortener(Shorteners.ISGD)
-shorten = 'http://is.gd/test'
+shorten = 'https://is.gd/test'
 expanded = 'http://www.test.com'
 
 

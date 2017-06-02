@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 # encoding: utf-8
-try:
-    from urllib import urlencode
-except ImportError:
-    from urllib.parse import urlencode
 
 from pyshorteners import Shortener, Shorteners
 from pyshorteners.exceptions import ShorteningErrorException
@@ -19,7 +15,7 @@ expanded = 'http://www.test.com'
 @responses.activate
 def test_dagd_short_method():
     # mock responses
-    mock_url = '{}?url={}'.format(s.api_url, expanded)
+    mock_url = '{}shorten?url={}'.format(s.api_url, expanded)
     responses.add(responses.GET, mock_url, body=shorten,
                   match_querystring=True)
 
@@ -33,7 +29,7 @@ def test_dagd_short_method():
 @responses.activate
 def test_dagd_short_method_bad_response():
     # mock responses
-    mock_url = '{}?url={}'.format(s.api_url, expanded)
+    mock_url = '{}shorten?url={}'.format(s.api_url, expanded)
     responses.add(responses.GET, mock_url, body=shorten, status=400,
                   match_querystring=True)
 

@@ -13,5 +13,6 @@ Expanded: {}
     """.format(short.short('http://www.google.com'),
                short.expand('http://goo.gl/fbsS')))
 
+
 if __name__ == '__main__':
     hello()
