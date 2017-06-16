@@ -3,7 +3,7 @@
 
 __version__ = '0.6.0'
 __author__ = 'Ellison Leão'
-__license__ = 'MIT'
+__license__ = 'GPLv3'
 
 # flake8: noqa
 from .shorteners import Shortener, Shorteners
