@@ -2,7 +2,7 @@
 """
 Readbility url shortner api implementation
 Located at: https://readability.com/developers/api/shortener
-Doesnt' need anything from the app
+Doesn't need anything from the app
 """
 from .base import BaseShortener
 from ..exceptions import ShorteningErrorException, ExpandingErrorException
