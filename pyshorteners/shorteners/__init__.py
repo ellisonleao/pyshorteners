@@ -10,7 +10,6 @@ from .bitly import Bitly
 from .tinyurl import Tinyurl
 from .adfly import Adfly
 from .isgd import Isgd
-from .sentala import Sentala
 from .owly import Owly
 from .readability import Readability
 from .awsm import Awsm
@@ -41,7 +40,6 @@ class Shorteners(object):
     TINYURL = 'Tinyurl'
     ADFLY = 'Adfly'
     ISGD = 'Isgd'
-    SENTALA = 'Sentala'
     QRCX = 'QrCx'
     OWLY = 'Owly'
     READABILITY = 'Readability'

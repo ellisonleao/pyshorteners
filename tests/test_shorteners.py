@@ -15,8 +15,7 @@ module = __import__('pyshorteners.shorteners')
 def test_shorteners_type():
     shorteners = [Shorteners.GOOGLE, Shorteners.BITLY,
                   Shorteners.TINYURL, Shorteners.ADFLY,
-                  Shorteners.ISGD, Shorteners.SENTALA,
-                  Shorteners.OWLY, Shorteners.AWSM,
+                  Shorteners.ISGD, Shorteners.OWLY, Shorteners.AWSM,
                   Shorteners.DAGD]
     for shortener in shorteners:
         short = Shortener(shortener)
