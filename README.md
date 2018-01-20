@@ -125,22 +125,6 @@ url = 'http://is.gd/SsaC'
 print "My long url is {}".format(shortener.expand(url))
 ```
 
-## Senta.la Shortener
-
-No login or api key needed
-
-```python
-from pyshorteners import Shortener
-
-url = 'http://www.google.com'
-shortener = Shortener('Sentala')
-print "My short url is {}".format(shortener.short(url))
-
-### expanding
-url = 'http://senta.la/urubu'
-print "My long url is {}".format(shortener.expand(url))
-```
-
 ## Qr.cx Shortener
 
 No login or api key needed
