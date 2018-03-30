@@ -18,6 +18,7 @@ from .clckru import Clckru
 from .qpsru import Qpsru
 from .dagd import Dagd
 from .chilpit import Chilpit
+from .tinycc import Tinycc
 
 from ..utils import is_valid_url
 from ..exceptions import UnknownShortenerException
@@ -50,6 +51,7 @@ class Shorteners(object):
     QPSRU = 'Qpsru'
     DAGD = 'Dagd'
     CHILPIT = 'Chilpit'
+    TINYCC = 'Tinycc'
 
 
 class Shortener(object):
@@ -111,6 +113,7 @@ class Shortener(object):
             self.kwargs['timeout'] = 0.5
 
         self.shorten = self._class(**self.kwargs).short(url)
+        print(self.shorten)
         if self.debug:
             logger.info('Shorten url result: {0}'.format(self.shorten))
         return self.shorten
