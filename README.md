@@ -205,7 +205,7 @@ API_KEY = '<YOUR TINYCC API KEY HERE>'
 API_LOGIN = '<YOUR TINYCC LOGIN HERE>'
 url = 'http://www.google.com'
 shortener = Shortener('Tinycc', tinycc_api_key=API_KEY, tinycc_login=API_LOGIN)
-print ("My short url is {}".format(shortener.short(url))
+print ("My short url is {}".format(shortener.short(url)))
 ```
 # Generating QR Code
 
