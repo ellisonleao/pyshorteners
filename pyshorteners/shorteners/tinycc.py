@@ -64,5 +64,8 @@ class Tinycc(BaseShortener):
         total_clicks = 0
         if response.ok:
             data = response.json()
-            total_clicks = int(data['results']['clicks'])
+            try:
+                total_clicks = int(data['results']['clicks'])
+            except KeyError:
+                return total_clicks
         return total_clicks

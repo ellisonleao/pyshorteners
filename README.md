@@ -196,6 +196,17 @@ shortener = Shortener('Dagd')
 print "My short url is {}".format(shortener.short(url))
 ```
 
+
+## tiny.cc Shortener
+```python
+from pyshorteners import Shortener
+
+API_KEY = '<YOUR TINYCC API KEY HERE>'
+API_LOGIN = '<YOUR TINYCC LOGIN HERE>'
+url = 'http://www.google.com'
+shortener = Shortener('Tinycc', tinycc_api_key=API_KEY, tinycc_login=API_LOGIN)
+print ("My short url is {}".format(shortener.short(url))
+```
 # Generating QR Code
 
 You can have the QR Code for your url by calling the `qr_code` method
