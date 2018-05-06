@@ -113,7 +113,6 @@ class Shortener(object):
             self.kwargs['timeout'] = 0.5
 
         self.shorten = self._class(**self.kwargs).short(url)
-        print(self.shorten)
         if self.debug:
             logger.info('Shorten url result: {0}'.format(self.shorten))
         return self.shorten
@@ -136,6 +135,8 @@ class Shortener(object):
     def qrcode(self, width=120, height=120):
         if not self.shorten:
             return None
+        if self.engine == Shorteners.TINYCC:
+            return '{}/qr'.format(self.shorten)
 
         qrcode_url = ('http://chart.apis.google.com/chart?cht=qr&'
                       'chl={0}&chs={1}x{2}'.format(self.shorten, width,
