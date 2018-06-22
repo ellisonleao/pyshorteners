@@ -125,22 +125,6 @@ url = 'http://is.gd/SsaC'
 print "My long url is {}".format(shortener.expand(url))
 ```
 
-## Qr.cx Shortener
-
-No login or api key needed
-
-```python
-from pyshorteners import Shortener
-
-url = 'http://www.google.com'
-shortener = Shortener('QrCx')
-print "My short url is {}".format(shortener.short(url))
-
-### expanding
-url = 'http://qr.cx/XsC'
-print "My long url is {}".format(shortener.expand(url))
-```
-
 ## Readbility Shortener
 
 No login or api key needed
