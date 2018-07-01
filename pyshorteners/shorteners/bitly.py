@@ -28,6 +28,9 @@ class Bitly(BaseShortener):
         response = self._get(shorten_url, params=params)
         if response.ok:
             return response.text.strip()
+        elif response.content == "b'ALREADY_A_BITLY_LINK'":
+            return self.lookup(url)
+
         raise ShorteningErrorException('There was an error shortening this '
                                        'url - {0}'.format(response.content))
 
@@ -42,6 +45,21 @@ class Bitly(BaseShortener):
         if response.ok:
             return response.text.strip()
         raise ExpandingErrorException('There was an error expanding'
+                                      ' this url - {0}'.format(
+                                          response.content))
+
+    def lookup(self, url):
+        lookup_url = '{0}{1}'.format(self.api_url, 'v3/link/lookup')
+        params = dict(
+            url=url,
+            access_token=self.token,
+            format='txt'
+        )
+        response = self._get(lookup_url, params=params)
+        print(response.text.strip())
+        if response.ok:
+            return response.text.strip()
+        raise ExpandingErrorException('There was an error looking up'
                                       ' this url - {0}'.format(
                                           response.content))
 

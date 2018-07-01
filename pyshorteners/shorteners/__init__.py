@@ -61,6 +61,7 @@ class Shortener(object):
         self.kwargs = kwargs
         self.shorten = None
         self.expanded = None
+        self.looked_up = None
         self.debug = kwargs.pop('debug', False)
 
         if inspect.isclass(engine) and issubclass(engine, BaseShortener):
@@ -138,3 +139,19 @@ class Shortener(object):
                       'chl={0}&chs={1}x{2}'.format(self.shorten, width,
                                                    height))
         return qrcode_url
+
+    def lookup(self, url):
+        if self.debug:
+            logger.info('Lookup method called with url: {0}'.format(url))
+
+        if url and not is_valid_url(url):
+            raise ValueError('Please enter a valid url')
+
+        if url:
+            if not self.kwargs.get('timeout'):
+                self.kwargs['timeout'] = 0.5
+            self.looked_up = self._class(**self.kwargs).lookup(url)
+        if self.debug:
+            logger.info('Looked up url result: {0}'.format(self.looked_up))
+        return self.looked_up
+        pass
