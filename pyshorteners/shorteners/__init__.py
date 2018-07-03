@@ -135,10 +135,13 @@ class Shortener(object):
     def qrcode(self, width=120, height=120):
         if not self.shorten:
             return None
-        if self.engine == Shorteners.TINYCC:
-            return '{}/qr'.format(self.shorten)
+        try:
+            qrcode_url = self._class(**self.kwargs).qrcode(shorten=self.shorten)
+        except AttributeError:
+            if not self.shorten:
+                return None
 
-        qrcode_url = ('http://chart.apis.google.com/chart?cht=qr&'
-                      'chl={0}&chs={1}x{2}'.format(self.shorten, width,
-                                                   height))
+            qrcode_url = ('http://chart.apis.google.com/chart?cht=qr&'
+                          'chl={0}&chs={1}x{2}'.format(self.shorten, width,
+                                                       height))
         return qrcode_url

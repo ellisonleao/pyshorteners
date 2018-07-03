@@ -69,3 +69,7 @@ class Tinycc(BaseShortener):
             except KeyError:
                 return total_clicks
         return total_clicks
+
+    def qrcode(self, width=120, height=120, shorten=None):
+        if shorten:
+            return "{}/qr".format(shorten)

@@ -106,7 +106,7 @@ def test_qrcode_tinycc():
     responses.add(responses.GET, mock_url, json=body,
                   match_querystring=True)
     s.short(url)
-    assert s.qrcode() == '{}/qr'.format(shorten)
+    assert s.qrcode() == '{}/qr'.format(s.shorten)
 
 
 def test_total_clicks_no_url_or_shorten():
