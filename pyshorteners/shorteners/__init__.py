@@ -19,6 +19,7 @@ from .qpsru import Qpsru
 from .dagd import Dagd
 from .chilpit import Chilpit
 from .tinycc import Tinycc
+from .soogd import Soogd
 
 from ..utils import is_valid_url
 from ..exceptions import UnknownShortenerException
@@ -33,6 +34,7 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 __all__ = ['Shorteners', 'Shortener']
+
 
 class Shorteners(object):
     SIMPLE = 'Simple'
@@ -52,6 +54,7 @@ class Shorteners(object):
     DAGD = 'Dagd'
     CHILPIT = 'Chilpit'
     TINYCC = 'Tinycc'
+    SOOGD = 'Soogd'
 
 
 class Shortener(object):

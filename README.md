@@ -125,22 +125,6 @@ url = 'http://is.gd/SsaC'
 print "My long url is {}".format(shortener.expand(url))
 ```
 
-## Qr.cx Shortener
-
-No login or api key needed
-
-```python
-from pyshorteners import Shortener
-
-url = 'http://www.google.com'
-shortener = Shortener('QrCx')
-print "My short url is {}".format(shortener.short(url))
-
-### expanding
-url = 'http://qr.cx/XsC'
-print "My long url is {}".format(shortener.expand(url))
-```
-
 ## Readbility Shortener
 
 No login or api key needed
@@ -204,9 +188,19 @@ from pyshorteners import Shortener
 API_KEY = '<YOUR TINYCC API KEY HERE>'
 API_LOGIN = '<YOUR TINYCC LOGIN HERE>'
 url = 'http://www.google.com'
-shortener = Shortener('Tinycc', tinycc_api_key=API_KEY, tinycc_login=API_LOGIN)
+shortener = Shortener('Tinycc', api_key=API_KEY, login=API_LOGIN)
 print ("My short url is {}".format(shortener.short(url)))
 ```
+## soo.gd Shortener
+
+```python
+from pyshorteners import Shortener
+
+url = 'http://www.google.com'
+shortener = Shortener('Soogd')
+print "My short url is {}".format(shortener.short(url))
+```
+
 # Generating QR Code
 
 You can have the QR Code for your url by calling the `qr_code` method
