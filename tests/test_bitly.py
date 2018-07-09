@@ -86,6 +86,37 @@ def test_bitly_expand_method_bad_response():
         s.expand(shorten)
 
 
+@responses.activate
+def test_bitly_lookup_method():
+    # mock responses
+    body = shorten
+    params = urlencode(dict(
+        url=expanded,
+        access_token=token,
+        format='txt'
+    ))
+    url = '{0}{1}?{2}'.format(s.api_url, 'v3/link/lookup', params)
+    responses.add(responses.GET, url, body=body, match_querystring=True)
+    assert s.lookup(expanded) == shorten
+
+
+@responses.activate
+def test_bitly_lookup_method_bad_response():
+    # mock responses
+    body = shorten
+    params = urlencode(dict(
+        url=expanded,
+        access_token=token,
+        format='txt'
+    ))
+    url = '{0}{1}?{2}'.format(s.api_url, 'v3/link/lookup', params)
+    responses.add(responses.GET, url, body=body, status=400,
+                  match_querystring=True)
+
+    with pytest.raises(ExpandingErrorException):
+        s.lookup(expanded)
+
+
 def test_bitly_bad_keys():
     s = Shortener(Shorteners.BITLY)
 
