@@ -18,6 +18,7 @@ from .clckru import Clckru
 from .qpsru import Qpsru
 from .dagd import Dagd
 from .chilpit import Chilpit
+from .tinycc import Tinycc
 from .soogd import Soogd
 
 from ..utils import is_valid_url
@@ -52,6 +53,7 @@ class Shorteners(object):
     QPSRU = 'Qpsru'
     DAGD = 'Dagd'
     CHILPIT = 'Chilpit'
+    TINYCC = 'Tinycc'
     SOOGD = 'Soogd'
 
 
@@ -136,8 +138,13 @@ class Shortener(object):
     def qrcode(self, width=120, height=120):
         if not self.shorten:
             return None
+        try:
+            qrcode_url = self._class(**self.kwargs).qrcode(shorten=self.shorten)
+        except AttributeError:
+            if not self.shorten:
+                return None
 
-        qrcode_url = ('http://chart.apis.google.com/chart?cht=qr&'
-                      'chl={0}&chs={1}x{2}'.format(self.shorten, width,
-                                                   height))
+            qrcode_url = ('http://chart.apis.google.com/chart?cht=qr&'
+                          'chl={0}&chs={1}x{2}'.format(self.shorten, width,
+                                                       height))
         return qrcode_url

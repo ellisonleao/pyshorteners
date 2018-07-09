@@ -1,6 +1,11 @@
 # coding: utf-8
 from __future__ import unicode_literals
 
+try:
+    from urllib import urlencode
+except ImportError:
+    from urllib.parse import urlencode
+
 from pyshorteners import Shortener, Shorteners
 from pyshorteners.utils import is_valid_url
 from pyshorteners.exceptions import UnknownShortenerException
@@ -75,6 +80,33 @@ def test_qrcode():
     s.short(url)
     # flake8: noqa
     assert s.qrcode() == 'http://chart.apis.google.com/chart?cht=qr&chl={0}&chs=120x120'.format(shorten)
+
+
+@responses.activate
+def test_qrcode_tinycc():
+    test_token = 'TEST_TOKEN'
+    test_login = 'TEST_LOGIN'
+    s = Shortener(Shorteners.TINYCC,
+                  tinycc_api_key=test_token, tinycc_login=test_login, timeout=3)
+    url = 'http://www.google.com'
+    params = urlencode(
+        dict(
+            longUrl=url,
+            apiKey=test_token,
+            format='json',
+            c='rest_api',
+            version='2.0.3',
+            login=test_login,
+            m='shorten',
+        ))
+
+    mock_url = '{0}?{1}'.format(s.api_url, params)
+    shorten = 'http://tinyurl.com/test'
+    body = {"results": {"short_url": shorten}}
+    responses.add(responses.GET, mock_url, json=body,
+                  match_querystring=True)
+    s.short(url)
+    assert s.qrcode() == '{}/qr'.format(s.shorten)
 
 
 def test_total_clicks_no_url_or_shorten():

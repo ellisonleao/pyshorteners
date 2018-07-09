@@ -19,10 +19,11 @@ class BaseShortener(object):
         self.kwargs = kwargs
         self.requests = requests
 
-    def _get(self, url, params=None):
+    def _get(self, url, params=None, headers=None):
         response = self.requests.get(url, params=params,
                                      verify=self.kwargs.get('verify', True),
-                                     timeout=self.kwargs['timeout'])
+                                     timeout=self.kwargs['timeout'],
+                                     headers=headers)
         return response
 
     def _post(self, url, data=None, params=None, headers=None):
