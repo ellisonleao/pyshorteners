@@ -104,9 +104,8 @@ No expanding for this shortener
 from pyshorteners import Shortener
 
 url = 'http://www.google.com'
-shortener = Shortener('Adfly')
-print "My short url is {}".format(shortener.short(url, uid=UID,
-                                  api_key=API_KEY, type='int'))
+shortener = Shortener('Adfly', uid=UID, key=API_KEY, type='int')
+print "My short url is {}".format(shortener.short(url))
 ```
 
 ## Is.gd Shortener
