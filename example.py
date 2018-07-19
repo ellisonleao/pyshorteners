@@ -1,17 +1,13 @@
-# coding: utf-8
-from __future__ import print_function
-
+#!/usr/bin/env python
 from pyshorteners import Shortener
 
 
 def hello():
-    short = Shortener('Tinyurl')
-    print("""
-Hello World! Testing TinyurlShortener with www.google.com URL
-Shorten url: {}
-Expanded: {}
-    """.format(short.short('http://www.google.com'),
-               short.expand('http://goo.gl/fbsS')))
+    s = Shortener()
+    print(f"""
+Hello World! Testing Tinyurl shortener with www.google.com URL
+Shorten url: {s.tinyurl.short('http://www.google.com')}
+""")
 
 
 if __name__ == '__main__':

@@ -1,61 +1,51 @@
-# encoding: utf-8
+import requests
+import re
 
-from abc import ABCMeta, abstractmethod
+from ..exceptions import BadURLException
 
-from ..exceptions import ExpandingErrorException
+URL_RE = re.compile(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.]'
+                    r'[a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)'
+                    r'))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()'
+                    r'\[\]{};:\'".,<>?«»“”‘’]))')
 
 
-class BaseShortener(object):
-    """
-    Base class for all Shorteners
-    """
-
-    __metaclass__ = ABCMeta
-
-    api_url = None
+class BaseShortener:
 
     def __init__(self, **kwargs):
-        import requests
-        self.kwargs = kwargs
-        self.requests = requests
+        for key, item in list(kwargs.items()):
+            setattr(self, key, item)
 
     def _get(self, url, params=None, headers=None):
-        response = self.requests.get(url, params=params,
-                                     verify=self.kwargs.get('verify', True),
-                                     timeout=self.kwargs['timeout'],
-                                     headers=headers)
+        url = self.clean_url(url)
+        response = requests.get(url, params=params,
+                                verify=self.verify,
+                                timeout=self.timeout,
+                                headers=headers)
         return response
 
     def _post(self, url, data=None, params=None, headers=None):
-        response = self.requests.post(url, data=data, params=params,
-                                      headers=headers,
-                                      verify=self.kwargs.get('verify', True),
-                                      timeout=self.kwargs['timeout'])
+        url = self.clean_url(url)
+        response = requests.post(url, data=data, params=params,
+                                 headers=headers,
+                                 timeout=self.timeout,
+                                 verify=self.verify)
         return response
 
-    @abstractmethod
     def short(self, url):
         raise NotImplementedError
 
     def expand(self, url):
-        response = self._get(url)
+        response = requests.get(url)
         if response.ok:
             return response.url
-        raise ExpandingErrorException('There was an error expanding '
-                                      'this url - {0}'.format(
-                                          response.content))
+        return ''
 
-    def total_clicks(self, url=None):
-        raise NotImplementedError
+    @staticmethod
+    def clean_url(url):
+        if not url.startswith(('http://', 'https://')):
+            url = f'http://{url}'
 
-    @classmethod
-    def __subclasshook__(cls, C):
-        if cls is BaseShortener:
-            if all(hasattr(C, name) for name in ('short', 'expand')):
-                return True
-        return NotImplemented
+        if not URL_RE.match(url):
+            raise BadURLException(f'{url} is not valid')
 
-
-class Simple(BaseShortener):
-    def short(self, url):
         return url

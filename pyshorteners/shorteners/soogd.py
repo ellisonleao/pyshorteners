@@ -1,23 +1,18 @@
-# encoding: utf-8
-"""
-Soo.gd shortener implementation
-No config params needed
-Optional Params
-`suffix` - String
-"""
 import re
 
 from .base import BaseShortener
 from ..exceptions import ShorteningErrorException
 
 
-class Soogd(BaseShortener):
+class Shortener(BaseShortener):
+    """
+    Soo.gd shortener implementation
+    No config params needed
+    Optional Params
+    `suffix` - String
+    """
     api_url = 'http://soo.gd/processreq.php'
     p = re.compile(r'(http:\/\/soo.gd\/[a-zA-Z0-9]+)')
-
-    def __init__(self, **kwargs):
-        self.suffix = kwargs.get('suffix', Soogd._generate_random_suffix())
-        super(Soogd, self).__init__(**kwargs)
 
     def _parse(self, response):
         match = self.p.search(response)
@@ -36,12 +31,12 @@ class Soogd(BaseShortener):
                        for _ in range(4))
 
     def short(self, url):
+        url = self.clean_url(url)
         params = {
             'txt_url': url,
-            'txt_name': self.suffix,
+            'txt_name': getattr(self, 'suffix', self._generate_random_suffix)
         }
         response = self._post(self.api_url, data=params)
         if response.ok:
             return self._parse(response.text)
-        raise ShorteningErrorException('There was an error shortening this '
-                                       'url - {0}'.format(response.content))
+        raise ShorteningErrorException(response.content)
