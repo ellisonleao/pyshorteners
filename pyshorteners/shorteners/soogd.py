@@ -1,6 +1,6 @@
 import re
 
-from .base import BaseShortener
+from ..base import BaseShortener
 from ..exceptions import ShorteningErrorException
 
 

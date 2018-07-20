@@ -1,7 +1,7 @@
 import logging
 from ..exceptions import (ShorteningErrorException, ExpandingErrorException,
                           BadAPIResponseException)
-from .base import BaseShortener
+from ..base import BaseShortener
 
 logger = logging.getLogger(__name__)
 

@@ -4,7 +4,7 @@ Adf.ly shortener implementation
 Needs api key and uid
 """
 from ..exceptions import ShorteningErrorException
-from .base import BaseShortener
+from ..base import BaseShortener
 
 
 class Shortener(BaseShortener):

@@ -1,5 +1,5 @@
 from ..exceptions import ShorteningErrorException, ExpandingErrorException
-from .base import BaseShortener
+from ..base import BaseShortener
 
 
 class Shortener(BaseShortener):
