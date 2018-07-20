@@ -1,6 +1,7 @@
 
 .PHONY: test
 test: pep8
+	pip install -r requirements_test.txt
 	py.test --cov-report term-missing --cov pyshorteners
 
 .PHONY: pep8

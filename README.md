@@ -35,6 +35,17 @@ Installing latest without cloning
 
 ## Currently Available Shorteners
 
-- TinyURL
-- Bit.ly
-- Tiny.cc
+- adfly
+- bitly
+- chilpit
+- clckru
+- dagd
+- googl
+- isgd
+- osdb
+- owly
+- qpsru
+- soogd
+- tinycc
+- tinyurl
+- wpaco
