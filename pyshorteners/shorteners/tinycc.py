@@ -75,7 +75,7 @@ class Shortener(BaseShortener):
 
         try:
             total_clicks = int(data['results']['clicks'])
-        except (KeyError, ValueError) as e:
+        except (KeyError, TypeError) as e:
             logger.warning('Bad value from total_clicks response: %s', e)
             return 0
         return total_clicks

@@ -1,5 +1,5 @@
-flake8
-responses
-pytest
-pytest-cov
-pytest-sugar
+flake8==3.5.0
+responses==0.9.0
+pytest==3.6.3
+pytest-cov==2.5.1
+pytest-sugar==0.9.1

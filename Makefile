@@ -5,7 +5,7 @@ test: pep8
 
 .PHONY: pep8
 pep8:
-	@flake8 * --ignore=F403,F401 --exclude=requirements.txt,*.pyc,*.md,Makefile,LICENSE,*.in,*.rst,*.ini,docs,requirements_test.txt,coverage.xml,setup.cfg,example.py
+	@flake8 * --ignore=F403,F401 --exclude=requirements.txt,*.pyc,*.md,Makefile,LICENSE,CHANGELOG,MANIFEST.in,*.rst,docs,requirements_test.txt,coverage.xml,setup.cfg,example.py
 
 .PHONY: clean-pyc clean-build clean
 clean: clean-build clean-pyc

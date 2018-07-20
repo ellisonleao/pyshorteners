@@ -33,7 +33,7 @@ class Shortener(BaseShortener):
         expand_url = f'{self.api_url}v3/expand'
         params = {
             'shortUrl': url,
-            'access_toke': self.api_key,
+            'access_token': self.api_key,
             'format': 'txt',
         }
         response = self._get(expand_url, params=params)
@@ -46,7 +46,7 @@ class Shortener(BaseShortener):
         clicks_url = f'{self.api_url}v3/link/clicks'
         params = {
             'link': url,
-            'access_token': self.token,
+            'access_token': self.api_key,
             'format': 'txt'
         }
         response = self._get(clicks_url, params=params)
@@ -55,7 +55,7 @@ class Shortener(BaseShortener):
 
         try:
             total_clicks = int(response.text)
-        except (KeyError, ValueError) as e:
+        except (KeyError, TypeError) as e:
             logger.warning('Bad value from total_clicks response: %s', e)
             return 0
 

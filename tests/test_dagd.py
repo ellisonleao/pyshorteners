@@ -1,37 +1,33 @@
-#!/usr/bin/env python
-# encoding: utf-8
-
-from pyshorteners import Shortener, Shorteners
+from pyshorteners import Shortener
 from pyshorteners.exceptions import ShorteningErrorException
 
 import responses
 import pytest
 
-s = Shortener(Shorteners.DAGD)
+s = Shortener()
 shorten = 'http://da.gd/test'
 expanded = 'http://www.test.com'
+dagd = s.dagd
 
 
 @responses.activate
 def test_dagd_short_method():
     # mock responses
-    mock_url = '{}shorten?url={}'.format(s.api_url, expanded)
+    mock_url = f'{dagd.api_url}shorten?url={expanded}'
     responses.add(responses.GET, mock_url, body=shorten,
                   match_querystring=True)
 
-    shorten_result = s.short(expanded)
+    shorten_result = dagd.short(expanded)
 
     assert shorten_result == shorten
-    assert s.shorten == shorten_result
-    assert s.expanded == expanded
 
 
 @responses.activate
 def test_dagd_short_method_bad_response():
     # mock responses
-    mock_url = '{}shorten?url={}'.format(s.api_url, expanded)
+    mock_url = f'{dagd.api_url}shorten?url={expanded}'
     responses.add(responses.GET, mock_url, body=shorten, status=400,
                   match_querystring=True)
 
     with pytest.raises(ShorteningErrorException):
-        s.short(expanded)
+        dagd.short(expanded)

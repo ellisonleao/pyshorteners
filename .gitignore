@@ -37,3 +37,6 @@ nosetests.xml
 
 # Coverage
 coverage.xml
+
+#pytest
+.pytest_cache/

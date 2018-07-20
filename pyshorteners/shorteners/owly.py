@@ -1,5 +1,8 @@
+import json
+
 from .base import BaseShortener
-from ..exceptions import ShorteningErrorException, ExpandingErrorException
+from ..exceptions import (ShorteningErrorException, ExpandingErrorException,
+                          BadAPIResponseException)
 
 
 class Shortener(BaseShortener):
@@ -12,7 +15,7 @@ class Shortener(BaseShortener):
 
     def short(self, url):
         url = self.clean_url(url)
-        shorten_url = '{self.api_url}shorten'
+        shorten_url = f'{self.api_url}shorten'
         params = {'apiKey': self.api_key, 'longUrl': url}
         response = self._get(shorten_url, params=params)
         if not response.ok:
@@ -27,7 +30,7 @@ class Shortener(BaseShortener):
 
     def expand(self, url):
         url = self.clean_url(url)
-        expand_url = '{self.api_url}expand'
+        expand_url = f'{self.api_url}expand'
         data = {'apiKey': self.api_key, 'shortUrl': url}
         response = self._get(expand_url, params=data)
         if not response.ok:

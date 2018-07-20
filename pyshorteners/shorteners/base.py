@@ -1,7 +1,7 @@
 import requests
 import re
 
-from ..exceptions import BadURLException
+from ..exceptions import BadURLException, ExpandingErrorException
 
 URL_RE = re.compile(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.]'
                     r'[a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)'
@@ -17,17 +17,14 @@ class BaseShortener:
 
     def _get(self, url, params=None, headers=None):
         url = self.clean_url(url)
-        response = requests.get(url, params=params,
-                                verify=self.verify,
-                                timeout=self.timeout,
-                                headers=headers)
+        response = requests.get(url, params=params, verify=self.verify,
+                                timeout=self.timeout, headers=headers)
         return response
 
-    def _post(self, url, data=None, params=None, headers=None):
+    def _post(self, url, data=None, json=None, params=None, headers=None):
         url = self.clean_url(url)
-        response = requests.post(url, data=data, params=params,
-                                 headers=headers,
-                                 timeout=self.timeout,
+        response = requests.post(url, data=data, json=json, params=params,
+                                 headers=headers, timeout=self.timeout,
                                  verify=self.verify)
         return response
 
@@ -38,7 +35,7 @@ class BaseShortener:
         response = requests.get(url)
         if response.ok:
             return response.url
-        return ''
+        raise ExpandingErrorException
 
     @staticmethod
     def clean_url(url):
