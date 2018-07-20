@@ -48,4 +48,3 @@ Installing latest without cloning
 - soogd
 - tinycc
 - tinyurl
-- wpaco
