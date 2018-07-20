@@ -1,11 +1,14 @@
 
 .PHONY: test
 test: pep8
-	pip install -r requirements_test.txt
 	py.test --cov-report term-missing --cov pyshorteners
 
+.PHONY: reqs
+reqs:
+	pip install -r requirements_test.txt
+
 .PHONY: pep8
-pep8:
+pep8: reqs
 	@flake8 * --ignore=F403,F401 --exclude=requirements.txt,*.pyc,*.md,Makefile,LICENSE,CHANGELOG,MANIFEST.in,*.rst,docs,requirements_test.txt,coverage.xml,setup.cfg,example.py
 
 .PHONY: clean-pyc clean-build clean

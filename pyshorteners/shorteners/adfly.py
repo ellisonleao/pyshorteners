@@ -13,7 +13,7 @@ class Shortener(BaseShortener):
     def short(self, url):
         url = self.clean_url(url)
         data = {
-            'domain': 'adf.ly',
+            'domain': getattr(self, 'domain', 'adf.ly'),
             'advert_type': getattr(self, 'type', 'int'),  # int or banner
             'key': self.key,
             'uid': self.uid,
