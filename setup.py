@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-
-# flake8: noqa
 from setuptools import setup, find_packages
+
 import pyshorteners
 
 with open('README.md') as r:
@@ -12,16 +11,19 @@ CLASSIFIERS = [
     'Intended Audience :: Developers',
     'Operating System :: OS Independent',
     'Programming Language :: Python :: 3',
-    'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+    ('License :: OSI Approved :: GNU General Public License v3 or '
+     'later (GPLv3+)'),
     'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     'Topic :: Software Development :: Libraries :: Python Modules',
 ]
+
+SHORT_DESC = 'A Python lib to wrap and consume the most used shorteners APIs'
 
 setup(
     name='pyshorteners',
     version=pyshorteners.__version__,
     license=pyshorteners.__license__,
-    description=('A Python lib to wrap and consume the most used shorteners APIs'),
+    description=SHORT_DESC,
     long_description=README,
     long_description_content_type='text/markdown',
     author=pyshorteners.__author__,

@@ -1,37 +1,37 @@
-pyshorteners
-============
+<h1 align="center">
+    <img src="https://blog.shareaholic.com/wp-content/uploads/2015/06/shortlink.png" alt="logo"/><br>
+    pyshorteners
+</h1>
 
+<hr/>
 
-# Description
+<p align="center">
+    <a href="https://travis-ci.org/ellisonleao/pyshorteners"><img src="https://travis-ci.org/ellisonleao/pyshorteners.svg?branch=master" alt="Travis"/></a>
+    <a href="https://codecov.io/gh/ellisonleao/pyshorteners"><img src="https://codecov.io/gh/ellisonleao/pyshorteners/branch/master/graph/badge.svg" alt=""/></a>
+    <a href="https://saythanks.io/to/ellisonleao"><img src="https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg" alt=""/></a>
+</p>
 
-A simple URL shortening Python Lib, implementing the most famous
-shorteners.
+A simple URL shortening Python Lib, implementing the most famous shorteners.
 
 # Installing
 
-You can install pythorteners by pip or cloning/forking the repository
-and just typing
-
-Installing via pip
-
     pip install pyshorteners
-
-Installing with the cloned/downloaded code
-
-	git clone https://github.com/ellisonleao/pyshorteners.git
-	cd pyshorteners
-    python setup.py install
-
-Installing latest without cloning
-
-	pip install -e git+git@github.com:ellisonleao/pyshorteners.git#egg=pyshorteners
-
 
 # Testing
 
 	make test
 
 # Usage
+
+## Simple example
+
+```python
+import pyshorteners
+
+s = Shortener()
+print(s.tinyurl.short('www.google.com'))
+# prints 'http://tinyurl.com/HASH'
+```
 
 ## Currently Available Shorteners
 
@@ -40,7 +40,6 @@ Installing latest without cloning
 - chilpit
 - clckru
 - dagd
-- googl
 - isgd
 - osdb
 - owly
@@ -48,3 +47,5 @@ Installing latest without cloning
 - soogd
 - tinycc
 - tinyurl
+
+Please checkout the [docs]() for more info and examples.
