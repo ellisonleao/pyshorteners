@@ -1,21 +1,20 @@
 #!/usr/bin/env python
 # encoding: utf-8
-try:
-    from urllib import urlencode
-except ImportError:
-    from urllib.parse import urlencode
+from urllib.parse import urlencode
 
-from pyshorteners import Shortener, Shorteners
+from pyshorteners import Shortener
 from pyshorteners.exceptions import (ShorteningErrorException,
-                                     ExpandingErrorException)
+                                     ExpandingErrorException,
+                                     BadAPIResponseException)
 
 import responses
 import pytest
 
 token = 'TEST_TOKEN'
-s = Shortener(Shorteners.BITLY, bitly_token=token)
+s = Shortener(api_key=token)
 shorten = 'http://bit.ly/test'
 expanded = 'http://www.test.com'
+bitly = s.bitly
 
 
 @responses.activate
@@ -28,14 +27,12 @@ def test_bitly_short_method():
         format='txt'
     ))
 
-    url = '{0}{1}?{2}'.format(s.api_url, 'v3/shorten', params)
+    url = f'{bitly.api_url}v3/shorten?{params}'
     responses.add(responses.GET, url, body=body, match_querystring=True)
 
-    shorten_result = s.short(expanded)
+    shorten_result = bitly.short(expanded)
 
     assert shorten_result == shorten
-    assert s.shorten == shorten_result
-    assert s.expanded == expanded
 
 
 @responses.activate
@@ -47,12 +44,12 @@ def test_bitly_short_method_bad_response():
         access_token=token,
         format='txt'
     ))
-    url = '{0}{1}?{2}'.format(s.api_url, 'v3/shorten', params)
+    url = f'{bitly.api_url}v3/shorten?{params}'
     responses.add(responses.GET, url, body=body, status=400,
                   match_querystring=True)
 
     with pytest.raises(ShorteningErrorException):
-        s.short(expanded)
+        bitly.short(expanded)
 
 
 @responses.activate
@@ -64,9 +61,9 @@ def test_bitly_expand_method():
         access_token=token,
         format='txt'
     ))
-    url = '{0}{1}?{2}'.format(s.api_url, 'v3/expand', params)
+    url = f'{bitly.api_url}v3/expand?{params}'
     responses.add(responses.GET, url, body=body, match_querystring=True)
-    assert s.expand(shorten) == expanded
+    assert bitly.expand(shorten) == expanded
 
 
 @responses.activate
@@ -78,22 +75,12 @@ def test_bitly_expand_method_bad_response():
         access_token=token,
         format='txt'
     ))
-    url = '{0}{1}?{2}'.format(s.api_url, 'v3/expand', params)
+    url = f'{bitly.api_url}v3/expand?{params}'
     responses.add(responses.GET, url, body=body, status=400,
                   match_querystring=True)
 
     with pytest.raises(ExpandingErrorException):
-        s.expand(shorten)
-
-
-def test_bitly_bad_keys():
-    s = Shortener(Shorteners.BITLY)
-
-    with pytest.raises(TypeError):
-        s.short(expanded)
-
-    with pytest.raises(TypeError):
-        s.expand(shorten)
+        bitly.expand(shorten)
 
 
 @responses.activate
@@ -104,22 +91,10 @@ def test_bitly_total_clicks():
         access_token=token,
         format='txt'
     ))
-    url = '{0}{1}?{2}'.format(s.api_url, 'v3/link/clicks', params)
+    url = f'{bitly.api_url}v3/link/clicks?{params}'
     responses.add(responses.GET, url, body=body, match_querystring=True)
 
-    # shorten mock
-    body = shorten
-    params = urlencode(dict(
-        uri=expanded,
-        access_token=token,
-        format='txt'
-    ))
-    url = '{0}{1}?{2}'.format(s.api_url, 'v3/shorten', params)
-    responses.add(responses.GET, url, body=body, match_querystring=True)
-
-    s.short(expanded)
-    assert s.total_clicks() == 20
-    assert s.total_clicks(shorten) == 20
+    assert bitly.total_clicks(shorten) == 20
 
 
 @responses.activate
@@ -130,20 +105,8 @@ def test_bitly_total_clicks_bad_response():
         access_token=token,
         format='txt'
     ))
-    url = '{0}{1}?{2}'.format(s.api_url, 'v3/link/clicks', params)
+    url = f'{bitly.api_url}v3/link/clicks?{params}'
     responses.add(responses.GET, url, body=body, status=400,
                   match_querystring=True)
-
-    # shorten mock
-    body = shorten
-    params = urlencode(dict(
-        uri=expanded,
-        access_token=token,
-        format='txt'
-    ))
-    url = '{0}{1}?{2}'.format(s.api_url, 'v3/shorten', params)
-    responses.add(responses.GET, url, body=body, match_querystring=True)
-
-    s.short(expanded)
-    assert s.total_clicks() == 0
-    assert s.total_clicks(shorten) == 0
+    with pytest.raises(BadAPIResponseException):
+        bitly.total_clicks(shorten)

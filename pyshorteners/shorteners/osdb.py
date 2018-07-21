@@ -4,11 +4,11 @@ No config params needed
 """
 import re
 
-from .base import BaseShortener
+from ..base import BaseShortener
 from ..exceptions import ShorteningErrorException
 
 
-class Osdb(BaseShortener):
+class Shortener(BaseShortener):
     api_url = 'http://osdb.link/'
     p = re.compile(r'(http:\/\/osdb.link\/[a-zA-Z0-9]+)')
 
@@ -20,8 +20,8 @@ class Osdb(BaseShortener):
         return match.group()
 
     def short(self, url):
-        response = self._post(self.api_url, data=dict(url=url))
+        url = self.clean_url(url)
+        response = self._post(self.api_url, data={'url': url})
         if response.ok:
             return self._parse(response.text)
-        raise ShorteningErrorException('There was an error shortening this '
-                                       'url - {0}'.format(response.content))
+        raise ShorteningErrorException(response.content)

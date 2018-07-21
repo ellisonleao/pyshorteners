@@ -1,75 +1,81 @@
-from ..exceptions import ShorteningErrorException, ExpandingErrorException
-from .base import BaseShortener
+import logging
+from ..exceptions import (ShorteningErrorException, ExpandingErrorException,
+                          BadAPIResponseException)
+from ..base import BaseShortener
+
+logger = logging.getLogger(__name__)
 
 
-class Tinycc(BaseShortener):
+class Shortener(BaseShortener):
     api_url = 'http://tiny.cc/'
-
-    def __init__(self, **kwargs):
-        if not kwargs.get('tinycc_api_key', False):
-            raise TypeError('tinycc_api_key missing from kwargs')
-        if not kwargs.get('tinycc_login', False):
-            raise TypeError('tinycc login missing from kwargs')
-        self.api_key = kwargs.get('tinycc_api_key')
-        self.login = kwargs.get('tinycc_login')
-        self.response_format = 'json'
-        self.api_version = '2.0.3'
-        self.params = {
-            'c': 'rest_api',
-            'version': self.api_version,
-            'format': self.response_format,
-            'login': self.login,
-            'apiKey': self.api_key
-        }
-        self.headers = {
-            'User-Agent':
-            'Mozilla/5.0 (X11; Ubuntu; Linux) Gecko/20100101 Firefox/59.0'
-        }
-        super(Tinycc, self).__init__(**kwargs)
+    params = {
+        'c': 'rest_api',
+        'version': '2.0.3',
+        'format': 'json',
+    }
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux) Gecko/20100101 '
+                      'Firefox/61.0',
+    }
 
     def short(self, url):
+        url = self.clean_url(url)
         params = self.params.copy()
         params.update({
             'm': 'shorten',
             'longUrl': url,
+            'login': self.login,
+            'apiKey': self.api_key
         })
         response = self._get(self.api_url, params=params, headers=self.headers)
-        if response.ok:
-            data = response.json()
-            return data['results']['short_url']
-        raise ShorteningErrorException('There was an error shortening this '
-                                       'url - {0}'.format(response.content))
+        if not response.ok:
+            raise ShorteningErrorException(response.content)
+
+        data = response.json()
+        if not data.get('results'):
+            raise ShorteningErrorException(data['errorMessage'])
+
+        return data['results']['short_url'].strip()
 
     def expand(self, url):
+        url = self.clean_url(url)
         params = self.params.copy()
         params.update({
             'm': 'expand',
-            'shortUrl': url,
+            'longUrl': url,
+            'login': self.login,
+            'apiKey': self.api_key
         })
         response = self._get(self.api_url, params=params, headers=self.headers)
-        if response.ok:
-            data = response.json()
-            return data['results']['long_url']
-        raise ExpandingErrorException('There was an error expanding'
-                                      ' this url - {0}'.format(
-                                          response.content))
+        if not response.ok:
+            raise ExpandingErrorException(response.content)
 
-    def total_clicks(self, url=None):
+        data = response.json()
+        if not data.get('results'):
+            raise ExpandingErrorException(data['errorMessage'])
+
+        return data['results']['longUrl'].strip()
+
+    def total_clicks(self, url):
+        url = self.clean_url(url)
         params = self.params.copy()
         params.update({
             'm': 'total_visits',
             'shortUrl': url,
+            'login': self.login,
+            'apiKey': self.api_key
         })
         response = self._get(self.api_url, params=params, headers=self.headers)
-        total_clicks = 0
-        if response.ok:
-            data = response.json()
-            try:
-                total_clicks = int(data['results']['clicks'])
-            except KeyError:
-                return total_clicks
-        return total_clicks
+        if not response.ok:
+            raise BadAPIResponseException(response.content)
 
-    def qrcode(self, width=120, height=120, shorten=None):
-        if shorten:
-            return "{}/qr".format(shorten)
+        data = response.json()
+        if not data.get('results'):
+            raise BadAPIResponseException(data['errorMessage'])
+
+        try:
+            total_clicks = int(data['results']['clicks'])
+        except (KeyError, TypeError) as e:
+            logger.warning('Bad value from total_clicks response: %s', e)
+            return 0
+        return total_clicks

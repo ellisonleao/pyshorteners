@@ -1,62 +1,62 @@
-#!/usr/bin/env python
-# encoding: utf-8
-try:
-    from urllib import urlencode
-except ImportError:
-    from urllib.parse import urlencode
+from urllib.parse import urlencode
 
-from pyshorteners import Shortener, Shorteners
+from pyshorteners import Shortener
 from pyshorteners.exceptions import ShorteningErrorException
 
 import responses
 import pytest
 
-s = Shortener(Shorteners.ADFLY, uid='TEST', key='TEST_KEY')
+s = Shortener(user_id='TEST', api_key='TEST_KEY')
 shorten = 'http://ad.fly/test'
 expanded = 'http://www.test.com'
+adfly = s.adfly
 
 
 @responses.activate
 def test_adfly_short_method():
     # mock responses
-    params = urlencode({
-        'domain': 'adf.ly',
-        'advert_type': 'int',  # int or banner
-        'key': s.key,
-        'uid': s.uid,
-        'url': expanded,
-    })
-    mock_url = '{}?{}'.format(s.api_url, params)
-    responses.add(responses.GET, mock_url, body=shorten,
-                  match_querystring=True)
+    response = {
+        'errors': [],
+        'data': [{'short_url': shorten}],
+    }
+    mock_url = f'{adfly.api_url}v1/shorten'
+    responses.add(responses.POST, mock_url, json=response)
 
-    shorten_result = s.short(expanded)
+    shorten_result = s.adfly.short(expanded)
 
     assert shorten_result == shorten
-    assert s.shorten == shorten_result
-    assert s.expanded == expanded
 
 
 @responses.activate
 def test_adfly_short_method_bad_response():
     # mock responses
-    params = urlencode({
-        'domain': 'adf.ly',
-        'advert_type': 'int',  # int or banner
-        'key': s.key,
-        'uid': s.uid,
-        'url': expanded,
-    })
-    mock_url = '{}?{}'.format(s.api_url, params)
-    responses.add(responses.GET, mock_url, body=shorten, status=400,
-                  match_querystring=True)
+    mock_url = f'{adfly.api_url}v1/shorten'
+    responses.add(responses.POST, mock_url, status=400)
 
     with pytest.raises(ShorteningErrorException):
-        s.short(expanded)
+        adfly.short(expanded)
 
 
-def test_adfly_bad_params():
-    s = Shortener(Shorteners.ADFLY)
+@responses.activate
+def test_adfly_expand_method():
+    # mock responses
+    response = {
+        'errors': [],
+        'data': [{'url': expanded}],
+    }
+    mock_url = f'{adfly.api_url}v1/expand'
+    responses.add(responses.POST, mock_url, json=response)
 
-    with pytest.raises(TypeError):
-        s.short(expanded)
+    expand_result = s.adfly.expand(shorten)
+
+    assert expand_result == expanded
+
+
+@responses.activate
+def test_adfly_expand_method_bad_response():
+    # mock responses
+    mock_url = f'{adfly.api_url}v1/expand'
+    responses.add(responses.POST, mock_url, status=400)
+
+    with pytest.raises(ShorteningErrorException):
+        adfly.expand(expanded)

@@ -1,4 +1,51 @@
-pyshorteners
-============
+<h1 align="center">
+    <img src="https://blog.shareaholic.com/wp-content/uploads/2015/06/shortlink.png" alt="logo"/><br>
+    pyshorteners
+</h1>
 
-[VERSION 1.0](https://github.com/ellisonleao/pyshorteners/tree/1.0) is under development right now. Do not use current `master` version in prod. There are many shorteners which are discontinued or changed their APIs.
+<hr/>
+
+<p align="center">
+    <a href="https://travis-ci.org/ellisonleao/pyshorteners"><img src="https://travis-ci.org/ellisonleao/pyshorteners.svg?branch=master" alt="Travis"/></a>
+    <a href="https://codecov.io/gh/ellisonleao/pyshorteners"><img src="https://codecov.io/gh/ellisonleao/pyshorteners/branch/master/graph/badge.svg" alt=""/></a>
+    <a href="https://saythanks.io/to/ellisonleao"><img src="https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg" alt=""/></a>
+</p>
+
+A simple URL shortening Python Lib, implementing the most famous shorteners.
+
+# Installing
+
+    pip install pyshorteners
+
+# Testing
+
+	make test
+
+# Usage
+
+## Simple example
+
+```python
+import pyshorteners
+
+s = pyshorteners.Shortener()
+print(s.tinyurl.short('www.google.com'))
+# prints 'http://tinyurl.com/HASH'
+```
+
+## Currently Available Shorteners
+
+- adfly
+- bitly
+- chilpit
+- clckru
+- dagd
+- isgd
+- osdb
+- owly
+- qpsru
+- soogd
+- tinycc
+- tinyurl
+
+Please checkout the [docs]() for more info and examples.

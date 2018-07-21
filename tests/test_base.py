@@ -1,49 +1,62 @@
-#!/usr/bin/env python
-# encoding: utf-8
+from pyshorteners.base import BaseShortener
+from pyshorteners.exceptions import BadURLException, ExpandingErrorException
 
-from pyshorteners import Shortener
-from pyshorteners.shorteners.base import BaseShortener, Simple
-from pyshorteners.exceptions import ExpandingErrorException
-
-import responses
 import pytest
-
-s = Shortener()
-short = 'http://www.t.com'
-expanded = 'http://googl.com'
+import responses
 
 
-def test_base_short_method():
-    shorten_result = s.short(expanded)
-    assert shorten_result == expanded
+def test_base_init_params_become_properties():
+    b = BaseShortener(a=1, b=2)
+    assert b.a == 1
+    assert b.b == 2
+    # check default params
+    assert b.timeout == 2
+    assert b.verify is True
 
 
-def test_base_total_clicks():
-    s = Shortener()
-    s.shorten = 'http://test.com'
-    with pytest.raises(NotImplementedError):
-        s.total_clicks()
+def test_base_clean_url_method():
+    # good
+    url = 'www.google.com'
+    assert BaseShortener.clean_url(url) == f'http://{url}'
+
+    # bad
+    with pytest.raises(BadURLException):
+        BaseShortener.clean_url('http://')
 
 
-@responses.activate
-def test_expand_method_bad_response():
-    responses.add(responses.GET, short, body='', status=400)
-    s = Shortener()
+def test_base_expand_method():
+    b = BaseShortener()
+    url = 'http://httpbin.org/get'
+    assert b.expand(url) == url
 
+
+def test_base_expand_method_bad_response():
+    b = BaseShortener()
     with pytest.raises(ExpandingErrorException):
-        s.expand(short)
+        b.expand('http://httpbin.org/status/400')
 
 
-def test_timeout():
-    import requests
-    b = Simple(timeout=2)
-    assert b.kwargs['timeout'] == 2
+def test_base_get_request_bad_url():
+    b = BaseShortener()
+    url = '.....'
+    with pytest.raises(BadURLException):
+        b._get(url)
 
-    # flake8: noqa
-    # https://github.com/kennethreitz/requests/blob/master/test_requests.py#L46-L48
-    with pytest.raises(requests.exceptions.Timeout):
-        b.expand('http://10.255.255.1')
 
-def test_base_verify_arg():
-    s = Shortener(verify=False)
-    assert s.kwargs['verify'] == False
+def test_base_post_request():
+    b = BaseShortener()
+    url = 'http://httpbin.org/status/200'
+    assert b._post(url).status_code == 200
+
+
+def test_base_post_request_bad_url():
+    b = BaseShortener()
+    url = '.....'
+    with pytest.raises(BadURLException):
+        b._post(url)
+
+
+def test_base_short_method_raises_notimplemented():
+    b = BaseShortener()
+    with pytest.raises(NotImplementedError):
+        b.short('http://someurl')
