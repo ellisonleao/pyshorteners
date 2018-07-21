@@ -3,9 +3,26 @@ from ..base import BaseShortener
 
 
 class Shortener(BaseShortener):
-    """
-    Adf.ly shortener implementation
-    Needs api key and uid
+    """Adf.ly shortener implementation
+    required params: api_key, user_id
+    optional params:
+    - domain:
+        - ad.fly
+        - q.gs
+        - custom.com
+        - 0 (Random domain)
+    - type:
+        - 'int', 'interstitial', 1 for Interstitial advertising
+        - 'banner', 3 for Framed Banner
+        - 2 , for no Advertising
+    - group_id
+
+    Example:
+
+    >>> s = Shortener(api_key='YOUR_KEY', user_id='USER_ID',
+    domain='test.us', group_id=12, type='int')
+    >>> s.adfly.short('http://www.google.com')
+    'http://test.us/TEST'
     """
     api_url = 'http://api.adf.ly/'
 

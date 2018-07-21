@@ -8,11 +8,14 @@ logger = logging.getLogger(__name__)
 
 
 class Shortener(BaseShortener):
-    """
-    Bit.ly shortener Implementation
-    needs on app.config:
-    BITLY_TOKEN - Your bit.ly app access token
-    How to get an access token: http://dev.bitly.com/authentication.html
+    """Bit.ly shortener Implementation
+    required params: api_key
+
+    Example:
+
+    >>> s = Shortener(api_key='YOUR_KEY')
+    >>> s.bitly.short('http://www.google.com')
+    'http://bit.ly/TEST'
     """
     api_url = 'https://api-ssl.bit.ly/'
 

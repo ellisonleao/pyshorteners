@@ -10,6 +10,18 @@ __license__ = 'GPLv3'
 
 
 class Shortener(object):
+    """Base Factory class to create shoreteners instances
+
+    >>> s = Shortener(**kwargs)
+    >>> instance = s.shortener_name
+    >>> instance.short('http://www.google.com')
+    'http://short.url/'
+
+    Available Shorteners can be seen with:
+
+    >>> s = Shortener()
+    >>> print(s.available_shorteners)
+    """
 
     def __init__(self, **kwargs):
         self.kwargs = kwargs
