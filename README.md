@@ -28,7 +28,7 @@ A simple URL shortening Python Lib, implementing the most famous shorteners.
 ```python
 import pyshorteners
 
-s = Shortener()
+s = pyshorteners.Shortener()
 print(s.tinyurl.short('www.google.com'))
 # prints 'http://tinyurl.com/HASH'
 ```
