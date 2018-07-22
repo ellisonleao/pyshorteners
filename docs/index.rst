@@ -28,6 +28,7 @@ Some URL Shortening services have their own set of restrictions and additional p
 - osdb
 - owly
 - qpsru
+- post
 - soogd
 - tinycc
 - tinyurl

@@ -49,4 +49,4 @@ print(s.tinyurl.short('www.google.com'))
 - tinycc
 - tinyurl
 
-Please checkout the [docs]() for more info and examples.
+Please checkout the [docs](http://pyshorteners.readthedocs.io/en/latest/) for more info and examples.
