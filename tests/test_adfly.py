@@ -1,7 +1,7 @@
 from urllib.parse import urlencode
 
 from pyshorteners import Shortener
-from pyshorteners.exceptions import ShorteningErrorException
+from pyshorteners.exceptions import ShorteningErrorException, BadAPIResponseException
 
 import responses
 import pytest
@@ -33,7 +33,7 @@ def test_adfly_short_method_bad_response():
     mock_url = f'{adfly.api_url}v1/shorten'
     responses.add(responses.POST, mock_url, status=400)
 
-    with pytest.raises(ShorteningErrorException):
+    with pytest.raises(BadAPIResponseException):
         adfly.short(expanded)
 
 
@@ -58,5 +58,5 @@ def test_adfly_expand_method_bad_response():
     mock_url = f'{adfly.api_url}v1/expand'
     responses.add(responses.POST, mock_url, status=400)
 
-    with pytest.raises(ShorteningErrorException):
+    with pytest.raises(BadAPIResponseException):
         adfly.expand(expanded)
