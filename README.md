@@ -7,7 +7,6 @@
 
 <p align="center">
     <a href="https://travis-ci.org/ellisonleao/pyshorteners"><img src="https://travis-ci.org/ellisonleao/pyshorteners.svg?branch=master" alt="Travis"/></a>
-    <a href="https://landscape.io/github/ellisonleao/pyshorteners/master"><img alt="Code Health" src="https://landscape.io/github/ellisonleao/pyshorteners/master/landscape.svg?style=flat"/></a>
     <a href="https://codecov.io/gh/ellisonleao/pyshorteners"><img src="https://codecov.io/gh/ellisonleao/pyshorteners/branch/master/graph/badge.svg" alt=""/></a>
     <a href="https://saythanks.io/to/ellisonleao"><img src="https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg" alt=""/></a>
 </p>
@@ -50,4 +49,4 @@ print(s.tinyurl.short('www.google.com'))
 - tinycc
 - tinyurl
 
-Please checkout the [docs](http://pyshorteners.readthedocs.io/en/latest/) for more info and examples.
+Please checkout the [docs](http://pyshorteners.readthedocs.io/en/latest/) for more info and examples on how to use them.
