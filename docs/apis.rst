@@ -15,4 +15,10 @@ Bit.ly
 .. autoclass:: pyshorteners.shorteners.bitly.Shortener
     :members:
 
+TinyURL.com
+-----------
+
+.. autoclass:: pyshorteners.shorteners.tinyurl.Shortener
+    :members:
+
 
