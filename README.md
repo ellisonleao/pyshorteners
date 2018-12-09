@@ -48,5 +48,6 @@ print(s.tinyurl.short('www.google.com'))
 - soogd
 - tinycc
 - tinyurl
+- yourls
 
 Please checkout the [docs](http://pyshorteners.readthedocs.io/en/latest/) for more info and examples on how to use them.
