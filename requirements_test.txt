@@ -1,5 +1,5 @@
 flake8==3.6.0
-responses==0.10.4
+responses==0.10.5
 pytest==4.0.2
 pytest-cov==2.6.0
 codecov==2.0.15
