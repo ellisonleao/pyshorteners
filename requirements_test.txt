@@ -1,6 +1,6 @@
 flake8==3.7.3
 responses==0.10.5
-pytest==4.1.1
+pytest==4.2.0
 pytest-cov==2.6.1
 codecov==2.0.15
 sphinxcontrib-napoleon==0.7
