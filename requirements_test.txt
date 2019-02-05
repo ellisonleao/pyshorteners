@@ -1,4 +1,4 @@
-flake8==3.7.4
+flake8==3.7.5
 responses==0.10.5
 pytest==4.2.0
 pytest-cov==2.6.1
