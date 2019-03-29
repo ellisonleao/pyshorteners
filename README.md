@@ -1,3 +1,5 @@
+# THIS DOC IS FOR THE UPCOMING VERSION. DO NOT USE THE EXAMPLE CODE YET! For the old usage, please refer to [this comment](https://github.com/ellisonleao/pyshorteners/issues/117#issuecomment-471043530)
+
 <h1 align="center">
     <img src="https://blog.shareaholic.com/wp-content/uploads/2015/06/shortlink.png" alt="logo"/><br>
     pyshorteners
