@@ -6,6 +6,17 @@ import pyshorteners
 with open('README.md') as r:
     README = r.read()
 
+TESTS_REQUIRE = [
+    'flake8==3.7.7',
+    'responses==0.10.6',
+    'pytest==4.4.1',
+    'pytest-cov==2.7.1',
+    'codecov==2.0.15',
+    'sphinxcontrib-napoleon==0.7',
+    'pytest-flake8',
+]
+
+
 CLASSIFIERS = [
     'Development Status :: 5 - Production/Stable',
     'Intended Audience :: Developers',
@@ -32,5 +43,7 @@ setup(
     url='https://github.com/ellisonleao/pyshorteners/',
     classifiers=CLASSIFIERS,
     install_requires=['requests', ],
+    setup_requires=['pytest-runner'],
+    tests_require=TESTS_REQUIRE,
     packages=find_packages(exclude=['*tests*']),
 )
