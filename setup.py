@@ -14,6 +14,7 @@ TESTS_REQUIRE = [
     'codecov==2.0.15',
     'sphinxcontrib-napoleon==0.7',
     'pytest-flake8',
+    'pre-commit',
 ]
 
 
@@ -22,8 +23,7 @@ CLASSIFIERS = [
     'Intended Audience :: Developers',
     'Operating System :: OS Independent',
     'Programming Language :: Python :: 3',
-    ('License :: OSI Approved :: GNU General Public License v3 or '
-     'later (GPLv3+)'),
+    ('License :: OSI Approved :: GNU General Public License v3 or ' 'later (GPLv3+)'),
     'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     'Topic :: Software Development :: Libraries :: Python Modules',
 ]
@@ -42,7 +42,7 @@ setup(
     python_requires='>=3.6',
     url='https://github.com/ellisonleao/pyshorteners/',
     classifiers=CLASSIFIERS,
-    install_requires=['requests', ],
+    install_requires=['requests'],
     setup_requires=['pytest-runner'],
     tests_require=TESTS_REQUIRE,
     packages=find_packages(exclude=['*tests*']),
