@@ -1,5 +1,4 @@
-CONTRIBUTING to pyshorteners
-============================
+# CONTRIBUTING to pyshorteners
 
 First of all, thanks for your intention to help with this project. It was built while i was learning some python magic features and it really makes me happy that you also want to be part of this.
 
@@ -12,8 +11,7 @@ Some steps to make our lives easier:
 
 Thanks for your help and let me buy you a :beer: sometime
 
-Building a new Shortener
-------------------------
+## Building a new Shortener
 
 If you want to build another implementation of a shortener API, you basically need to:
 
@@ -60,3 +58,18 @@ Then, to use this new shortener, just try:
 ```
 
 Check out the [current implementations](https://github.com/ellisonleao/pyshorteners/tree/master/pyshorteners/shorteners) for more info
+
+## Precommit Hooks
+
+This project uses the [pre-commit](https://pre-commit.com) project to manage git pre-commit hooks, that means
+hooks will be run before commiting that at the moment check for pylint and black style rules.
+
+If you are following this guide and ran `make test` then there is nothign needed to enable this behavior, pre-commits area
+already installed.
+
+If you are not following this guide (you should) then you can enable pre-commit like
+
+```sh
+$ pip install pre-commit
+$ pre-commit install
+```
