@@ -4,7 +4,8 @@ test: develop
 
 .PHONY: develop
 develop:
-	@pip install -e .
+	@pip install -e .[dev]
+	pre-commit install
 
 clean-build:
 	rm -fr build/
