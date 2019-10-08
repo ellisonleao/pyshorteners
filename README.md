@@ -21,7 +21,7 @@ A simple URL shortening Python Lib, implementing the most famous shorteners.
 
 # Testing
 
-	make test
+    make test
 
 # Usage
 
@@ -51,5 +51,6 @@ print(s.tinyurl.short('www.google.com'))
 - soogd
 - tinycc
 - tinyurl
+- gitio
 
 Please checkout the [docs](http://pyshorteners.readthedocs.io/en/latest/) for more info and examples on how to use them.
