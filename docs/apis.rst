@@ -22,3 +22,8 @@ TinyURL.com
     :members:
 
 
+Git.io
+-----------
+
+.. autoclass:: pyshorteners.shorteners.gitio.Shortener
+    :members:
