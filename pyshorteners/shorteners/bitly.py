@@ -1,8 +1,9 @@
+import json
+from urllib.parse import urlparse
 import logging
 
 from ..base import BaseShortener
-from ..exceptions import (ShorteningErrorException, ExpandingErrorException,
-                          BadAPIResponseException)
+from ..exceptions import BadAPIResponseException
 
 logger = logging.getLogger(__name__)
 
@@ -70,8 +71,7 @@ class Shortener(BaseShortener):
             ExpandingErrorException: If the API Returns an error as response
         """
         self.clean_url(url)
-        if url.startswith('http'):
-            url = url.replace('https://', '').replace('http://', '')
+        url =  ''.join(urlparse(url)[1:3])
         expand_url = f'{self.api_url}v4/expand'
         params = {
             'bitlink_id': url
@@ -102,8 +102,7 @@ class Shortener(BaseShortener):
             BadAPIResponseException: If the API Returns an error as response
         """
         self.clean_url(url)
-        if url.startswith('http'):
-            url = url.replace('https://', '').replace('http://', '')
+        url = ''.join(urlparse(url)[1:3])
         clicks_url = f'{self.api_url}v4/bitlinks/{url}/clicks'
         headers = {
             'Authorization': f'Bearer {self.api_key}'
