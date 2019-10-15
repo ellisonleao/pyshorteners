@@ -1,4 +1,5 @@
 # pylint: disable=W0212,C0116,C0114
+import time
 import threading
 
 from pyshorteners.base import BaseShortener
@@ -15,8 +16,10 @@ def proxy_url():
     )
     thread.daemon = True
     thread.start()
+    time.sleep(1)
 
     yield f"http://127.0.0.1:8899"
+    thread.join(0)
 
 
 def test_base_init_params_become_properties():
