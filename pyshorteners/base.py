@@ -3,10 +3,12 @@ import re
 
 from .exceptions import BadURLException, ExpandingErrorException
 
-URL_RE = re.compile(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.]'
-                    r'[a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)'
-                    r'))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()'
-                    r'\[\]{};:\'".,<>?«»“”‘’]))')
+URL_RE = re.compile(
+    r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.]"
+    r"[a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)"
+    r"))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()"
+    r'\[\]{};:\'".,<>?«»“”‘’]))'
+)
 
 
 class BaseShortener:
@@ -17,22 +19,36 @@ class BaseShortener:
             setattr(self, key, item)
 
         # safe check
-        self.timeout = getattr(self, 'timeout', 2)
-        self.verify = getattr(self, 'verify', True)
+        self.timeout = getattr(self, "timeout", 2)
+        self.verify = getattr(self, "verify", True)
+        self.proxies = getattr(self, "proxies", {})
 
     def _get(self, url, params=None, headers=None):
         """Wraps a GET request with a url check"""
         url = self.clean_url(url)
-        response = requests.get(url, params=params, verify=self.verify,
-                                timeout=self.timeout, headers=headers)
+        response = requests.get(
+            url,
+            params=params,
+            verify=self.verify,
+            timeout=self.timeout,
+            headers=headers,
+            proxies=self.proxies,
+        )
         return response
 
     def _post(self, url, data=None, json=None, params=None, headers=None):
         """Wraps a POST request with a url check"""
         url = self.clean_url(url)
-        response = requests.post(url, data=data, json=json, params=params,
-                                 headers=headers, timeout=self.timeout,
-                                 verify=self.verify)
+        response = requests.post(
+            url,
+            data=data,
+            json=json,
+            params=params,
+            headers=headers,
+            timeout=self.timeout,
+            verify=self.verify,
+            proxies=self.proxies,
+        )
         return response
 
     def short(self, url):
@@ -50,10 +66,10 @@ class BaseShortener:
     @staticmethod
     def clean_url(url):
         """URL Validation function"""
-        if not url.startswith(('http://', 'https://')):
-            url = f'http://{url}'
+        if not url.startswith(("http://", "https://")):
+            url = f"http://{url}"
 
         if not URL_RE.match(url):
-            raise BadURLException(f'{url} is not valid')
+            raise BadURLException(f"{url} is not valid")
 
         return url
