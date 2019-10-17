@@ -8,7 +8,7 @@
 <hr/>
 
 <p align="center">
-    <a href="https://travis-ci.org/ellisonleao/pyshorteners"><img src="https://travis-ci.org/ellisonleao/pyshorteners.svg?branch=master" alt="Travis"/></a>
+    <a href="https://github.com/ellisonleao/pyshorteners/actions"><img src="https://github.com/ellisonleao/pyshorteners/workflows/build/badge.svg" alt="Travis"/></a>
     <a href="https://saythanks.io/to/ellisonleao"><img src="https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg" alt=""/></a>
 </p>
 
