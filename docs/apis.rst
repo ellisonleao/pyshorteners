@@ -27,3 +27,10 @@ Git.io
 
 .. autoclass:: pyshorteners.shorteners.gitio.Shortener
     :members:
+
+
+Tiny.cc
+-------
+
+.. autoclass:: pyshorteners.shorteners.tinycc.Shortener
+    :members:

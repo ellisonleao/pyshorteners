@@ -7,6 +7,20 @@ logger = logging.getLogger(__name__)
 
 
 class Shortener(BaseShortener):
+    """Tiny.cc implementation.
+
+    Args:
+        api_key (str): Tiny.cc API key.
+        login (str): Tiny.cc username.
+
+    Example:
+        >>> import pyshorteners
+        >>> s = pyshorteners.Shortener(api_key='12345', login='user')
+        >>> s.tinycc.short('http://www.google.com')
+        'http://tiny.cc/6lbsez'
+
+    """
+
     api_url = 'http://tiny.cc/'
     params = {
         'c': 'rest_api',
@@ -19,6 +33,21 @@ class Shortener(BaseShortener):
     }
 
     def short(self, url):
+        """Short implementation for Tiny.cc.
+
+        Args:
+            url (str): The URL you want to shorten.
+
+        Returns:
+            str: The shortened URL.
+
+        Raises:
+            BadAPIResponseException: If the data is malformed or we got a bad
+                status code on API response.
+            ShorteningErrorException: If the API Returns an error as
+                response.
+
+        """
         url = self.clean_url(url)
         params = self.params.copy()
         params.update({
@@ -38,6 +67,18 @@ class Shortener(BaseShortener):
         return data['results']['short_url'].strip()
 
     def expand(self, url):
+        """Expand implementation for Tiny.cc.
+
+        Args:
+            url (str): The URL you want to expand.
+
+        Returns:
+            str: The expanded URL.
+
+        Raises:
+            ExpandingErrorException: If the API Returns an error as response.
+
+        """
         url = self.clean_url(url)
         params = self.params.copy()
         params.update({
@@ -57,6 +98,19 @@ class Shortener(BaseShortener):
         return data['results']['longUrl'].strip()
 
     def total_clicks(self, url):
+        """How many times the shortened URL has been clicked on.
+
+        Args:
+            url (str): The shortened URL to examine.
+
+        Returns:
+            int: The number of times the shortened URL has been used.
+
+        Raises:
+            BadAPIResponseException: If the data is malformed or we got a bad
+                status code on API response.
+
+        """
         url = self.clean_url(url)
         params = self.params.copy()
         params.update({
