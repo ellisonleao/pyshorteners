@@ -7,6 +7,11 @@ develop:
 	@pip install -e .[dev]
 	pre-commit install
 
+.PHONY: docs
+docs:
+	@pip install -e .[docs]
+	$(MAKE) --directory=docs/ html
+
 clean-build:
 	rm -fr build/
 	rm -fr dist/

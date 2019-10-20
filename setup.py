@@ -13,7 +13,6 @@ TESTS_REQUIRE = [
     "pytest==4.4.1",
     "pytest-cov==2.7.1",
     "codecov==2.0.15",
-    "sphinxcontrib-napoleon==0.7",
     "pytest-flake8",
     "proxy.py",
 ]
@@ -47,5 +46,5 @@ setup(
     setup_requires=["pytest-runner"],
     tests_require=TESTS_REQUIRE,
     packages=find_packages(exclude=["*tests*"]),
-    extras_require={"dev": ["pre-commit"]},
+    extras_require={"dev": ["pre-commit"], "docs": ["sphinx"]},
 )
