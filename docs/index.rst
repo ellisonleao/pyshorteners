@@ -26,3 +26,4 @@ Contents
 
     apis
     contributing
+    apis/modules.rst
