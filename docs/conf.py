@@ -41,6 +41,7 @@ release = '1.0.0'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx',
     'sphinx.ext.napoleon',
 ]
 
@@ -171,6 +172,14 @@ texinfo_documents = [
 
 # -- Extension configuration -------------------------------------------------
 
+# Enable references to other Sphinx generated documentation websites.
+intersphinx_mapping = {
+    "requests": ("http://requests.kennethreitz.org/en/master/", None)
+}
+
+# The number of seconds for timeout. The default is ``None``, meaning do not
+# timeout.
+intersphinx_timeout = 5
 subprocess.run(
     "sphinx-apidoc --force --module-first --output-dir apis ../pyshorteners/", check=True, shell=True
 )
