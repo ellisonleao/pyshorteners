@@ -31,3 +31,10 @@ Git.io
 .. autoclass:: pyshorteners.shorteners.gitio.Shortener
     :members:
     :noindex:
+
+Tiny.cc
+-------
+
+.. autoclass:: pyshorteners.shorteners.tinycc.Shortener
+    :members:
+    :noindex:
