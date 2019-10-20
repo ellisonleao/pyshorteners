@@ -22,6 +22,16 @@ A simple URL shortening Python Lib, implementing the most famous shorteners.
 
     make test
 
+# Documentation
+
+Use [Sphinx](https://www.sphinx-doc.org/en/master/index.html) to compile the
+documentation.
+
+```bash
+make docs
+# Open `docs/_build/html/index.html` in web browser
+```
+
 # Usage
 
 ## Simple example

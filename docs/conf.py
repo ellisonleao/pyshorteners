@@ -13,6 +13,7 @@ import datetime
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import subprocess
 import sys
 sys.path.insert(0, os.path.abspath('.'))
 
@@ -40,7 +41,7 @@ release = '1.0.0'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinxcontrib.napoleon',
+    'sphinx.ext.napoleon',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -169,3 +170,7 @@ texinfo_documents = [
 
 
 # -- Extension configuration -------------------------------------------------
+
+subprocess.run(
+    "sphinx-apidoc --force --module-first --output-dir apis ../pyshorteners/", check=True, shell=True
+)
