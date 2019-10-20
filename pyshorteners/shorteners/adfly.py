@@ -5,48 +5,52 @@ from ..base import BaseShortener
 
 
 class Shortener(BaseShortener):
-    """Adf.ly implementation
+    """Adf.ly implementation.
 
     Args:
-        api_key: adf.ly API key
-        user_id: adf.ly user id
-        domain: Optional string for domain used upon shortening. Options are:
+        api_key (str): adf.ly API key.
+        user_id (str): adf.ly user id.
+        domain (str, optional): Domain used upon shortening, options are:
 
-            - ad.fly
-            - q.gs
-            - custom.com
-            - 0 (Random domain)
+            - ``ad.fly`` (default)
+            - ``q.gs``
+            - ``custom.com``
+            - ``0`` (Random domain)
 
-        type: Optional string for advertising on the shortened link. Options are:
+        type (int, optional): For advertising on the shortened link, options
+            are:
 
-            - 'int', 'interstitial', 1 for Interstitial advertising
-            - 'banner', 3 for Framed Banner
-            - 2 , for no Advertising
+            - ``1``, ``int``, ``interstitial`` - Interstitial advertising
+            - ``2`` - No advertising
+            - ``3``, ``banner`` - Framed Banner
 
-        group_id: Optional integer param for group_id
+        group_id (int, optional): API parameter `group_id`.
 
     Example:
-
         >>> import pyshorteners
         >>> s = pyshorteners.Shortener(api_key='YOUR_KEY', user_id='USER_ID',
                                        domain='test.us', group_id=12, type='int')
         >>> s.adfly.short('http://www.google.com')
         'http://test.us/TEST'
+
     """
+
     api_url = 'http://api.adf.ly/'
 
     def short(self, url):
-        """Short implementation for Adf.ly
+        """Short implementation for Adf.ly.
+
         Args:
-            url: the URL you want to shorten
+            url (str): The URL you want to shorten.
 
         Returns:
-            A string containing the shortened URL
+            str: The shortened URL.
 
         Raises:
             BadAPIResponseException: If the data is malformed or we got a bad
-            status code on API response
-            ShorteningErrorException: If the API Returns an error as response
+                status code on API response.
+            ShorteningErrorException: If the API Returns an error as response.
+
         """
         url = self.clean_url(url)
         shorten_url = f'{self.api_url}v1/shorten'
@@ -77,17 +81,19 @@ class Shortener(BaseShortener):
         return data['data'][0]['short_url']
 
     def expand(self, url):
-        """Expand implementation for Adf.ly
+        """Expand implementation for Adf.ly.
+
         Args:
-            url: the URL you want to expand
+            url (str): The URL you want to expand.
 
         Returns:
-            A string containing the expanded URL
+            str: The expanded URL.
 
         Raises:
             BadAPIResponseException: If the data is malformed or we got a bad
-            status code on API response
-            ShorteningErrorException: If the API Returns an error as response
+                status code on API response.
+            ShorteningErrorException: If the API Returns an error as response.
+
         """
         url = self.clean_url(url)
         expand_url = f'{self.api_url}v1/expand'
