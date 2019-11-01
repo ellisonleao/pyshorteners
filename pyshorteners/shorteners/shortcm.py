@@ -1,7 +1,7 @@
 """Short.cm shortner Implementation
 """
 
-import re
+from urllib.parse import urlparse
 
 from ..base import BaseShortener
 from ..exceptions import (
@@ -74,17 +74,15 @@ class Shortener(BaseShortener):
         """
         expand_url = f"{self.api_url}expand"
 
+        cleaned_url = self.clean_url(url)
+
         # split domain and path
-        url_parser = re.compile("(https?://)([^/]*)/([^/?]*)")
-        match = url_parser.match(url)
-        if match is None:
-            raise BadURLException(f"{url}")
-        groups = url_parser.match(url).groups()
+        url_parsed = urlparse(cleaned_url)
 
-        if len(groups) != 3:
-            raise BadURLException(f"{url}")
+        if url_parsed.hostname is None:
+            raise BadURLException(f'{cleaned_url}')
 
-        params = {"domain": groups[1], "path": groups[2]}
+        params = {"domain": url_parsed.hostname, "path":url_parsed.path.strip('/')}
         headers = {"authorization": self.api_key}
         response = self._get(expand_url, params=params, headers=headers)
         if response.ok:
