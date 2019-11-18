@@ -1,8 +1,13 @@
+import json
+from urllib.parse import urlparse
 import logging
 
 from ..base import BaseShortener
-from ..exceptions import (ShorteningErrorException, ExpandingErrorException,
-                          BadAPIResponseException)
+from ..exceptions import (
+    BadAPIResponseException,
+    ExpandingErrorException,
+    ShorteningErrorException,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -19,12 +24,13 @@ class Shortener(BaseShortener):
         >>> s = pyshorteners.Shortener(api_key='YOUR_KEY')
         >>> s.bitly.short('http://www.google.com')
         'http://bit.ly/TEST'
-        >>> s.bitly.expand('https://bit.ly/test')
+        >>> s.bitly.expand('https://bit.ly/TEST')
         'http://www.google.com'
-        >>> s.bitly.expand('https://bit.ly/test')
+        >>> s.bitly.total_clicks('https://bit.ly/TEST')
         10
     """
-    api_url = 'https://api-ssl.bit.ly/'
+
+    api_url = "https://api-ssl.bit.ly/"
 
     def short(self, url):
         """Short implementation for Bit.ly
@@ -39,18 +45,20 @@ class Shortener(BaseShortener):
             status code on API response
             ShorteningErrorException: If the API Returns an error as response
         """
-
         self.clean_url(url)
-        shorten_url = f'{self.api_url}v3/shorten'
-        params = {
-            'uri': url,
-            'access_token': self.api_key,
-            'format': 'txt',
-        }
-        response = self._get(shorten_url, params=params)
-        if response.ok:
-            return response.text.strip()
-        raise ShorteningErrorException(response.content)
+        shorten_url = f"{self.api_url}v4/shorten"
+        params = {"long_url": url}
+        headers = {"Authorization": f"Bearer {self.api_key}"}
+        response = self._post(shorten_url, json=params, headers=headers)
+        if not response.ok:
+            raise ShorteningErrorException(response.content)
+
+        try:
+            data = response.json()
+        except json.decoder.JSONDecodeError:
+            raise BadAPIResponseException("API response could not be decoded")
+
+        return data["link"]
 
     def expand(self, url):
         """Expand implementation for Bit.ly
@@ -63,16 +71,21 @@ class Shortener(BaseShortener):
         Raises:
             ExpandingErrorException: If the API Returns an error as response
         """
-        expand_url = f'{self.api_url}v3/expand'
-        params = {
-            'shortUrl': url,
-            'access_token': self.api_key,
-            'format': 'txt',
-        }
-        response = self._get(expand_url, params=params)
-        if response.ok:
-            return response.text.strip()
-        raise ExpandingErrorException(response.content)
+        self.clean_url(url)
+        url = "".join(urlparse(url)[1:3])
+        expand_url = f"{self.api_url}v4/expand"
+        params = {"bitlink_id": url}
+        headers = {"Authorization": f"Bearer {self.api_key}"}
+        response = self._post(expand_url, json=params, headers=headers)
+        if not response.ok:
+            raise ExpandingErrorException(response.content)
+
+        try:
+            data = response.json()
+        except json.decoder.JSONDecodeError:
+            raise BadAPIResponseException("API response could not be decoded")
+
+        return data["long_url"]
 
     def total_clicks(self, url):
         """Total clicks implementation for Bit.ly
@@ -85,21 +98,25 @@ class Shortener(BaseShortener):
         Raises:
             BadAPIResponseException: If the API Returns an error as response
         """
-        url = self.clean_url(url)
-        clicks_url = f'{self.api_url}v3/link/clicks'
-        params = {
-            'link': url,
-            'access_token': self.api_key,
-            'format': 'txt'
-        }
-        response = self._get(clicks_url, params=params)
+        self.clean_url(url)
+        url = "".join(urlparse(url)[1:3])
+        clicks_url = f"{self.api_url}v4/bitlinks/{url}/clicks"
+        headers = {"Authorization": f"Bearer {self.api_key}"}
+        response = self._get(clicks_url, headers=headers)
         if not response.ok:
             raise BadAPIResponseException(response.content)
 
         try:
-            total_clicks = int(response.text)
+            data = response.json()
+        except json.decoder.JSONDecodeError:
+            raise BadAPIResponseException("API response could not be decoded")
+
+        total_clicks = 0
+        try:
+            for click in data["link_clicks"]:
+                total_clicks += click["clicks"]
         except (KeyError, TypeError) as e:
-            logger.warning('Bad value from total_clicks response: %s', e)
+            logger.warning("Bad value from total_clicks response: %s", e)
             return 0
 
         return total_clicks
