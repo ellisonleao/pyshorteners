@@ -104,7 +104,7 @@ class BaseShortener:
         )
         return response
 
-    def short(self, url ,api_key =None ):
+    def short(self, url ):
         """Shorten URL using a shortening service.
 
         Args:
