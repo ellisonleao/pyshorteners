@@ -10,25 +10,27 @@ class Shortener(BaseShortener):
     Params Needed :API key
 
     
-    They too provide analyitcs for the URL 
+    They too provide analytics for the URL 
     that you shortened Features to get analytics will be implemented when the author
     approves this PR
     """
 
     api_url = 'https://cutt.ly/api/api.php '
 
-    def short(self, url, api_key=None):
-            if api_key is None:
-                return "Please provide a Valid API key"
+    def short(self, url):
+            if self.api_key is None:
+                return BadAPIResponseException("Please provide a valid API Key")
             url = self.clean_url(url)
-            payload = {
-                'key': api_key,
-                'short': url,
+            api_url=f'{api_url}?key={self.api_key}&short={url}'.strip()
+            response = self._get(api_url)
+            status=response.json()['status']
+            if status ==  4:
+                ''' According to the API Docs when a status code of 4 is returned with json 
+                    an Invalid API Key is provided
+                
+                '''
 
-            }
-            response = self._get(api_url, params=payload)
-            if not response.ok:
-                raise BadAPIResponseException(response.content)
+                raise BadAPIResponseException("Invalid API Key")
             try:
                 data = response.json()
             except json.decoder.JSONDecodeError:
@@ -36,6 +38,3 @@ class Shortener(BaseShortener):
             return data['url']['shortLink']
 
 
-s = Shortener()
-s.short("https://www.google.com", '9dbec7f1cf9dfa513775d585cde579d677fd6')
-print(s)
