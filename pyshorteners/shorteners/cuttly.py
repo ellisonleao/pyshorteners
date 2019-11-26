@@ -19,7 +19,7 @@ class Shortener(BaseShortener):
 
     def short(self, url):
             if self.api_key is None:
-                return BadAPIResponseException("Please provide a valid API Key")
+                raise  BadAPIResponseException("Please provide a valid API Key")
             url = self.clean_url(url)
             api_url=f'{api_url}?key={self.api_key}&short={url}'.strip()
             response = self._get(api_url)
