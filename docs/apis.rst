@@ -57,6 +57,13 @@ Git.io
     :noindex:
 
 
+Is.gd
+-------
+
+.. autoclass:: pyshorteners.shorteners.isgd.Shortener
+    :members:
+    :noindex:
+
 TinyURL.com
 -----------
 
