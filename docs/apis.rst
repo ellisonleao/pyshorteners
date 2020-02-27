@@ -17,6 +17,30 @@ Bit.ly
     :members:
     :noindex:
 
+Chilp.it
+--------
+
+.. autoclass:: pyshorteners.shorteners.chilpit.Shortener
+    :members:
+    :noindex:
+
+
+Clck.ru
+-------
+
+.. autoclass:: pyshorteners.shorteners.clckru.Shortener
+    :members:
+    :noindex:
+
+
+Cutt.ly
+-------
+
+.. autoclass:: pyshorteners.shorteners.cuttly.Shortener
+    :members:
+    :noindex:
+
+
 TinyURL.com
 -----------
 

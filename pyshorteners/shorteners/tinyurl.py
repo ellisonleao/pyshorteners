@@ -5,7 +5,6 @@ from ..exceptions import ShorteningErrorException
 class Shortener(BaseShortener):
     """
     TinyURL.com shortener implementation
-    No config params needed
 
     Example:
 
@@ -16,7 +15,8 @@ class Shortener(BaseShortener):
         >>> s.tinyurl.expand('http://tinyurl.com/test')
         'http://www.google.com'
     """
-    api_url = 'http://tinyurl.com/api-create.php'
+
+    api_url = "http://tinyurl.com/api-create.php"
 
     def short(self, url):
         """Short implementation for TinyURL.com
