@@ -88,6 +88,14 @@ Ow.ly
     :noindex:
 
 
+Po.st
+-----------
+
+.. autoclass:: pyshorteners.shorteners.post.Shortener
+    :members:
+    :noindex:
+
+
 TinyURL.com
 -----------
 
