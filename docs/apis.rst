@@ -112,6 +112,14 @@ Short.cm
     :noindex:
 
 
+Soo.gd
+-----------
+
+.. autoclass:: pyshorteners.shorteners.soogd.Shortener
+    :members:
+    :noindex:
+
+
 TinyURL.com
 -----------
 
