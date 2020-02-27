@@ -96,6 +96,14 @@ Po.st
     :noindex:
 
 
+Qps.ru
+-----------
+
+.. autoclass:: pyshorteners.shorteners.qpsru.Shortener
+    :members:
+    :noindex:
+
+
 TinyURL.com
 -----------
 
