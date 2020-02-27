@@ -41,6 +41,14 @@ pyshorteners.shorteners.clckru module
    :undoc-members:
    :show-inheritance:
 
+pyshorteners.shorteners.cuttly module
+-------------------------------------
+
+.. automodule:: pyshorteners.shorteners.cuttly
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 pyshorteners.shorteners.dagd module
 -----------------------------------
 
@@ -101,6 +109,14 @@ pyshorteners.shorteners.qpsru module
 ------------------------------------
 
 .. automodule:: pyshorteners.shorteners.qpsru
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyshorteners.shorteners.shortcm module
+--------------------------------------
+
+.. automodule:: pyshorteners.shorteners.shortcm
    :members:
    :undoc-members:
    :show-inheritance:

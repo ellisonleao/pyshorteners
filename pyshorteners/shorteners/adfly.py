@@ -1,6 +1,10 @@
 import json
 
-from ..exceptions import ShorteningErrorException, BadAPIResponseException
+from ..exceptions import (
+    ShorteningErrorException,
+    BadAPIResponseException,
+    ExpandingErrorException,
+)
 from ..base import BaseShortener
 
 
@@ -35,7 +39,7 @@ class Shortener(BaseShortener):
 
     """
 
-    api_url = 'http://api.adf.ly/'
+    api_url = "http://api.adf.ly/"
 
     def short(self, url):
         """Short implementation for Adf.ly.
@@ -53,14 +57,14 @@ class Shortener(BaseShortener):
 
         """
         url = self.clean_url(url)
-        shorten_url = f'{self.api_url}v1/shorten'
+        shorten_url = f"{self.api_url}v1/shorten"
         payload = {
-            'domain': getattr(self, 'domain', 'adf.ly'),
-            'advert_type': getattr(self, 'type', 'int'),
-            'group_id': getattr(self, 'group_id', None),
-            'key': self.api_key,
-            'user_id': self.user_id,
-            'url': url,
+            "domain": getattr(self, "domain", "adf.ly"),
+            "advert_type": getattr(self, "type", "int"),
+            "group_id": getattr(self, "group_id", None),
+            "key": self.api_key,
+            "user_id": self.user_id,
+            "url": url,
         }
         response = self._post(shorten_url, data=payload)
         if not response.ok:
@@ -69,16 +73,16 @@ class Shortener(BaseShortener):
         try:
             data = response.json()
         except json.decoder.JSONDecodeError:
-            raise BadAPIResponseException('API response could not be decoded')
+            raise BadAPIResponseException("API response could not be decoded")
 
-        if data.get('errors'):
-            errors = ','.join(i['msg'] for i in data['errors'])
+        if data.get("errors"):
+            errors = ",".join(i["msg"] for i in data["errors"])
             raise ShorteningErrorException(errors)
 
-        if not data.get('data'):
+        if not data.get("data"):
             raise BadAPIResponseException(response.content)
 
-        return data['data'][0]['short_url']
+        return data["data"][0]["short_url"]
 
     def expand(self, url):
         """Expand implementation for Adf.ly.
@@ -92,18 +96,18 @@ class Shortener(BaseShortener):
         Raises:
             BadAPIResponseException: If the data is malformed or we got a bad
                 status code on API response.
-            ShorteningErrorException: If the API Returns an error as response.
+            ExpandingErrorException: If the API Returns an error as response.
 
         """
         url = self.clean_url(url)
-        expand_url = f'{self.api_url}v1/expand'
+        expand_url = f"{self.api_url}v1/expand"
         payload = {
-            'domain': getattr(self, 'domain', 'adf.ly'),
-            'advert_type': getattr(self, 'type', 'int'),
-            'group_id': getattr(self, 'group_id', None),
-            'key': self.api_key,
-            'user_id': self.user_id,
-            'url': url,
+            "domain": getattr(self, "domain", "adf.ly"),
+            "advert_type": getattr(self, "type", "int"),
+            "group_id": getattr(self, "group_id", None),
+            "key": self.api_key,
+            "user_id": self.user_id,
+            "url": url,
         }
         response = self._post(expand_url, data=payload)
         if not response.ok:
@@ -112,13 +116,13 @@ class Shortener(BaseShortener):
         try:
             data = response.json()
         except json.decoder.JSONDecodeError:
-            raise BadAPIResponseException('API response could not be decoded')
+            raise BadAPIResponseException("API response could not be decoded")
 
-        if data.get('errors'):
-            errors = ','.join(i['msg'] for i in data['errors'])
-            raise ShorteningErrorException(errors)
+        if data.get("errors"):
+            errors = ",".join(i["msg"] for i in data["errors"])
+            raise ExpandingErrorException(errors)
 
-        if not data.get('data'):
+        if not data.get("data"):
             raise BadAPIResponseException(response.content)
 
-        return data['data'][0]['url']
+        return data["data"][0]["url"]
