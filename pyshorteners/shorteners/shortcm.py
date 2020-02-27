@@ -1,4 +1,4 @@
-"""Short.cm shortner Implementation
+"""Short.cm shortener Implementation
 """
 
 from urllib.parse import urlparse

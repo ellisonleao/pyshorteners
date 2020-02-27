@@ -7,7 +7,7 @@ from ..exceptions import (ShorteningErrorException, ExpandingErrorException,
 
 class Shortener(BaseShortener):
     """
-    Ow.ly url shortner api implementation
+    Ow.ly url shortener api implementation
     Located at: http://ow.ly/api-docs
     Doesnt' need anything from the app
     """
