@@ -80,6 +80,13 @@ Os.db
     :members:
     :noindex:
 
+Ow.ly
+-----------
+
+.. autoclass:: pyshorteners.shorteners.owly.Shortener
+    :members:
+    :noindex:
+
 
 TinyURL.com
 -----------
