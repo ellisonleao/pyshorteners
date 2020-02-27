@@ -1,6 +1,3 @@
-"""Short.cm shortner Implementation
-"""
-
 from urllib.parse import urlparse
 
 from ..base import BaseShortener
@@ -15,8 +12,8 @@ class Shortener(BaseShortener):
     """Short.cm shortener Implementation
 
     Args:
-        api_key: short.cm API key
-        domain: which registered domain to create the link on
+        api_key (str): short.cm API key
+        domain (str): which registered domain to create the link on
 
     Example:
 
@@ -28,7 +25,7 @@ class Shortener(BaseShortener):
         'http://www.google.com'
         >>> s.shortcm.expand('https://short.cm/test')
         10
-"""
+    """
 
     api_url = "https://api.short.cm/links/"
     domain = ""
@@ -37,10 +34,10 @@ class Shortener(BaseShortener):
     def short(self, url):
         """Short implementation for Short.cm
         Args:
-            url: the URL you want to shorten
+            url (str): the URL you want to shorten
 
         Returns:
-            A string containing the shortened URL
+            str: The shortened URL
 
         Raises:
             BadAPIResponseException: If the data is malformed or we got a bad
@@ -67,7 +64,7 @@ class Shortener(BaseShortener):
             url: the short URL you want to expand
 
         Returns:
-            A string containing the expanded URL
+            str: The expanded URL
 
         Raises:
             ExpandingErrorException: If the API Returns an error as response
@@ -80,9 +77,9 @@ class Shortener(BaseShortener):
         url_parsed = urlparse(cleaned_url)
 
         if url_parsed.hostname is None:
-            raise BadURLException(f'{cleaned_url}')
+            raise BadURLException(f"{cleaned_url}")
 
-        params = {"domain": url_parsed.hostname, "path":url_parsed.path.strip('/')}
+        params = {"domain": url_parsed.hostname, "path": url_parsed.path.strip("/")}
         headers = {"authorization": self.api_key}
         response = self._get(expand_url, params=params, headers=headers)
         if response.ok:

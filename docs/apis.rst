@@ -104,6 +104,14 @@ Qps.ru
     :noindex:
 
 
+Short.cm
+-----------
+
+.. autoclass:: pyshorteners.shorteners.shortcm.Shortener
+    :members:
+    :noindex:
+
+
 TinyURL.com
 -----------
 
