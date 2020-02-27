@@ -49,6 +49,14 @@ Da.gd
     :noindex:
 
 
+Git.io
+-------
+
+.. autoclass:: pyshorteners.shorteners.gitio.Shortener
+    :members:
+    :noindex:
+
+
 TinyURL.com
 -----------
 

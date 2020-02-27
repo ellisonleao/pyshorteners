@@ -1,8 +1,3 @@
-"""
-Implementation of the Git.io shortener service from Github
-
-https://github.blog/2011-11-10-git-io-github-url-shortener/
-"""
 from pyshorteners.base import BaseShortener
 from pyshorteners.exceptions import ShorteningErrorException
 
@@ -23,6 +18,17 @@ class Shortener(BaseShortener):
     api_url = "https://git.io"
 
     def short(self, url):
+        """Short implementation for TinyURL.com
+
+        Args:
+            url: the URL you want to shorten
+
+        Returns:
+            A string containing the shortened URL
+
+        Raises:
+            ShorteningErrorException: If the API returns an error as response
+        """
         shorten_url = self.api_url
         data = {"url": url}
         response = self._post(shorten_url, data=data)
