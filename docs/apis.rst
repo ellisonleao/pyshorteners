@@ -120,6 +120,14 @@ Soo.gd
     :noindex:
 
 
+Tiny.cc
+-----------
+
+.. autoclass:: pyshorteners.shorteners.tinycc.Shortener
+    :members:
+    :noindex:
+
+
 TinyURL.com
 -----------
 
