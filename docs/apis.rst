@@ -41,6 +41,14 @@ Cutt.ly
     :noindex:
 
 
+Da.gd
+-------
+
+.. autoclass:: pyshorteners.shorteners.dagd.Shortener
+    :members:
+    :noindex:
+
+
 TinyURL.com
 -----------
 
