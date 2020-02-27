@@ -64,6 +64,23 @@ Is.gd
     :members:
     :noindex:
 
+
+NullPointer
+-----------
+
+.. autoclass:: pyshorteners.shorteners.nullpointer.Shortener
+    :members:
+    :noindex:
+
+
+Os.db
+-----------
+
+.. autoclass:: pyshorteners.shorteners.osdb.Shortener
+    :members:
+    :noindex:
+
+
 TinyURL.com
 -----------
 
