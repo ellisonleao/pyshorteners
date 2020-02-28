@@ -5,10 +5,7 @@ import responses
 import pytest
 
 from pyshorteners import Shortener
-from pyshorteners.exceptions import (
-    ShorteningErrorException,
-    ExpandingErrorException
-)
+from pyshorteners.exceptions import ShorteningErrorException, ExpandingErrorException
 
 
 token = "TEST_TOKEN"

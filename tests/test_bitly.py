@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-# encoding: utf-8
-from urllib.parse import urlencode, urlparse
+from urllib.parse import urlparse
 import json
 
 from pyshorteners import Shortener
@@ -24,10 +23,9 @@ bitly = s.bitly
 def test_bitly_short_method():
     # mock responses
     body = json.dumps({"link": shorten})
-    params = {"long_url": expanded}
     headers = {"Authorization": f"Bearer {token}"}
 
-    url = f"{bitly.api_url}v4/shorten"
+    url = f"{bitly.api_url}/shorten"
     responses.add(
         responses.POST, url, headers=headers, body=body, match_querystring=True
     )
@@ -41,10 +39,9 @@ def test_bitly_short_method():
 def test_bitly_short_method_bad_response():
     # mock responses
     body = json.dumps({"link": shorten})
-    params = {"long_url": expanded}
     headers = {"Authorization": f"Bearer {token}"}
 
-    url = f"{bitly.api_url}v4/shorten"
+    url = f"{bitly.api_url}/shorten"
     responses.add(
         responses.POST,
         url,
@@ -62,10 +59,9 @@ def test_bitly_short_method_bad_response():
 def test_bitly_expand_method():
     # mock responses
     body = json.dumps({"long_url": expanded})
-    params = {"bitlink_id": shorten}
     headers = {"Authorization": f"Bearer {token}"}
 
-    url = f"{bitly.api_url}v4/expand"
+    url = f"{bitly.api_url}/expand"
     responses.add(
         responses.POST, url, headers=headers, body=body, match_querystring=True
     )
@@ -78,7 +74,7 @@ def test_bitly_expand_method_bad_response():
     body = json.dumps({"long_url": expanded})
     headers = {"Authorization": f"Bearer {token}"}
 
-    url = f"{bitly.api_url}v4/expand"
+    url = f"{bitly.api_url}/expand"
     responses.add(
         responses.POST,
         url,
@@ -97,7 +93,7 @@ def test_bitly_total_clicks():
     body = json.dumps({"link_clicks": [{"clicks": 20}]})
     headers = {"Authorization": f"Bearer {token}"}
     url = "".join(urlparse(shorten)[1:3])
-    url = f"{bitly.api_url}v4/bitlinks/{url}/clicks"
+    url = f"{bitly.api_url}/bitlinks/{url}/clicks"
     responses.add(
         responses.GET, url, headers=headers, body=body, match_querystring=True
     )
@@ -110,7 +106,7 @@ def test_bitly_total_clicks_bad_response():
     body = json.dumps({"link_clicks": [{"clicks": 20}]})
     headers = {"Authorization": f"Bearer {token}"}
     url = "".join(urlparse(shorten)[1:3])
-    url = f"{bitly.api_url}v4/bitlinks/{url}/clicks"
+    url = f"{bitly.api_url}/bitlinks/{url}/clicks"
     responses.add(
         responses.GET,
         url,

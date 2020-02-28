@@ -1,10 +1,10 @@
 from pyshorteners import Shortener
-from pyshorteners.exceptions import BadAPIResponseException
+from pyshorteners.exceptions import ShorteningErrorException
 
 import responses
 import pytest
 
-s = Shortener(domain='https://0x0.st/')
+s = Shortener(domain="https://0x0.st/")
 shorten = "https://0x0.st/jU"
 expanded = "https://www.google.com"
 nullpointer = s.nullpointer
@@ -26,6 +26,5 @@ def test_nullpointer_short_method_bad_response():
     mock_url = nullpointer.domain
     responses.add(responses.POST, mock_url, status=400)
 
-    with pytest.raises(BadAPIResponseException):
+    with pytest.raises(ShorteningErrorException):
         nullpointer.short(expanded)
-        

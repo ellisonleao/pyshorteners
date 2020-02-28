@@ -37,7 +37,7 @@ class Shortener(BaseShortener):
             ShorteningErrorException: If the API Returns an error as response
         """
         url = self.clean_url(url)
-        response = self._get(api_url, params={"key": self.api_key, "short": url})
+        response = self._get(self.api_url, params={"key": self.api_key, "short": url})
         try:
             data = response.json()
         except json.decoder.JSONDecodeError:
@@ -46,7 +46,7 @@ class Shortener(BaseShortener):
             )
 
         status = response.json()["status"]
-        if status == STATUS_INVALID:
+        if status == self.STATUS_INVALID:
             """According to the API Docs when a status code of 4 is returned with
             json an Invalid API Key is provided"""
             raise BadAPIResponseException("Invalid API Key")

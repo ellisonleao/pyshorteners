@@ -1,25 +1,25 @@
+from urllib.parse import urlencode
+import json
+
 from pyshorteners import Shortener
-from pyshorteners.exceptions import ShorteningErrorException, BadAPIResponseException
+from pyshorteners.exceptions import BadAPIResponseException
 
 import responses
 import pytest
 
-s = Shortener(api_key='TEST_KEY')
-url = 'http://www.test.com'
-shorted_url='https://cutt.ly/test'
+s = Shortener(api_key="TEST_KEY")
+url = "http://www.test.com"
+shorted_url = "https://cutt.ly/TEST"
 cuttly = s.cuttly
 
 
 @responses.activate
 def test_cuttly_short_method():
     # mock responses
-    payload = {
-                'key': cuttly.api_key,
-                'short': url,
-
-            }
-    mock_url = f'{cuttly.api_url}?key={payload.key}&short={payload.url}'
-    responses.add(responses.get, mock_url)
+    params = urlencode({"key": cuttly.api_key, "short": url})
+    mock_url = f"{cuttly.api_url}?{params}"
+    res = json.dumps({"status": 1, "url": {"shortLink": shorted_url}})
+    responses.add(responses.GET, mock_url, status=200, body=res, match_querystring=True)
 
     shorten_result = cuttly.short(url)
 
@@ -34,4 +34,4 @@ def test_cuttly_short_method_bad_response():
     responses.add(responses.GET, mock_url, status=400)
 
     with pytest.raises(BadAPIResponseException):
-         cuttly.short(url)
+        cuttly.short(url)

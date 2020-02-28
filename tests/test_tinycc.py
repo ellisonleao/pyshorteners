@@ -1,18 +1,16 @@
 from urllib.parse import urlencode
 
 from pyshorteners import Shortener
-from pyshorteners.exceptions import (ShorteningErrorException,
-                                     ExpandingErrorException,
-                                     BadAPIResponseException)
+from pyshorteners.exceptions import ShorteningErrorException, ExpandingErrorException
 
 import responses
 import pytest
 
-token = 'TEST_TOKEN'
-login = 'TEST_LOGIN'
-api_version = '2.0.3'
-shorten = 'http://tiny.cc/test'
-expanded = 'http://www.test.com'
+token = "TEST_TOKEN"
+login = "TEST_LOGIN"
+api_version = "2.0.3"
+shorten = "http://tiny.cc/test"
+expanded = "http://www.test.com"
 s = Shortener(api_key=token, login=login)
 tiny = s.tinycc
 
@@ -25,14 +23,15 @@ def test_tinycc_short_method():
         dict(
             longUrl=expanded,
             apiKey=token,
-            format='json',
-            c='rest_api',
+            format="json",
+            c="rest_api",
             version=api_version,
             login=login,
-            m='shorten',
-        ))
+            m="shorten",
+        )
+    )
 
-    url = f'{tiny.api_url}?{params}'
+    url = f"{tiny.api_url}?{params}"
     responses.add(responses.GET, url, json=body, match_querystring=True)
 
     shorten_result = tiny.short(expanded)
@@ -48,15 +47,15 @@ def test_tinycc_short_method_bad_response():
         dict(
             longUrl=expanded,
             apiKey=token,
-            format='json',
-            c='rest_api',
+            format="json",
+            c="rest_api",
             version=api_version,
             login=login,
-            m='shorten',
-        ))
-    url = f'{tiny.api_url}?{params}'
-    responses.add(responses.GET, url, body=body, status=400,
-                  match_querystring=True)
+            m="shorten",
+        )
+    )
+    url = f"{tiny.api_url}?{params}"
+    responses.add(responses.GET, url, body=body, status=400, match_querystring=True)
 
     with pytest.raises(ShorteningErrorException):
         tiny.short(expanded)
@@ -65,18 +64,19 @@ def test_tinycc_short_method_bad_response():
 @responses.activate
 def test_tinycc_expand_method():
     # mock responses
-    body = {'results': {'longUrl': expanded}}
+    body = {"results": {"longUrl": expanded}}
     params = urlencode(
         dict(
             longUrl=shorten,
             apiKey=token,
-            format='json',
-            c='rest_api',
+            format="json",
+            c="rest_api",
             version=api_version,
             login=login,
-            m='expand',
-        ))
-    url = f'{tiny.api_url}?{params}'
+            m="expand",
+        )
+    )
+    url = f"{tiny.api_url}?{params}"
     responses.add(responses.GET, url, json=body, match_querystring=True)
     assert tiny.expand(shorten) == expanded
 
@@ -89,15 +89,15 @@ def test_tinycc_expand_method_bad_response():
         dict(
             longUrl=shorten,
             apiKey=token,
-            format='json',
-            c='rest_api',
+            format="json",
+            c="rest_api",
             version=api_version,
             login=login,
-            m='expand',
-        ))
-    url = f'{tiny.api_url}?{params}'
-    responses.add(responses.GET, url, body=body, status=400,
-                  match_querystring=True)
+            m="expand",
+        )
+    )
+    url = f"{tiny.api_url}?{params}"
+    responses.add(responses.GET, url, body=body, status=400, match_querystring=True)
 
     with pytest.raises(ExpandingErrorException):
         tiny.expand(shorten)
@@ -110,30 +110,32 @@ def test_tinycc_total_clicks():
         dict(
             shortUrl=shorten,
             apiKey=token,
-            format='json',
-            c='rest_api',
+            format="json",
+            c="rest_api",
             version=api_version,
             login=login,
-            m='total_visits',
-        ))
-    url = f'{tiny.api_url}?{params}'
+            m="total_visits",
+        )
+    )
+    url = f"{tiny.api_url}?{params}"
     responses.add(responses.GET, url, json=body, match_querystring=True)
     assert tiny.total_clicks(shorten) == 20
 
 
 @responses.activate
 def test_tinycc_total_clicks_bad_response():
-    clicks_body = {'results': 'a'}
+    clicks_body = {"results": "a"}
     params = urlencode(
         dict(
-            c='rest_api',
+            c="rest_api",
             version=api_version,
-            format='json',
+            format="json",
             apiKey=token,
             login=login,
-            m='total_visits',
+            m="total_visits",
             shortUrl=shorten,
-        ))
-    url = f'{tiny.api_url}?{params}'
+        )
+    )
+    url = f"{tiny.api_url}?{params}"
     responses.add(responses.GET, url, json=clicks_body, match_querystring=True)
     assert tiny.total_clicks(shorten) == 0

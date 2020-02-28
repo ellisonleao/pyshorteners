@@ -17,9 +17,8 @@ mock_url = f"{post.api_url}?{params}"
 @responses.activate
 def test_post_short_method():
     # mock responses
-    response = {'short_url': shorten}
-    responses.add(responses.GET, mock_url, json=response,
-                  match_querystring=True)
+    response = {"short_url": shorten}
+    responses.add(responses.GET, mock_url, json=response, match_querystring=True)
 
     shorten_result = post.short(expanded)
     assert shorten_result == shorten
@@ -28,8 +27,9 @@ def test_post_short_method():
 @responses.activate
 def test_post_short_bad_response():
     # mock responses
-    responses.add(responses.GET, mock_url, body=shorten, status=400,
-                  match_querystring=True)
+    responses.add(
+        responses.GET, mock_url, body=shorten, status=400, match_querystring=True
+    )
 
     with pytest.raises(ShorteningErrorException):
         post.short(expanded)

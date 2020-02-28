@@ -39,7 +39,7 @@ class Shortener(BaseShortener):
 
     """
 
-    api_url = "http://api.adf.ly/"
+    api_url = "http://api.adf.ly/v1"
 
     def short(self, url):
         """Short implementation for Adf.ly.
@@ -57,7 +57,7 @@ class Shortener(BaseShortener):
 
         """
         url = self.clean_url(url)
-        shorten_url = f"{self.api_url}v1/shorten"
+        shorten_url = f"{self.api_url}/shorten"
         payload = {
             "domain": getattr(self, "domain", "adf.ly"),
             "advert_type": getattr(self, "type", "int"),
@@ -100,7 +100,7 @@ class Shortener(BaseShortener):
 
         """
         url = self.clean_url(url)
-        expand_url = f"{self.api_url}v1/expand"
+        expand_url = f"{self.api_url}/expand"
         payload = {
             "domain": getattr(self, "domain", "adf.ly"),
             "advert_type": getattr(self, "type", "int"),

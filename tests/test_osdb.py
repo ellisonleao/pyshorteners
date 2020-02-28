@@ -5,8 +5,8 @@ import responses
 import pytest
 
 s = Shortener()
-shorten = 'http://osdb.link/test123'
-expanded = 'http://www.test.com'
+shorten = "http://osdb.link/test123"
+expanded = "http://www.test.com"
 osdb = s.osdb
 
 # flake8: noqa
