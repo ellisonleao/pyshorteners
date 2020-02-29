@@ -1,25 +1,7 @@
-# pylint: disable=W0212,C0116,C0114
-import time
-import threading
-
 from pyshorteners.base import BaseShortener
 from pyshorteners.exceptions import BadURLException, ExpandingErrorException
 
 import pytest
-import proxy
-
-
-@pytest.fixture
-def proxy_url():
-    thread = threading.Thread(
-        target=proxy.main, args=(["--hostname", "127.0.0.1", "--port", "8899"],)
-    )
-    thread.daemon = True
-    thread.start()
-    time.sleep(1)
-
-    yield f"http://127.0.0.1:8899"
-    thread.join(0)
 
 
 def test_base_init_params_become_properties():
@@ -78,10 +60,3 @@ def test_base_short_method_raises_notimplemented():
     shortener = BaseShortener()
     with pytest.raises(NotImplementedError):
         shortener.short("http://someurl")
-
-
-def test_base_proxy(proxy_url):
-    # pylint: disable=W0621
-    shortener = BaseShortener(proxies={"http": proxy_url})
-    url = "http://httpbin.org/status/200"
-    assert shortener._post(url).status_code == 200
