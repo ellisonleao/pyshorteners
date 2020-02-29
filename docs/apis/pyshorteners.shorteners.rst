@@ -121,14 +121,6 @@ pyshorteners.shorteners.shortcm module
    :undoc-members:
    :show-inheritance:
 
-pyshorteners.shorteners.soogd module
-------------------------------------
-
-.. automodule:: pyshorteners.shorteners.soogd
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 pyshorteners.shorteners.tinycc module
 -------------------------------------
 

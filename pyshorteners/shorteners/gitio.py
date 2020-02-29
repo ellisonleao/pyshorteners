@@ -8,32 +8,42 @@ class Shortener(BaseShortener):
     Example:
 
         >>> import pyshorteners
-        >>> s = pyshorteners.Shortener()
+        >>> s = pyshorteners.Shortener(code='12345')
         >>> s.gitio.short('https://github.com/TEST')
-        'https://git.io/abc123'
-        >>> s.gitio.expand('https://git.io/abc123')
+        'https://git.io/12345'
+        >>> s.gitio.expand('https://git.io/12345')
         'https://github.com/TEST'
     """
 
     api_url = "https://git.io"
 
     def short(self, url):
-        """Short implementation for TinyURL.com
+        """Short implementation for Git.io
+        Only works for github urls
 
         Args:
-            url: the URL you want to shorten
+            url (str): the URL you want to shorten
+            code (str): (Optional) Custom permalink code: Eg.: test
 
         Returns:
-            A string containing the shortened URL
+            str: The shortened URL
 
         Raises:
             ShorteningErrorException: If the API returns an error as response
         """
-        shorten_url = self.api_url
-        data = {"url": url}
-        response = self._post(shorten_url, data=data)
+        code = None
+        try:
+            code = self.code
+        except AttributeError:
+            pass
 
-        if not response.headers["Location"]:
-            raise ShorteningErrorException()
+        shorten_url = self.api_url
+        data = {"url": url, "code": code}
+        response = self._post(shorten_url, data=data)
+        if not response.ok:
+            raise ShorteningErrorException(response.content)
+
+        if not response.headers.get("Location"):
+            raise ShorteningErrorException(response.content)
 
         return response.headers["Location"]

@@ -1,7 +1,27 @@
-import re
+from html.parser import HTMLParser
 
 from ..base import BaseShortener
 from ..exceptions import ShorteningErrorException
+
+
+class OHTMLParser(HTMLParser):
+    def __init__(self):
+        self.found = False
+        self.val = None
+        return HTMLParser.__init__(self)
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+
+        if "id" in attrs and attrs["id"] == "surl":
+            self.found = True
+
+    def handle_data(self, data):
+        if not self.found:
+            return
+
+        if data.startswith("http://osdb"):
+            self.val = data
 
 
 class Shortener(BaseShortener):
@@ -18,8 +38,7 @@ class Shortener(BaseShortener):
         'https://www.google.com'
     """
 
-    api_url = "http://osdb.link/"
-    p = re.compile(r"(http:\/\/osdb.link\/[a-zA-Z0-9]+)")
+    api_url = "https://osdb.link/"
 
     def short(self, url):
         """Short implementation for Os.db
@@ -37,5 +56,10 @@ class Shortener(BaseShortener):
         response = self._post(self.api_url, data={"url": url})
         if not response.ok:
             raise ShorteningErrorException(response.content)
-        match = self.p.search(response.text)
-        return match.group()
+        p = OHTMLParser()
+        p.feed(response.text)
+
+        if not p.val:
+            raise ShorteningErrorException("Could not find osdb.link")
+
+        return p.val
