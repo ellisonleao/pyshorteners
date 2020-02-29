@@ -14,7 +14,6 @@ TESTS_REQUIRE = [
     "pytest-cov==2.7.1",
     "codecov==2.0.15",
     "pytest-flake8",
-    "proxy.py",
 ]
 
 
