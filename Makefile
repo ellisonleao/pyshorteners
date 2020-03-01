@@ -24,6 +24,18 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -fr {} +
 
+.PHONY: dist
+dist:
+	@pip install twine
+	@python setup.py sdist
+
+.PHONY: upload-test
+upload-test: dist
+	@python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+upload: dist
+	@python -m twine upload dist/*
+
 
 .PHONY: clean-pyc clean-build clean
 clean: clean-build clean-pyc
