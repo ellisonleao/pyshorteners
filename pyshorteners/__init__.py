@@ -3,10 +3,10 @@ import importlib
 import pkgutil
 
 logger = logging.getLogger(__name__)
-__version__ = '1.0.0'
-__author__ = 'Ellison Leão'
-__email__ = 'ellisonleao@gmail.com'
-__license__ = 'GPLv3'
+__version__ = "1.0.1"
+__author__ = "Ellison Leão"
+__email__ = "ellisonleao@gmail.com"
+__license__ = "GPLv3"
 
 
 class Shortener(object):
@@ -26,12 +26,13 @@ class Shortener(object):
     def __init__(self, **kwargs):
         self.kwargs = kwargs
         # validate some required fields
-        self.kwargs['debug'] = bool(kwargs.pop('debug', False))
-        self.kwargs['timeout'] = int(kwargs.pop('timeout', 2))
-        self.kwargs['verify'] = bool(kwargs.pop('verify', True))
-        module = importlib.import_module('pyshorteners.shorteners')
-        self.available_shorteners = [i.name for i in
-                                     pkgutil.iter_modules(module.__path__)]
+        self.kwargs["debug"] = bool(kwargs.pop("debug", False))
+        self.kwargs["timeout"] = int(kwargs.pop("timeout", 2))
+        self.kwargs["verify"] = bool(kwargs.pop("verify", True))
+        module = importlib.import_module("pyshorteners.shorteners")
+        self.available_shorteners = [
+            i.name for i in pkgutil.iter_modules(module.__path__)
+        ]
 
     def __getattr__(self, attr):
         if attr not in self.available_shorteners:
@@ -39,8 +40,8 @@ class Shortener(object):
 
         # get instance of shortener class
         short_module = importlib.import_module(
-            '{}.{}'.format('pyshorteners.shorteners', attr)
+            "{}.{}".format("pyshorteners.shorteners", attr)
         )
-        instance = getattr(short_module, 'Shortener')(**self.kwargs)
+        instance = getattr(short_module, "Shortener")(**self.kwargs)
 
         return instance
