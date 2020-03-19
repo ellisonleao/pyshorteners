@@ -45,7 +45,7 @@ class Shortener(BaseShortener):
                 "API response is invalid ,could not be decoded"
             )
 
-        status = response.json()["status"]
+        status = response.json()["url"]["status"]
         if status == self.STATUS_INVALID:
             """According to the API Docs when a status code of 4 is returned with
             json an Invalid API Key is provided"""
