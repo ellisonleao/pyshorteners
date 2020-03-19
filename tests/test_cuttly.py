@@ -18,7 +18,7 @@ def test_cuttly_short_method():
     # mock responses
     params = urlencode({"key": cuttly.api_key, "short": url})
     mock_url = f"{cuttly.api_url}?{params}"
-    res = json.dumps({"status": 1, "url": {"shortLink": shorted_url}})
+    res = json.dumps({"url": {"status": 1, "shortLink": shorted_url}})
     responses.add(responses.GET, mock_url, status=200, body=res, match_querystring=True)
 
     shorten_result = cuttly.short(url)

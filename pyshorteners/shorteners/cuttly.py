@@ -45,10 +45,23 @@ class Shortener(BaseShortener):
                 "API response is invalid ,could not be decoded"
             )
 
-        status = response.json()["url"]["status"]
+        try:
+            status = data["url"]["status"]
+        except KeyError:
+            raise BadAPIResponseException(
+                "API response does not have the required field: status"
+            )
+
         if status == self.STATUS_INVALID:
             """According to the API Docs when a status code of 4 is returned with
             json an Invalid API Key is provided"""
             raise BadAPIResponseException("Invalid API Key")
 
-        return data["url"]["shortLink"]
+        try:
+            short_link = data["url"]["shortLink"]
+        except KeyError:
+            raise BadAPIResponseException(
+                "API response does not have the required field: shortLink"
+            )
+
+        return short_link
