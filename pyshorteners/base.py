@@ -41,6 +41,7 @@ class BaseShortener:
         self.timeout = getattr(self, "timeout", 2)
         self.verify = getattr(self, "verify", True)
         self.proxies = getattr(self, "proxies", {})
+        self.cert = getattr(self, "cert", None)
 
     def _get(self, url, params=None, headers=None):
         """Wrap a GET request with a url check.
@@ -67,6 +68,7 @@ class BaseShortener:
             timeout=self.timeout,
             headers=headers,
             proxies=self.proxies,
+            cert=self.cert,
         )
         return response
 
@@ -101,6 +103,7 @@ class BaseShortener:
             timeout=self.timeout,
             verify=self.verify,
             proxies=self.proxies,
+            cert=self.cert,
         )
         return response
 
