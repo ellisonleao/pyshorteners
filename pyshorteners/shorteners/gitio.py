@@ -37,6 +37,7 @@ class Shortener(BaseShortener):
         except AttributeError:
             pass
 
+        url = self.clean_url(url)
         shorten_url = self.api_url
         data = {"url": url, "code": code}
         response = self._post(shorten_url, data=data)

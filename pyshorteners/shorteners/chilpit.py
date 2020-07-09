@@ -30,6 +30,7 @@ class Shortener(BaseShortener):
         Raises:
             ShorteningErrorException: If the API returns an error as response
         """
+        url = self.clean_url(url)
         response = self._get(self.api_url, params={"url": url})
         if response.ok:
             return response.text.strip()

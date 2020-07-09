@@ -93,6 +93,11 @@ class BaseShortener:
             requests.Response: HTTP response.
 
         """
+        timeout = self.timeout
+        if headers:
+            if 'referer' in headers:
+                if 'hidelinks' in headers['referer']:
+                    timeout = 30
         url = self.clean_url(url)
         response = requests.post(
             url,
@@ -100,7 +105,7 @@ class BaseShortener:
             json=json,
             params=params,
             headers=headers,
-            timeout=self.timeout,
+            timeout=self.timeout if timeout == self.timeout else timeout,
             verify=self.verify,
             proxies=self.proxies,
             cert=self.cert,
