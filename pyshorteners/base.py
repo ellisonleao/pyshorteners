@@ -42,6 +42,7 @@ class BaseShortener:
         self.verify = getattr(self, "verify", True)
         self.proxies = getattr(self, "proxies", {})
         self.cert = getattr(self, "cert", None)
+        self.clean = getattr(self, "clean", True)
 
     def _get(self, url, params=None, headers=None):
         """Wrap a GET request with a url check.
@@ -137,8 +138,7 @@ class BaseShortener:
             return response.url
         raise ExpandingErrorException
 
-    @staticmethod
-    def clean_url(url):
+    def clean_url(self, url):
         """URL validation.
 
         Args:
@@ -148,6 +148,9 @@ class BaseShortener:
             BadURLException: URL is not valid.
 
         """
+        if not self.clean:
+            return url 
+            
         if not url.startswith(("http://", "https://")):
             url = f"http://{url}"
 
