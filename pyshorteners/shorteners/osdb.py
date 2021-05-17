@@ -40,7 +40,7 @@ class Shortener(BaseShortener):
 
     api_url = "https://osdb.link/"
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for Os.db
 
         Args:
@@ -52,7 +52,7 @@ class Shortener(BaseShortener):
         Raises:
             ShorteningErrorException: If the API returns an error as response
         """
-        url = self.clean_url(url)
+        url = self.clean_url(url, clean_url)
         response = self._post(self.api_url, data={"url": url})
         if not response.ok:
             raise ShorteningErrorException(response.content)

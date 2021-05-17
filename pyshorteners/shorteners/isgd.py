@@ -19,7 +19,7 @@ class Shortener(BaseShortener):
 
     api_url = "https://is.gd/create.php"
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for Is.gd
 
         Args:
@@ -32,7 +32,7 @@ class Shortener(BaseShortener):
             ShorteningErrorException: If the API returns an error as response
         """
 
-        url = self.clean_url(url)
+        url = self.clean_url(url, clean_url)
         params = {"format": "simple", "url": url}
         response = self._get(self.api_url, params=params)
         if response.ok:

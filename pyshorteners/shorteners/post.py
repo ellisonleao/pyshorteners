@@ -23,7 +23,7 @@ class Shortener(BaseShortener):
 
     api_url = "http://po.st/api/shorten"
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for Po.st.
 
         Args:
@@ -38,7 +38,7 @@ class Shortener(BaseShortener):
             ShorteningErrorException: If the API Returns an error as response.
 
         """
-        url = self.clean_url(url)
+        url = self.clean_url(url, clean_url)
         params = {"apiKey": self.api_key, "longUrl": url, "format": "txt"}
         response = self._get(self.api_url, params=params)
         if not response.ok:

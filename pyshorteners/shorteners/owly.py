@@ -22,7 +22,7 @@ class Shortener(BaseShortener):
 
     api_url = "http://ow.ly/api/1.1/url/"
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for ow.ly.
 
         Args:
@@ -36,7 +36,7 @@ class Shortener(BaseShortener):
             ShorteningErrorException: If the API Returns an error as response.
         """
 
-        url = self.clean_url(url)
+        url = self.clean_url(url, clean_url)
         shorten_url = f"{self.api_url}shorten"
         params = {"apiKey": self.api_key, "longUrl": url}
         response = self._get(shorten_url, params=params)

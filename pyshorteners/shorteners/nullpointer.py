@@ -21,7 +21,7 @@ class Shortener(BaseShortener):
         'https://0x0.st/jU'
     """
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for The Null Pointer
         Args:
             url (str): the URL you want to shorten
@@ -33,7 +33,7 @@ class Shortener(BaseShortener):
             ShorteningErrorException: If the data is malformed or we got a bad
             status code on API response
         """
-        url = self.clean_url(url)
+        url = self.clean_url(url, clean_url)
         api_url = self.clean_url(getattr(self, "domain", "https://0x0.st"))
         payload = {"shorten": url}
 

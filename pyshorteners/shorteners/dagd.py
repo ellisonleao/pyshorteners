@@ -18,7 +18,7 @@ class Shortener(BaseShortener):
 
     api_url = "https://da.gd/"
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for Da.gd
         Args:
             url (str): the URL you want to shorten
@@ -29,7 +29,7 @@ class Shortener(BaseShortener):
         Raises:
             ShorteningErrorException: If the API Returns an error as response
         """
-        url = self.clean_url(url)
+        url = self.clean_url(url, clean_url)
         shorten_url = f"{self.api_url}shorten"
         response = self._get(shorten_url, params={"url": url})
         if not response.ok:

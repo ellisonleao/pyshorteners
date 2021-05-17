@@ -17,7 +17,7 @@ class Shortener(BaseShortener):
 
     api_url = "https://git.io"
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for Git.io
         Only works for github urls
 
@@ -37,6 +37,7 @@ class Shortener(BaseShortener):
         except AttributeError:
             pass
 
+        url = self.clean_url(url, clean_url)
         shorten_url = self.api_url
         data = {"url": url, "code": code}
         response = self._post(shorten_url, data=data)

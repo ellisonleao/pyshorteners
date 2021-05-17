@@ -23,7 +23,7 @@ class Shortener(BaseShortener):
     api_url = "https://cutt.ly/api/api.php"
     STATUS_INVALID = 4
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for Cutt.ly
         Args:
             url (str): the URL you want to shorten
@@ -36,7 +36,7 @@ class Shortener(BaseShortener):
                 status code on API response.
             ShorteningErrorException: If the API Returns an error as response
         """
-        url = self.clean_url(url)
+        url = self.clean_url(url, clean_url)
         response = self._get(self.api_url, params={"key": self.api_key, "short": url})
         try:
             data = response.json()

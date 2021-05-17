@@ -31,7 +31,7 @@ class Shortener(BaseShortener):
     domain = ""
     api_key = ""
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for Short.cm
         Args:
             url (str): the URL you want to shorten
@@ -45,7 +45,7 @@ class Shortener(BaseShortener):
             ShorteningErrorException: If the API Returns an error as response
         """
 
-        self.clean_url(url)
+        self.clean_url(url, clean_url)
         json = {"originalURL": url, "domain": self.domain}
         headers = {"authorization": self.api_key}
         response = self._post(self.api_url, json=json, headers=headers)

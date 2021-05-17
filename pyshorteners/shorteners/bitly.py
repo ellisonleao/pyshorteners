@@ -32,7 +32,7 @@ class Shortener(BaseShortener):
 
     api_url = "https://api-ssl.bit.ly/v4"
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for Bit.ly
         Args:
             url (str): the URL you want to shorten
@@ -45,7 +45,7 @@ class Shortener(BaseShortener):
                 status code on API response.
             ShorteningErrorException: If the API Returns an error as response
         """
-        self.clean_url(url)
+        url = self.clean_url(url, clean_url)
         shorten_url = f"{self.api_url}/shorten"
         params = {"long_url": url}
         headers = {"Authorization": f"Bearer {self.api_key}"}

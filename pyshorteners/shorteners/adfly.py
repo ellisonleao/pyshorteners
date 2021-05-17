@@ -41,7 +41,7 @@ class Shortener(BaseShortener):
 
     api_url = "http://api.adf.ly/v1"
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for Adf.ly.
 
         Args:
@@ -56,7 +56,7 @@ class Shortener(BaseShortener):
             ShorteningErrorException: If the API Returns an error as response.
 
         """
-        url = self.clean_url(url)
+        url = self.clean_url(url, clean_url)
         shorten_url = f"{self.api_url}/shorten"
         payload = {
             "domain": getattr(self, "domain", "adf.ly"),

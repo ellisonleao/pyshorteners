@@ -27,7 +27,7 @@ class Shortener(BaseShortener):
         "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux) Gecko/20100101 " "Firefox/61.0"
     }
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for Tiny.cc.
 
         Args:
@@ -43,7 +43,7 @@ class Shortener(BaseShortener):
                 response.
 
         """
-        url = self.clean_url(url)
+        url = self.clean_url(url, clean_url)
         params = self.params.copy()
         params.update(
             {

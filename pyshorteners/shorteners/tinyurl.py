@@ -18,7 +18,7 @@ class Shortener(BaseShortener):
 
     api_url = "http://tinyurl.com/api-create.php"
 
-    def short(self, url):
+    def short(self, url, clean_url=True):
         """Short implementation for TinyURL.com
 
         Args:
@@ -30,7 +30,7 @@ class Shortener(BaseShortener):
         Raises:
             ShorteningErrorException: If the API returns an error as response
         """
-        url = self.clean_url(url)
+        url = self.clean_url(url, clean_url)
         response = self._get(self.api_url, params=dict(url=url))
         if response.ok:
             return response.text.strip()
