@@ -1,7 +1,7 @@
 import requests
 import re
 
-from .exceptions import BadURLException, ExpandingErrorException
+from exceptions import BadURLException, ExpandingErrorException
 
 URL_RE = re.compile(
     r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.]"
@@ -9,7 +9,7 @@ URL_RE = re.compile(
     r"))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()"
     r'\[\]{};:\'".,<>?«»“”‘’]))'
 )
-
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
 class BaseShortener:
     """Base Class for all shorteners.
@@ -43,7 +43,7 @@ class BaseShortener:
         self.proxies = getattr(self, "proxies", {})
         self.cert = getattr(self, "cert", None)
 
-    def _get(self, url, params=None, headers=None):
+    def _get(self, url, params=None, headers=headers):
         """Wrap a GET request with a url check.
 
         Args:
@@ -72,7 +72,7 @@ class BaseShortener:
         )
         return response
 
-    def _post(self, url, data=None, json=None, params=None, headers=None):
+    def _post(self, url, data=None, json=None, params=None, headers=headers):
         """Wrap a POST request with a url check.
 
         Args:
