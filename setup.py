@@ -30,7 +30,7 @@ CLASSIFIERS = [
 SHORT_DESC = "A Python lib to wrap and consume the most used shorteners APIs"
 
 setup(
-    name="vapepyshorteners",
+    name="pyshorteners",
     version=pyshorteners.__version__,
     license=pyshorteners.__license__,
     description=SHORT_DESC,
